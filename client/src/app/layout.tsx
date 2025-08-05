@@ -22,6 +22,7 @@ export const metadata: Metadata = {
         sizes: "any",
       },
     ],
+    shortcut: favicon.src,
   },
 };
 
