@@ -10,6 +10,7 @@ import {
   IconButton,
   useDisclosure,
   Spacer,
+  Image,
 } from "@chakra-ui/react";
 import {
   HiBars3,
@@ -20,6 +21,7 @@ import {
   HiXMark,
 } from "react-icons/hi2";
 import Link from "next/link";
+import logo from "@public/assets/logo.png";
 
 const NavLink = ({
   href,
@@ -77,7 +79,7 @@ export function Header() {
         <HStack>
           {/* Logo */}
           <Link href="/">
-            <HStack>
+            {/* <HStack>
               <Box
                 w={10}
                 h={10}
@@ -97,7 +99,13 @@ export function Header() {
                   Patients Initiative
                 </Text>
               </VStack>
-            </HStack>
+            </HStack> */}
+            <Image
+              src={logo.src}
+              alt="Hope4PKD Patients Initiative Logo"
+              width={120}
+              objectFit="contain"
+            />
           </Link>
 
           <Spacer />
@@ -159,11 +167,14 @@ export function Header() {
         >
           <Container maxW="7xl">
             <VStack align="stretch" gap={1}>
-              <MobileNavLink href="/about" icon={<HiInformationCircle size="20" />}>
+              <MobileNavLink
+                href="/about"
+                icon={<HiInformationCircle size="20" />}
+              >
                 About Us
               </MobileNavLink>
               <MobileNavLink href="/patients" icon={<HiUsers size="20" />}>
-                Find Help
+                Programs
               </MobileNavLink>
               <MobileNavLink href="/donors" icon={<HiHeart size="20" />}>
                 Become a Donor
