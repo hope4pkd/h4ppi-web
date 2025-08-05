@@ -163,7 +163,7 @@ export function Header() {
                 About Us
               </MobileNavLink>
               <MobileNavLink href="/patients" icon={<HiUsers size="20" />}>
-                Find Help
+                Programs
               </MobileNavLink>
               <MobileNavLink href="/donors" icon={<HiHeart size="20" />}>
                 Become a Donor
