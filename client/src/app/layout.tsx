@@ -10,31 +10,6 @@ const imageAlt = "Hope4PKD Patients Initiative Logo";
 export const metadata: Metadata = {
   title: appMetaTitle,
   description: appMetaDescription,
-  openGraph: {
-    title: appMetaTitle,
-    description: appMetaDescription,
-    images: [
-      {
-        url: "/hope4pkd-logo.png",
-        alt: imageAlt,
-      },
-    ],
-    url: "https://hope4pkd.com",
-    siteName: appName,
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: appMetaTitle,
-    description: appMetaDescription,
-    images: [
-      {
-        url: "/images/logo.png",
-        alt: imageAlt,
-      },
-    ],
-  },
   icons: {
     icon: [
       { url: '/hope4pkd_logo.ico', type: 'image/x-icon' },     

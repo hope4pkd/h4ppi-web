@@ -1,21 +1,22 @@
-import { 
-  Box, 
-  Container, 
-  SimpleGrid, 
-  VStack, 
+import {
+  Box,
+  Container,
+  SimpleGrid,
+  VStack,
   HStack,
-  Text, 
+  Text,
   Link,
-  IconButton
-} from "@chakra-ui/react"
-import { HiHeart } from "react-icons/hi2"
-import { FaTwitter, FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa"
+  IconButton,
+  Image,
+} from "@chakra-ui/react";
+import { FaTwitter, FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
+import logo from "@public/assets/logo.png";
 
-const FooterSection = ({ 
-  title, 
-  children 
-}: { 
-  title: string; 
+const FooterSection = ({
+  title,
+  children,
+}: {
+  title: string;
   children: React.ReactNode;
 }) => (
   <VStack align="start" gap={3}>
@@ -26,24 +27,24 @@ const FooterSection = ({
       {children}
     </VStack>
   </VStack>
-)
+);
 
-const FooterLink = ({ 
-  href, 
-  children 
-}: { 
-  href: string; 
+const FooterLink = ({
+  href,
+  children,
+}: {
+  href: string;
   children: React.ReactNode;
 }) => (
-  <Link 
-    href={href} 
-    color="gray.600" 
+  <Link
+    href={href}
+    color="gray.600"
     fontSize="sm"
     _hover={{ color: "brand.500" }}
   >
     {children}
   </Link>
-)
+);
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -53,24 +54,16 @@ export function Footer() {
         <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap={8}>
           {/* Brand */}
           <VStack align="start" gap={4}>
-            <HStack>
-              <Box 
-                w={8} 
-                h={8} 
-                bg="brand.500" 
-                rounded="lg" 
-                display="flex" 
-                alignItems="center" 
-                justifyContent="center"
-              >
-                <HiHeart color="white" size="20" />
-              </Box>
-              <Text fontSize="lg" fontWeight="bold" color="brand.500">
-                Hope4PKD
-              </Text>
-            </HStack>
+            <Image
+              src={logo.src}
+              alt="Hope4PKD Patients Initiative Logo"
+              width={180}
+              objectFit="contain"
+            />
             <Text fontSize="sm" color="gray.600" maxW="sm">
-              Restoring hope, one kidney at a time. Connecting PKD patients with verified donors and crowdfunded financial aid through Adenike Renal Centre.
+              Restoring hope, one kidney at a time. Connecting PKD patients with
+              verified donors and crowdfunded financial aid through Adenike
+              Renal Centre.
             </Text>
             <HStack>
               <IconButton
@@ -83,7 +76,7 @@ export function Footer() {
                 <FaTwitter />
               </IconButton>
               <IconButton
-                aria-label="Facebook" 
+                aria-label="Facebook"
                 variant="ghost"
                 size="sm"
                 color="gray.600"
@@ -114,7 +107,9 @@ export function Footer() {
 
           {/* For Patients */}
           <FooterSection title="For Patients">
-            <FooterLink href="/patients/register">Register as Patient</FooterLink>
+            <FooterLink href="/patients/register">
+              Register as Patient
+            </FooterLink>
             <FooterLink href="/patients/find-donor">Find a Donor</FooterLink>
             <FooterLink href="/patients/support">Get Support</FooterLink>
             <FooterLink href="/campaigns/create">Start Campaign</FooterLink>
@@ -141,7 +136,11 @@ export function Footer() {
 
         <Box h="1px" bg="gray.200" my={8} />
 
-        <HStack justify="space-between" flexDirection={{ base: "column", md: "row" }} gap={4}>
+        <HStack
+          justify="space-between"
+          flexDirection={{ base: "column", md: "row" }}
+          gap={4}
+        >
           <Text fontSize="sm" color="gray.600">
             © {currentYear} Hope4PKD Patients Initiative. All rights reserved.
           </Text>
@@ -156,5 +155,5 @@ export function Footer() {
         </HStack>
       </Container>
     </Box>
-  )
+  );
 }
