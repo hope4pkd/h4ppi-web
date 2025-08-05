@@ -8,8 +8,7 @@ import {
   Text, 
   Button, 
   SimpleGrid
-  Badge,
-  IconItemIcon
+  // Badge,
 } from "@chakra-ui/react"
 import { HiHeart, HiUsers, HiShieldCheck, HiSparkles, HiCheckCircle } from "react-icons/hi2"
 
@@ -24,7 +23,7 @@ export function DonorHeroSection() {
         <SimpleGrid columns={{ base: 1, lg: 2 }} gap={12} alignItems="center">
           {/* Left Content */}
           <VStack align="start" gap={8}>
-            <Badge 
+            {/* <Badge 
               colorScheme="orange" 
               size="lg" 
               px={3} 
@@ -33,7 +32,7 @@ export function DonorHeroSection() {
               fontSize="sm"
             >
               ❤️ For Kidney Donors
-            </Badge>
+            </Badge> */}
             
             <VStack align="start" gap={4}>
               <Text 
@@ -64,7 +63,7 @@ export function DonorHeroSection() {
               <Text fontSize="lg" fontWeight="semibold" color="gray.900">
                 Why Donate Through Hope4PKD:
               </Text>
-              <gap={2}>
+              {/* <HStack gap={2}>
                 <Item>
                   <Icon as={HiCheckCircle} color="accent.500" />
                   Comprehensive medical screening and safety protocols
@@ -81,7 +80,7 @@ export function DonorHeroSection() {
                   <Icon as={HiCheckCircle} color="accent.500" />
                   Ongoing health monitoring and support
                 </Item>
-              </>
+              <HStack> */}
             </VStack>
 
             <HStack gap={4} flexWrap="wrap">
@@ -138,7 +137,7 @@ export function DonorHeroSection() {
               </VStack>
             </Box>
 
-            <SimpleGrid columns={1} gap={4}>
+            {/* <SimpleGrid columns={1} gap={4}>
               <Box p={4} bg="accent.50"  rounded="xl" shadow="md" border="1px solid" borderColor="gray.200">
                 <HStack gap={3}>
                   <Icon as={HiShieldCheck} color="accent.500" w={6} h={6} />
@@ -180,7 +179,7 @@ export function DonorHeroSection() {
                   </VStack>
                 </HStack>
               </Box>
-            </SimpleGrid>
+            </SimpleGrid> */}
           </VStack>
         </SimpleGrid>
       </Container>

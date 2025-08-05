@@ -7,12 +7,8 @@ import {
   HStack,
   Text,
   Button,
-  SimpleGrid,
-  Badge,
-  Icon,
   Heading,
 } from "@chakra-ui/react";
-import { HiUsers, HiCurrencyDollar, HiSparkles } from "react-icons/hi2";
 
 export function HeroSection() {
   return (
