@@ -148,7 +148,6 @@ export function DonorInterestForm() {
                 size="lg"
                 rounded="full"
                 alignSelf="center"
-                px={10}
               >
                 Express Interest
               </Button>

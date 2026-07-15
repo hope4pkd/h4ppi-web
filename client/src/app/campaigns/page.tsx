@@ -3,6 +3,7 @@ import { Layout } from "@/components/layout/Layout";
 import { CampaignsHeroSection } from "@/components/campaigns/CampaignsHeroSection";
 import { CampaignTransparency } from "@/components/campaigns/CampaignTransparency";
 import { CampaignsGrid } from "@/components/campaigns/CampaignsGrid";
+import { MerchSection } from "@/components/campaigns/MerchSection";
 import { HowToSupport } from "@/components/campaigns/HowToSupport";
 
 export const metadata: Metadata = {
@@ -17,6 +18,7 @@ export default function CampaignsPage() {
       <CampaignsHeroSection />
       <CampaignTransparency />
       <CampaignsGrid />
+      <MerchSection />
       <HowToSupport />
     </Layout>
   );

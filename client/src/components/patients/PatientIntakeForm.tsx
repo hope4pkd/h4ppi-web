@@ -90,7 +90,7 @@ export function PatientIntakeForm() {
                 />
               </Field>
 
-              <Button variant="solid" size="lg" rounded="full" alignSelf="center" px={10}>
+              <Button variant="solid" size="lg" rounded="full" alignSelf="center">
                 Submit Support Request
               </Button>
 

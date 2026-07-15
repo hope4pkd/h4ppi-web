@@ -16,8 +16,8 @@ const buttonRecipe = defineRecipe({
       "all 0.2s": { transition: "all 0.2s" },
     },
     size: {
-      sm: { padding: "4", fontSize: "12px" },
-      lg: { padding: "8", fontSize: "24px" },
+      sm: { h: "9", px: "4", fontSize: "sm" },
+      lg: { h: "12", minW: "44", px: "7", fontSize: "md", fontWeight: "600" },
     },
   },
 })

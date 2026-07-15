@@ -43,10 +43,7 @@ export function PkdDayRibbon() {
                 bg="sky.300"
                 color="sky.800"
                 _hover={{ bg: "sky.200", transform: "translateY(-2px)" }}
-                fontSize="md"
-                fontWeight="700"
-                px={7}
-                py={6}
+                size="lg"
                 rounded="full"
                 whiteSpace="nowrap"
               >

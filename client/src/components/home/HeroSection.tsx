@@ -70,10 +70,7 @@ export function HeroSection() {
                   bg="accent.500"
                   color="accent.900"
                   _hover={{ bg: "accent.400", transform: "translateY(-2px)" }}
-                  fontSize="md"
-                  fontWeight="700"
-                  px={7}
-                  py={6}
+                  size="lg"
                   rounded="full"
                 >
                   Support a patient
@@ -86,10 +83,7 @@ export function HeroSection() {
                   borderColor="white"
                   color="white"
                   _hover={{ bg: "whiteAlpha.200", transform: "translateY(-2px)" }}
-                  fontSize="md"
-                  fontWeight="700"
-                  px={7}
-                  py={6}
+                  size="lg"
                   rounded="full"
                 >
                   What we do

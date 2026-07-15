@@ -40,7 +40,6 @@ export function AboutCTA() {
                 color="accent.900"
                 _hover={{ bg: "accent.400", transform: "translateY(-2px)" }}
                 size="lg"
-                px={8}
                 rounded="full"
               >
                 Support a Patient
@@ -53,7 +52,6 @@ export function AboutCTA() {
                 color="white"
                 _hover={{ bg: "whiteAlpha.200" }}
                 size="lg"
-                px={8}
                 rounded="full"
               >
                 Partner With Us
