@@ -37,7 +37,7 @@ const ProcessStep = ({
   >
     <VStack gap={4} align="start">
       <HStack justify="space-between" w="full">
-        <Box p={3} bg="accent.500" rounded="lg" color="white">
+        <Box p={3} bg="accent.500" rounded="lg" color="accent.900">
           <Icon as={icon} w={6} h={6} />
         </Box>
         <Box

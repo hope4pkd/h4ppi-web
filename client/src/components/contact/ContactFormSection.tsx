@@ -40,7 +40,6 @@ export function ContactFormSection() {
           <Heading
             as="h2"
             fontSize={{ base: "2xl", md: "3xl" }}
-            fontFamily="Poppins, sans-serif"
             color="brand.500"
           >
             Send Us a Message
@@ -48,7 +47,6 @@ export function ContactFormSection() {
           <Text
             maxW="2xl"
             fontSize={{ base: "md", md: "lg" }}
-            fontFamily="Open Sans, sans-serif"
             color="gray.600"
           >
             Fill in the form below and we will get back to you as soon as we
@@ -68,7 +66,7 @@ export function ContactFormSection() {
           <Stack gap={5}>
             <SimpleGrid columns={{ base: 1, md: 2 }} gap={5}>
               <Field.Root required>
-                <Field.Label fontFamily="Poppins, sans-serif">
+                <Field.Label>
                   Name <Field.RequiredIndicator />
                 </Field.Label>
                 <Input
@@ -78,7 +76,7 @@ export function ContactFormSection() {
                 />
               </Field.Root>
               <Field.Root required>
-                <Field.Label fontFamily="Poppins, sans-serif">
+                <Field.Label>
                   Email <Field.RequiredIndicator />
                 </Field.Label>
                 <Input
@@ -90,7 +88,7 @@ export function ContactFormSection() {
               </Field.Root>
             </SimpleGrid>
             <Field.Root required>
-              <Field.Label fontFamily="Poppins, sans-serif">
+              <Field.Label>
                 Subject <Field.RequiredIndicator />
               </Field.Label>
               <Input
@@ -100,7 +98,7 @@ export function ContactFormSection() {
               />
             </Field.Root>
             <Field.Root required>
-              <Field.Label fontFamily="Poppins, sans-serif">
+              <Field.Label>
                 Message <Field.RequiredIndicator />
               </Field.Label>
               <Textarea
@@ -116,7 +114,6 @@ export function ContactFormSection() {
             <Text
               fontSize="sm"
               color="gray.500"
-              fontFamily="Open Sans, sans-serif"
               textAlign="center"
             >
               This opens your email app with your message ready to send. You

@@ -68,7 +68,6 @@ export function CoreValuesSection() {
             <Heading
               as="h2"
               fontSize={{ base: "2xl", md: "3xl" }}
-              fontFamily="Poppins, sans-serif"
               color="brand.500"
             >
               Our Core Values
@@ -76,7 +75,6 @@ export function CoreValuesSection() {
             <Text
               maxW="2xl"
               fontSize={{ base: "md", md: "lg" }}
-              fontFamily="Open Sans, sans-serif"
               color="gray.600"
             >
               The principles that shape every decision we make and every
@@ -100,7 +98,7 @@ export function CoreValuesSection() {
               >
                 <Box
                   p={3}
-                  bg={index % 2 === 0 ? "brand.500" : "accent.500"}
+                  bg={index % 2 === 0 ? "brand.500" : "sky.500"}
                   rounded="xl"
                   color="white"
                 >
@@ -109,14 +107,12 @@ export function CoreValuesSection() {
                 <Heading
                   as="h3"
                   fontSize="lg"
-                  fontFamily="Poppins, sans-serif"
                   color="gray.900"
                 >
                   {value.title}
                 </Heading>
                 <Text
                   fontSize="sm"
-                  fontFamily="Open Sans, sans-serif"
                   color="gray.600"
                   lineHeight="1.7"
                 >

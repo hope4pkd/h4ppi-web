@@ -56,7 +56,6 @@ export function DifferenceSection() {
             <Heading
               as="h2"
               fontSize={{ base: "2xl", md: "3xl" }}
-              fontFamily="Poppins, sans-serif"
               color="brand.500"
             >
               What Makes Us Different
@@ -64,7 +63,6 @@ export function DifferenceSection() {
             <Text
               maxW="2xl"
               fontSize={{ base: "md", md: "lg" }}
-              fontFamily="Open Sans, sans-serif"
               color="gray.600"
             >
               Hope4PKD is not another donation page. It is a patient-first
@@ -86,14 +84,12 @@ export function DifferenceSection() {
                   <Heading
                     as="h3"
                     fontSize="lg"
-                    fontFamily="Poppins, sans-serif"
                     color="gray.900"
                   >
                     {item.title}
                   </Heading>
                   <Text
                     fontSize="sm"
-                    fontFamily="Open Sans, sans-serif"
                     color="gray.600"
                     lineHeight="1.7"
                   >

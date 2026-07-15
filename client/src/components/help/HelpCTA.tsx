@@ -12,7 +12,6 @@ export function HelpCTA() {
           <Heading
             as="h2"
             fontSize={{ base: "2xl", md: "3xl" }}
-            fontFamily="Poppins, sans-serif"
             color="brand.500"
           >
             Still Have Questions?
@@ -20,7 +19,6 @@ export function HelpCTA() {
           <Text
             maxW="2xl"
             fontSize={{ base: "md", md: "lg" }}
-            fontFamily="Open Sans, sans-serif"
             color="gray.600"
           >
             Our team is happy to help — whether you are a patient, a family

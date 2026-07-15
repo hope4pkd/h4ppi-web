@@ -53,7 +53,7 @@ const CoreFocusCard = ({
       <Heading as="h3" size="lg" fontWeight="bold" color={bgColor}>
         {title}
       </Heading>
-      <Text fontFamily="Open Sans, sans-serif">{description}</Text>
+      <Text>{description}</Text>
     </VStack>
   );
 };
@@ -101,7 +101,6 @@ export function CoreFocusSection() {
                 base: "md",
                 md: "lg",
               }}
-              fontFamily="Open Sans, sans-serif"
             >
               Hope4PKD operates through a six-pillar ecosystem model designed
               to support the full patient journey.
@@ -126,7 +125,7 @@ export function CoreFocusSection() {
               title="Medical Verification & Trust"
               description="Every patient case undergoes structured medical verification — diagnosis, records, treatment plans, and costs — before support is mobilised, ensuring accountability for donors and partners."
               icon={HiShieldCheck}
-              bgColor="accent.500"
+              bgColor="sky.500"
             />
             <CoreFocusCard
               title="Financial Access & Support"
@@ -138,7 +137,7 @@ export function CoreFocusSection() {
               title="Community & Emotional Support"
               description="Patient and caregiver support networks, survivor stories, peer encouragement, and safe spaces for shared experiences — because healing is emotional and communal, not only medical."
               icon={HiHeart}
-              bgColor="accent.500"
+              bgColor="sky.500"
             />
             <CoreFocusCard
               title="Awareness & Education"
@@ -150,7 +149,7 @@ export function CoreFocusSection() {
               title="Advocacy & Healthcare Access"
               description="Advocating for improved patient support systems, engaging healthcare institutions and stakeholders, and driving long-term systemic improvement for kidney health support in Nigeria."
               icon={HiScale}
-              bgColor="accent.500"
+              bgColor="sky.500"
             />
           </SimpleGrid>
         </VStack>

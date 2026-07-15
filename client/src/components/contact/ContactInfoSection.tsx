@@ -66,7 +66,7 @@ export function ContactInfoSection() {
             >
               <Box
                 p={4}
-                bg={channel.accent ? "accent.500" : "brand.500"}
+                bg={channel.accent ? "sky.500" : "brand.500"}
                 rounded="xl"
                 color="white"
               >
@@ -75,7 +75,6 @@ export function ContactInfoSection() {
               <Heading
                 as="h3"
                 fontSize="lg"
-                fontFamily="Poppins, sans-serif"
                 color="gray.900"
               >
                 {channel.title}
@@ -84,7 +83,6 @@ export function ContactInfoSection() {
                 <ChakraLink
                   href={channel.href}
                   color="brand.500"
-                  fontFamily="Open Sans, sans-serif"
                   fontWeight="medium"
                 >
                   {channel.value}
@@ -92,7 +90,6 @@ export function ContactInfoSection() {
               ) : (
                 <Text
                   color="gray.600"
-                  fontFamily="Open Sans, sans-serif"
                   fontWeight="medium"
                 >
                   {channel.value}

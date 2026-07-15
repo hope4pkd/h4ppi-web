@@ -64,13 +64,13 @@ const PillarCard = ({
 
 export function PatientHeroSection() {
   return (
-    <Box bgGradient="linear(to-br, brand.50, white)" py={{ base: 16, md: 20 }}>
+    <Box bgGradient="to-br" gradientFrom="brand.50" gradientTo="white" py={{ base: 16, md: 20 }}>
       <Container maxW="7xl">
         <SimpleGrid columns={{ base: 1, lg: 2 }} gap={12} alignItems="center">
           {/* Left Content */}
           <VStack align="start" gap={8}>
             <Badge
-              colorPalette="green"
+              bg="brand.50" color="brand.500"
               size="lg"
               px={3}
               py={1}
@@ -170,7 +170,7 @@ export function PatientHeroSection() {
                 title="Financial Access"
                 description="Coordinated pathways to dialysis, transplant, and emergency medical support"
                 bg="accent.50"
-                color="accent.500"
+                color="accent.800"
               />
               <PillarCard
                 icon={HiHeart}

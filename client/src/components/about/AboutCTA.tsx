@@ -20,7 +20,6 @@ export function AboutCTA() {
           <Heading
             as="h2"
             fontSize={{ base: "2xl", md: "3xl" }}
-            fontFamily="Poppins, sans-serif"
             color="white"
           >
             Join Us in Building Hope
@@ -28,7 +27,6 @@ export function AboutCTA() {
           <Text
             maxW="2xl"
             fontSize={{ base: "md", md: "lg" }}
-            fontFamily="Open Sans, sans-serif"
             color="whiteAlpha.900"
           >
             Whether you support a patient, partner with us, or help spread
@@ -39,8 +37,8 @@ export function AboutCTA() {
             <Link href="/donors">
               <Button
                 bg="accent.500"
-                color="white"
-                _hover={{ bg: "accent.600", transform: "translateY(-2px)" }}
+                color="accent.900"
+                _hover={{ bg: "accent.400", transform: "translateY(-2px)" }}
                 size="lg"
                 px={8}
                 rounded="full"

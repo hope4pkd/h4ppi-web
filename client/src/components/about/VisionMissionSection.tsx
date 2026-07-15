@@ -58,7 +58,7 @@ export function VisionMissionSection() {
             >
               <Box
                 p={4}
-                bg={item.accent ? "accent.500" : "brand.500"}
+                bg={item.accent ? "sky.500" : "brand.500"}
                 rounded="xl"
                 color="white"
                 alignSelf="flex-start"
@@ -68,14 +68,12 @@ export function VisionMissionSection() {
               <Heading
                 as="h2"
                 fontSize={{ base: "xl", md: "2xl" }}
-                fontFamily="Poppins, sans-serif"
                 color="brand.500"
               >
                 {item.title}
               </Heading>
               <Text
                 fontSize="md"
-                fontFamily="Open Sans, sans-serif"
                 lineHeight="1.8"
                 color="gray.800"
                 fontWeight="medium"
@@ -84,7 +82,6 @@ export function VisionMissionSection() {
               </Text>
               <Text
                 fontSize="md"
-                fontFamily="Open Sans, sans-serif"
                 lineHeight="1.8"
                 color="gray.600"
               >

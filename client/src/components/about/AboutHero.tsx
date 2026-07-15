@@ -36,7 +36,7 @@ export function AboutHero() {
             lineHeight="1.1"
           >
             About{" "}
-            <Text as="span" color="accent.500">
+            <Text as="span" color="sky.600">
               Hope4PKD
             </Text>
           </Heading>

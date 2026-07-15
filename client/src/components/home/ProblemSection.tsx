@@ -44,7 +44,7 @@ const ProblemCard = ({ title, description, icon }: ProblemCardProps) => (
     <Heading as="h3" size="md" fontWeight="bold" color="gray.900">
       {title}
     </Heading>
-    <Text fontSize="sm" fontFamily="Open Sans, sans-serif" color="gray.600">
+    <Text fontSize="sm" color="gray.600">
       {description}
     </Text>
   </VStack>
@@ -83,7 +83,6 @@ export function ProblemSection() {
                 base: "md",
                 md: "lg",
               }}
-              fontFamily="Open Sans, sans-serif"
             >
               Individuals living with Polycystic Kidney Disease in Nigeria
               often face a fragmented healthcare journey.

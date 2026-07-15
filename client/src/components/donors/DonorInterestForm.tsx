@@ -97,7 +97,7 @@ export function DonorInterestForm() {
                 textAlign="center"
               >
                 <VStack gap={3}>
-                  <Box p={3} bg="accent.500" rounded="lg" color="white">
+                  <Box p={3} bg="accent.500" rounded="lg" color="accent.900">
                     <Icon as={option.icon} w={6} h={6} />
                   </Box>
                   <Text fontWeight="semibold" color="gray.900">

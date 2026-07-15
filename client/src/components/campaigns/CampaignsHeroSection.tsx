@@ -12,7 +12,7 @@ import Link from "next/link";
 
 export function CampaignsHeroSection() {
   return (
-    <Box bgGradient="linear(to-br, brand.50, white)" py={{ base: 16, md: 20 }}>
+    <Box bgGradient="to-br" gradientFrom="brand.50" gradientTo="white" py={{ base: 16, md: 20 }}>
       <Container maxW="7xl">
         <VStack gap={6} textAlign="center" maxW="3xl" mx="auto">
           <Text

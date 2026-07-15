@@ -27,33 +27,45 @@ const config = defineConfig({
     tokens: {
       colors: {
         brand: {
-          50: { value: "#e3f2e8" },
-          100: { value: "#c1e0ca" },
-          200: { value: "#9dceab" },
-          300: { value: "#79bc8c" },
-          400: { value: "#57ab6d" },
-          500: { value: "#2E7D32" }, // health green - primary
-          600: { value: "#256528" },
-          700: { value: "#1b491e" },
-          800: { value: "#102d13" },
-          900: { value: "#061308" },
+          50: { value: "#EAF7FC" },
+          100: { value: "#D9F2FA" },
+          200: { value: "#B9D8E8" },
+          300: { value: "#7FA6C4" },
+          400: { value: "#3E5B77" }, // muted body text
+          500: { value: "#16305C" }, // deep navy - primary
+          600: { value: "#122750" },
+          700: { value: "#0D1D3D" },
+          800: { value: "#09142B" },
+          900: { value: "#050B18" },
+        },
+        sky: {
+          50: { value: "#EAF7FC" },
+          100: { value: "#D9F2FA" },
+          200: { value: "#7FDCEE" },
+          300: { value: "#35C3DC" },
+          400: { value: "#4FB3D6" },
+          500: { value: "#1B7FB8" },
+          600: { value: "#0F6E93" },
+          700: { value: "#0A5170" },
+          800: { value: "#0A2E3B" },
+          900: { value: "#052029" },
         },
         accent: {
-          50: { value: "#FEF3C7" },
-          100: { value: "#FEF0B2" },
-          200: { value: "#FDE68A" },
-          300: { value: "#FCD34D" },
-          400: { value: "#FBBF24" },
-          500: { value: "#F59E0B" }, // hope orange - secondary
-          600: { value: "#D97706" },
-          700: { value: "#B45309" },
-          800: { value: "#92400E" },
-          900: { value: "#78350F" },
+          50: { value: "#FDEFF5" },
+          100: { value: "#FBE2EE" },
+          200: { value: "#F9CCE0" },
+          300: { value: "#F8BBD4" },
+          400: { value: "#F7B0CB" },
+          500: { value: "#F6A9C5" }, // hope pink - secondary
+          600: { value: "#E687AC" },
+          700: { value: "#C25580" },
+          800: { value: "#8E3057" },
+          900: { value: "#5C1637" }, // dark pink - text on pink
         },
       },
       fonts: {
-        body: { value: "Poppins, sans-serif" },
-        heading: { value: "Poppins, sans-serif" },
+        body: { value: "var(--font-gabarito), Gabarito, sans-serif" },
+        heading: { value: "var(--font-gabarito), Gabarito, sans-serif" },
       },
     },
     semanticTokens: {
@@ -77,7 +89,7 @@ const config = defineConfig({
     },
     breakpoints: {
       sm: "640px",
-      md: "768px", 
+      md: "768px",
       lg: "1024px",
       xl: "1280px",
       "2xl": "1536px",

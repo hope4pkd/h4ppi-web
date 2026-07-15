@@ -31,7 +31,7 @@ const supportWays = [
     title: "Sponsor a Patient",
     description:
       "Become a monthly sponsor and provide steady support a patient can count on through treatment",
-    color: "accent.500",
+    color: "sky.500",
   },
   {
     icon: HiBuildingOffice2,
@@ -45,7 +45,7 @@ const supportWays = [
     title: "Spread Awareness",
     description:
       "Join community events, share patient stories, and help more Nigerians understand PKD",
-    color: "accent.500",
+    color: "sky.500",
   },
 ];
 

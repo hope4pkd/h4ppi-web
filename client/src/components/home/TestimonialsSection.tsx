@@ -51,7 +51,7 @@ const TestimonialCard = ({
         <Box 
           w={10} 
           h={10} 
-          bg={type === "patient" ? "brand.500" : "accent.500"} 
+          bg={type === "patient" ? "brand.500" : "sky.500"} 
           rounded="full" 
           display="flex" 
           alignItems="center" 

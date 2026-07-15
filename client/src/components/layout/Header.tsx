@@ -6,6 +6,7 @@ import {
   HStack,
   VStack,
   Text,
+  Button,
   IconButton,
   useDisclosure,
   Spacer,
@@ -17,12 +18,11 @@ import {
   HiUsers,
   HiCurrencyDollar,
   HiInformationCircle,
-  HiQuestionMarkCircle,
-  HiEnvelope,
+  HiCalendarDays,
   HiXMark,
 } from "react-icons/hi2";
 import Link from "next/link";
-import logo from "@public/assets/logo.png";
+import logo from "@public/assets/logo-new.png";
 
 const NavLink = ({
   href,
@@ -50,12 +50,14 @@ const MobileNavLink = ({
   href,
   children,
   icon,
+  onClick,
 }: {
   href: string;
   children: React.ReactNode;
   icon: React.ReactNode;
+  onClick?: () => void;
 }) => (
-  <Link href={href}>
+  <Link href={href} onClick={onClick}>
     <HStack w="full" p={3} _hover={{ bg: "brand.50" }} rounded="md">
       {icon}
       <Text fontWeight="medium">{children}</Text>
@@ -76,35 +78,15 @@ export function Header() {
       top={0}
       zIndex={10}
     >
-      <Container maxW="7xl" py={4}>
+      <Container maxW="7xl" py={3}>
         <HStack>
           {/* Logo */}
           <Link href="/">
-            {/* <HStack>
-              <Box
-                w={10}
-                h={10}
-                bg="brand.500"
-                rounded="lg"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-              >
-                <HiHeart color="white" size="24" />
-              </Box>
-              <VStack align="start" gap={0}>
-                <Text fontSize="lg" fontWeight="bold" color="brand.500">
-                  Hope4PKD
-                </Text>
-                <Text fontSize="xs" color="gray.600">
-                  Patients Initiative
-                </Text>
-              </VStack>
-            </HStack> */}
             <Image
               src={logo.src}
               alt="Hope4PKD Patients Initiative Logo"
-              width={120}
+              h="52px"
+              w="auto"
               objectFit="contain"
             />
           </Link>
@@ -112,15 +94,26 @@ export function Header() {
           <Spacer />
 
           {/* Desktop Navigation */}
-          <HStack gap={6} display={{ base: "none", md: "flex" }}>
-            <NavLink href="/about">About Us</NavLink>
-            <NavLink href="/patients">For Patients</NavLink>
-            <NavLink href="/donors">Support a Patient</NavLink>
+          <HStack gap={7} display={{ base: "none", md: "flex" }}>
+            <NavLink href="/about">About</NavLink>
+            <NavLink href="/patients">Patients</NavLink>
             <NavLink href="/campaigns">Campaigns</NavLink>
-            <NavLink href="/help">Help</NavLink>
-            <NavLink href="/contact">Contact</NavLink>
+            <NavLink href="/#pkd-day">PKD Day</NavLink>
+            <NavLink href="/donors">Sponsors</NavLink>
           </HStack>
           <Spacer />
+          <Link href="/donors">
+            <Button
+              variant="solid"
+              rounded="full"
+              fontSize="sm"
+              fontWeight="700"
+              px={6}
+              display={{ base: "none", md: "flex" }}
+            >
+              Donate
+            </Button>
+          </Link>
           {!open && (
             <IconButton
               aria-label="Open menu"
@@ -158,33 +151,43 @@ export function Header() {
               <MobileNavLink
                 href="/about"
                 icon={<HiInformationCircle size="20" />}
+                onClick={onClose}
               >
-                About Us
+                About
               </MobileNavLink>
-              <MobileNavLink href="/patients" icon={<HiUsers size="20" />}>
-                For Patients
-              </MobileNavLink>
-              <MobileNavLink href="/donors" icon={<HiHeart size="20" />}>
-                Support a Patient
+              <MobileNavLink
+                href="/patients"
+                icon={<HiUsers size="20" />}
+                onClick={onClose}
+              >
+                Patients
               </MobileNavLink>
               <MobileNavLink
                 href="/campaigns"
                 icon={<HiCurrencyDollar size="20" />}
+                onClick={onClose}
               >
                 Campaigns
               </MobileNavLink>
               <MobileNavLink
-                href="/help"
-                icon={<HiQuestionMarkCircle size="20" />}
+                href="/#pkd-day"
+                icon={<HiCalendarDays size="20" />}
+                onClick={onClose}
               >
-                Help
+                PKD Day
               </MobileNavLink>
               <MobileNavLink
-                href="/contact"
-                icon={<HiEnvelope size="20" />}
+                href="/donors"
+                icon={<HiHeart size="20" />}
+                onClick={onClose}
               >
-                Contact
+                Sponsors
               </MobileNavLink>
+              <Link href="/donors" onClick={onClose}>
+                <Button variant="solid" rounded="full" w="full" mt={2} py={5}>
+                  Donate
+                </Button>
+              </Link>
             </VStack>
           </Container>
         </Box>

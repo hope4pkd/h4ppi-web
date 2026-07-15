@@ -22,7 +22,7 @@ const StatementCard = ({
   children: React.ReactNode;
 }) => (
   <Box
-    bg="gray.50"
+    bg="brand.50"
     borderLeft="4px solid"
     borderColor="brand.500"
     borderRadius="md"
@@ -31,7 +31,7 @@ const StatementCard = ({
     <Heading as="h3" size="md" color="brand.500" mb={2}>
       {title}
     </Heading>
-    <Text fontSize="sm" fontFamily="Open Sans, sans-serif" lineHeight="1.7">
+    <Text fontSize="sm" lineHeight="1.7">
       {children}
     </Text>
   </Box>
@@ -77,27 +77,26 @@ export function AboutSection() {
                 base: "2xl",
                 md: "3xl",
               }}
-              fontFamily="Poppins, sans-serif"
-              color="#2E7D32"
+              color="brand.500"
               lineHeight="1.2"
             >
               A Trusted Support Ecosystem for PKD Patients
             </Heading>
-            <Text fontSize="md" fontFamily="Open Sans, sans-serif">
+            <Text fontSize="md">
               Polycystic Kidney Disease (PKD) is a life-altering chronic
               condition. In Nigeria, many patients struggle with delayed
               diagnosis, limited awareness, expensive treatment pathways, and
               poor access to structured guidance throughout their healthcare
               journey.
             </Text>
-            <Text fontSize="md" fontFamily="Open Sans, sans-serif">
+            <Text fontSize="md">
               Hope4PKD exists to bridge these gaps. More than a charity or
               fundraising platform, we are a coordinated, transparent, and
               compassionate support infrastructure — connecting patients to the
               care, information, financial access, medical validation, and
               community they need.
             </Text>
-            <Text fontSize="md" fontFamily="Open Sans, sans-serif">
+            <Text fontSize="md">
               At our core is a simple belief: no individual should have to
               navigate PKD alone.
             </Text>

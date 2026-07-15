@@ -10,7 +10,7 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { FaTwitter, FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
-import logo from "@public/assets/logo.png";
+import logo from "@public/assets/logo-new.png";
 
 const FooterSection = ({
   title,

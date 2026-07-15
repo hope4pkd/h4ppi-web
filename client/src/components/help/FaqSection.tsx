@@ -139,7 +139,6 @@ export function FaqSection() {
               <Heading
                 as="h2"
                 fontSize={{ base: "xl", md: "2xl" }}
-                fontFamily="Poppins, sans-serif"
                 color="brand.500"
                 mb={5}
               >
@@ -163,7 +162,6 @@ export function FaqSection() {
                         flex="1"
                         textAlign="left"
                         fontWeight="semibold"
-                        fontFamily="Poppins, sans-serif"
                         color="gray.900"
                       >
                         {faq.question}
@@ -175,7 +173,6 @@ export function FaqSection() {
                         <Text
                           fontSize="md"
                           color="gray.700"
-                          fontFamily="Open Sans, sans-serif"
                           lineHeight="1.8"
                         >
                           {faq.answer}

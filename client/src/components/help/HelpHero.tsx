@@ -11,7 +11,6 @@ export function HelpHero() {
           <Heading
             as="h1"
             fontSize={{ base: "3xl", md: "4xl" }}
-            fontFamily="Poppins, sans-serif"
             color="white"
             lineHeight="1.2"
           >
@@ -20,7 +19,6 @@ export function HelpHero() {
           <Text
             maxW="2xl"
             fontSize={{ base: "md", md: "lg" }}
-            fontFamily="Open Sans, sans-serif"
             color="whiteAlpha.900"
           >
             Answers to common questions about Polycystic Kidney Disease, how

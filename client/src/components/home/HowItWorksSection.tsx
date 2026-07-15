@@ -55,7 +55,7 @@ const ProcessCard = ({
           display="flex"
           alignItems="center"
           justifyContent="center"
-          color="white"
+          color="accent.900"
           fontSize="sm"
           fontWeight="bold"
         >

@@ -95,7 +95,7 @@ export function PartnerSection() {
               name="Grants & Institutional Funding"
               description="Global health grants, NGO funding programmes, public health partnerships, and international donor support"
               icon={HiBuildingLibrary}
-              color="accent.500"
+              color="sky.500"
             />
             <PathwayCard
               name="Community Events"
@@ -107,7 +107,7 @@ export function PartnerSection() {
               name="Social Enterprise"
               description="Mission-aligned ventures — pharmacy partnerships and health technology platforms — with revenue reinvested into supporting PKD patients"
               icon={HiRocketLaunch}
-              color="accent.500"
+              color="sky.500"
             />
           </SimpleGrid>
 
@@ -121,7 +121,7 @@ export function PartnerSection() {
               partners building a stronger, more coordinated support system
               for PKD patients and families in Nigeria.
             </Text>
-            <HStack gap={4}>
+            <HStack gap={4} flexWrap="wrap" justifyContent="center">
               <Link href="/patients">
                 <Button variant="solid" size="lg" rounded="full">
                   Get Support

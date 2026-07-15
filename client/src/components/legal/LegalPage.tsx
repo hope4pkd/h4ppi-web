@@ -24,20 +24,18 @@ export function LegalPage({ title, lastUpdated, intro, sections }: LegalPageProp
             <Heading
               as="h1"
               fontSize={{ base: "3xl", md: "4xl" }}
-              fontFamily="Poppins, sans-serif"
               color="brand.500"
               lineHeight="1.2"
             >
               {title}
             </Heading>
-            <Text fontSize="sm" color="gray.500" fontFamily="Open Sans, sans-serif">
+            <Text fontSize="sm" color="gray.500">
               Last updated: {lastUpdated}
             </Text>
             {intro && (
               <Text
                 fontSize="md"
                 color="gray.700"
-                fontFamily="Open Sans, sans-serif"
                 lineHeight="1.8"
               >
                 {intro}
@@ -54,7 +52,6 @@ export function LegalPage({ title, lastUpdated, intro, sections }: LegalPageProp
                 <Heading
                   as="h2"
                   fontSize={{ base: "xl", md: "2xl" }}
-                  fontFamily="Poppins, sans-serif"
                   color="brand.500"
                 >
                   {section.heading}
@@ -64,7 +61,6 @@ export function LegalPage({ title, lastUpdated, intro, sections }: LegalPageProp
                     key={index}
                     fontSize="md"
                     color="gray.700"
-                    fontFamily="Open Sans, sans-serif"
                     lineHeight="1.8"
                   >
                     {paragraph}

@@ -34,7 +34,6 @@ export function TeamSection() {
             <Heading
               as="h2"
               fontSize={{ base: "2xl", md: "3xl" }}
-              fontFamily="Poppins, sans-serif"
               color="brand.500"
             >
               Meet the Team
@@ -42,7 +41,6 @@ export function TeamSection() {
             <Text
               maxW="2xl"
               fontSize={{ base: "md", md: "lg" }}
-              fontFamily="Open Sans, sans-serif"
               color="gray.600"
             >
               The people working every day to make sure no one navigates PKD
@@ -77,7 +75,6 @@ export function TeamSection() {
                   justifyContent="center"
                   fontWeight="bold"
                   fontSize="xl"
-                  fontFamily="Poppins, sans-serif"
                 >
                   {initials(member.name)}
                 </Box>
@@ -85,7 +82,6 @@ export function TeamSection() {
                   <Heading
                     as="h3"
                     fontSize="md"
-                    fontFamily="Poppins, sans-serif"
                     color="gray.900"
                     textAlign="center"
                   >
@@ -93,7 +89,6 @@ export function TeamSection() {
                   </Heading>
                   <Text
                     fontSize="sm"
-                    fontFamily="Open Sans, sans-serif"
                     color="brand.500"
                     fontWeight="medium"
                     textAlign="center"

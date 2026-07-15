@@ -63,13 +63,13 @@ const TrustCard = ({
 
 export function DonorHeroSection() {
   return (
-    <Box bgGradient="linear(to-br, accent.50, white)" py={{ base: 16, md: 20 }}>
+    <Box bgGradient="to-br" gradientFrom="accent.50" gradientTo="white" py={{ base: 16, md: 20 }}>
       <Container maxW="7xl">
         <SimpleGrid columns={{ base: 1, lg: 2 }} gap={12} alignItems="center">
           {/* Left Content */}
           <VStack align="start" gap={8}>
             <Badge
-              colorPalette="orange"
+              bg="accent.50" color="accent.900"
               size="lg"
               px={3}
               py={1}
@@ -87,7 +87,7 @@ export function DonorHeroSection() {
                 color="gray.900"
               >
                 Give{" "}
-                <Text as="span" color="accent.500">
+                <Text as="span" color="sky.600">
                   Hope
                 </Text>{" "}
                 Where It&apos;s Needed Most
@@ -108,7 +108,7 @@ export function DonorHeroSection() {
               <VStack align="start" gap={2}>
                 {givingPoints.map((point) => (
                   <HStack key={point} gap={2} align="start">
-                    <Icon as={HiCheckCircle} color="accent.500" w={5} h={5} mt={1} />
+                    <Icon as={HiCheckCircle} color="accent.700" w={5} h={5} mt={1} />
                     <Text color="gray.700">{point}</Text>
                   </HStack>
                 ))}
@@ -162,7 +162,7 @@ export function DonorHeroSection() {
                 title="Verified Cases"
                 description="Diagnosis, medical records, treatment plans, and costs are reviewed before any campaign begins"
                 bg="accent.50"
-                color="accent.500"
+                color="accent.800"
               />
               <TrustCard
                 icon={HiHeart}

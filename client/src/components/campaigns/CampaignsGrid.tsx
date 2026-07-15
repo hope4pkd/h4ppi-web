@@ -32,7 +32,7 @@ const campaignTypes = [
     title: "Dialysis Support",
     description:
       "Helping patients sustain ongoing dialysis treatment — one of the heaviest recurring costs PKD families carry",
-    color: "accent.500",
+    color: "sky.500",
   },
   {
     icon: HiHeart,
@@ -46,7 +46,7 @@ const campaignTypes = [
     title: "Medication & Care Access",
     description:
       "Support for medication, consultations, and diagnostic procedures that keep treatment on track",
-    color: "accent.500",
+    color: "sky.500",
   },
   {
     icon: HiMegaphone,
@@ -60,7 +60,7 @@ const campaignTypes = [
     title: "Hope4PKD Walk/Run",
     description:
       "Recurring community fundraising and awareness events powered by registrations, sponsorships, and merchandise",
-    color: "accent.500",
+    color: "sky.500",
   },
 ];
 
