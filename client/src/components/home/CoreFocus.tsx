@@ -10,7 +10,14 @@ import {
   VStack,
   Icon,
 } from "@chakra-ui/react";
-import { HiUsers, HiCurrencyDollar, HiBuildingOffice2 } from "react-icons/hi2";
+import {
+  HiMap,
+  HiShieldCheck,
+  HiCurrencyDollar,
+  HiHeart,
+  HiAcademicCap,
+  HiScale,
+} from "react-icons/hi2";
 
 interface CoreFocusCardProps {
   title: string;
@@ -86,7 +93,7 @@ export function CoreFocusSection() {
               }}
               color="brand.500"
             >
-              Our Core Focus
+              What We Do
             </Heading>
             <Text
               maxW="2xl"
@@ -96,35 +103,54 @@ export function CoreFocusSection() {
               }}
               fontFamily="Open Sans, sans-serif"
             >
-              HOPE4PKD Patients Initiative provides a comprehensive ecosystem
-              for PKD patients seeking life-saving treatments.
+              Hope4PKD operates through a six-pillar ecosystem model designed
+              to support the full patient journey.
             </Text>
           </VStack>
           <SimpleGrid
             columns={{
               base: 1,
-              md: 3,
+              md: 2,
+              lg: 3,
             }}
             gap={10}
             width="100%"
           >
             <CoreFocusCard
-              title="Verified Donors"
-              description="We connect patients with medically-verified kidney donors through an advanced, secure and ethical matching system."
-              icon={HiUsers}
+              title="Patient Care & Navigation"
+              description="Structured guidance for patients and caregivers — onboarding, care navigation, trusted health information, and referral pathways — so no one feels abandoned or confused after diagnosis."
+              icon={HiMap}
               bgColor="brand.500"
             />
             <CoreFocusCard
-              title="Crowdfund Support"
-              description="Our platform enables transparent fundraising for treatment costs with 100% of funds going to medical care."
-              icon={HiCurrencyDollar}
+              title="Medical Verification & Trust"
+              description="Every patient case undergoes structured medical verification — diagnosis, records, treatment plans, and costs — before support is mobilised, ensuring accountability for donors and partners."
+              icon={HiShieldCheck}
               bgColor="accent.500"
             />
             <CoreFocusCard
-              title="Verified Medical Partner"
-              description="All procedures are performed at the specialized Adenike Renal Centre, ensuring quality care and oversight."
-              icon={HiBuildingOffice2}
+              title="Financial Access & Support"
+              description="Coordinated pathways to critical financial support: emergency medical coordination, dialysis and transplant initiatives, fundraising campaigns, and donor sponsorship matching."
+              icon={HiCurrencyDollar}
               bgColor="brand.500"
+            />
+            <CoreFocusCard
+              title="Community & Emotional Support"
+              description="Patient and caregiver support networks, survivor stories, peer encouragement, and safe spaces for shared experiences — because healing is emotional and communal, not only medical."
+              icon={HiHeart}
+              bgColor="accent.500"
+            />
+            <CoreFocusCard
+              title="Awareness & Education"
+              description="Awareness campaigns, educational resources, public engagement, and family and genetic awareness conversations that help more people understand PKD and seek help earlier."
+              icon={HiAcademicCap}
+              bgColor="brand.500"
+            />
+            <CoreFocusCard
+              title="Advocacy & Healthcare Access"
+              description="Advocating for improved patient support systems, engaging healthcare institutions and stakeholders, and driving long-term systemic improvement for kidney health support in Nigeria."
+              icon={HiScale}
+              bgColor="accent.500"
             />
           </SimpleGrid>
         </VStack>

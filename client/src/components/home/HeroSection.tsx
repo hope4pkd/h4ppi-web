@@ -9,6 +9,7 @@ import {
   Button,
   Heading,
 } from "@chakra-ui/react";
+import Link from "next/link";
 
 export function HeroSection() {
   return (
@@ -65,7 +66,7 @@ export function HeroSection() {
             fontFamily="Inter, sans-serif"
             pb={2}
           >
-            One Kidney at a Time
+            Because No One Should Navigate PKD Alone
           </Heading>
           <Text
             fontSize={{ base: "lg", md: "xl" }}
@@ -73,25 +74,35 @@ export function HeroSection() {
             lineHeight="1.7"
             fontWeight="medium"
           >
-            Nigeria&apos;s first platform connecting Polycystic Kidney Disease
-            (PKD) patients with verified kidney donors and crowdfunded financial
-            aid. Get the life-saving help you need through our trusted medical
-            partner.
+            Hope4PKD is a trusted patient support ecosystem for individuals
+            living with Polycystic Kidney Disease (PKD) in Nigeria — connecting
+            patients and families to care, guidance, financial access,
+            community, and hope at every stage of their journey.
           </Text>
           <HStack gap={4} flexWrap="wrap" justifyContent="center">
-            <Button variant="solid" fontSize="lg" px={8} py={6} rounded="full">
-              Find Help Now
-            </Button>
-            <Button
-              variant="outline"
-              fontSize="lg"
-              px={8}
-              py={6}
-              rounded="full"
-              color="brand.400"
-            >
-              Become a Donor
-            </Button>
+            <Link href="/patients">
+              <Button
+                variant="solid"
+                fontSize="lg"
+                px={8}
+                py={6}
+                rounded="full"
+              >
+                Get Support
+              </Button>
+            </Link>
+            <Link href="/donors">
+              <Button
+                variant="outline"
+                fontSize="lg"
+                px={8}
+                py={6}
+                rounded="full"
+                color="brand.400"
+              >
+                Support a Patient
+              </Button>
+            </Link>
           </HStack>
         </VStack>
       </Container>

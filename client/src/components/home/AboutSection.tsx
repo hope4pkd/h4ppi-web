@@ -10,11 +10,34 @@ import {
   Image,
   Button,
   Stack,
-  useDisclosure,
+  SimpleGrid,
 } from "@chakra-ui/react";
+import Link from "next/link";
+
+const StatementCard = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) => (
+  <Box
+    bg="gray.50"
+    borderLeft="4px solid"
+    borderColor="brand.500"
+    borderRadius="md"
+    p={5}
+  >
+    <Heading as="h3" size="md" color="brand.500" mb={2}>
+      {title}
+    </Heading>
+    <Text fontSize="sm" fontFamily="Open Sans, sans-serif" lineHeight="1.7">
+      {children}
+    </Text>
+  </Box>
+);
 
 export function AboutSection() {
-  const { open, onOpen, onClose } = useDisclosure();
   return (
     <Box py={16} width="100%" position="relative">
       <Container maxW="7xl">
@@ -58,33 +81,51 @@ export function AboutSection() {
               color="#2E7D32"
               lineHeight="1.2"
             >
-              Creating a Chance at Life-saving Transplants
+              A Trusted Support Ecosystem for PKD Patients
             </Heading>
             <Text fontSize="md" fontFamily="Open Sans, sans-serif">
-              Polycystic Kidney Disease (PKD) affects thousands of Nigerians,
-              requiring costly transplants that are out of reach for many
-              families.
+              Polycystic Kidney Disease (PKD) is a life-altering chronic
+              condition. In Nigeria, many patients struggle with delayed
+              diagnosis, limited awareness, expensive treatment pathways, and
+              poor access to structured guidance throughout their healthcare
+              journey.
             </Text>
             <Text fontSize="md" fontFamily="Open Sans, sans-serif">
-              HOPE4PKD bridges this gap by creating a trusted ecosystem where
-              verified donors can safely connect with patients, while our
-              crowdfunding platform makes the financial burden manageable.
+              Hope4PKD exists to bridge these gaps. More than a charity or
+              fundraising platform, we are a coordinated, transparent, and
+              compassionate support infrastructure — connecting patients to the
+              care, information, financial access, medical validation, and
+              community they need.
             </Text>
             <Text fontSize="md" fontFamily="Open Sans, sans-serif">
-              In partnership with Adenike Renal Centre, we ensure all medical
-              procedures meet international standards with comprehensive pre and
-              post-operative care.
+              At our core is a simple belief: no individual should have to
+              navigate PKD alone.
             </Text>
-            <Button
-              alignSelf="flex-start"
-              mt={2}
-              px={8}
-              size="md"
-              rounded="full"
-              variant="outline"
-            >
-              Learn More
-            </Button>
+            <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
+              <StatementCard title="Our Vision">
+                A future where every individual living with PKD in Nigeria has
+                access to the support, care, resources, and community needed to
+                live healthier, longer, and more dignified lives.
+              </StatementCard>
+              <StatementCard title="Our Mission">
+                To provide a transparent, structured, and accessible patient
+                support ecosystem through patient navigation, medical
+                verification, financial access, awareness, advocacy, and
+                strategic healthcare partnerships.
+              </StatementCard>
+            </SimpleGrid>
+            <Link href="/about">
+              <Button
+                alignSelf="flex-start"
+                mt={2}
+                px={8}
+                size="md"
+                rounded="full"
+                variant="outline"
+              >
+                Learn More
+              </Button>
+            </Link>
           </Stack>
         </Flex>
       </Container>

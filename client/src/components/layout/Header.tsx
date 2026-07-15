@@ -6,7 +6,6 @@ import {
   HStack,
   VStack,
   Text,
-  Button,
   IconButton,
   useDisclosure,
   Spacer,
@@ -18,6 +17,8 @@ import {
   HiUsers,
   HiCurrencyDollar,
   HiInformationCircle,
+  HiQuestionMarkCircle,
+  HiEnvelope,
   HiXMark,
 } from "react-icons/hi2";
 import Link from "next/link";
@@ -111,48 +112,35 @@ export function Header() {
           <Spacer />
 
           {/* Desktop Navigation */}
-          <HStack gap={8} display={{ base: "none", md: "flex" }}>
+          <HStack gap={6} display={{ base: "none", md: "flex" }}>
             <NavLink href="/about">About Us</NavLink>
-            <NavLink href="/patients">Programs</NavLink>
-            <NavLink href="/donors">Become a Donor</NavLink>
-            <NavLink href="/campaigns">Support Campaigns</NavLink>
+            <NavLink href="/patients">For Patients</NavLink>
+            <NavLink href="/donors">Support a Patient</NavLink>
+            <NavLink href="/campaigns">Campaigns</NavLink>
+            <NavLink href="/help">Help</NavLink>
+            <NavLink href="/contact">Contact</NavLink>
           </HStack>
           <Spacer />
-          <HStack gap={3}>
-            {/* Desktop Auth Buttons */}
-            <HStack gap={2} display={{ base: "none", md: "flex" }}>
-              <Button variant="outline" size="sm" rounded="full">
-                Sign In
-              </Button>
-              <Button variant="solid" size="sm" rounded="full">
-                Get Started
-              </Button>
-            </HStack>
-
-            {/* Mobile Menu Button */}
-            {/* Mobile Menu Button (Open) */}
-            {!open && (
-              <IconButton
-                aria-label="Open menu"
-                variant="ghost"
-                display={{ base: "flex", md: "none" }}
-                onClick={onOpen}
-              >
-                <HiBars3 size="20" />
-              </IconButton>
-            )}
-            {/* Mobile Menu Button (Close) */}
-            {open && (
-              <IconButton
-                aria-label="Close menu"
-                variant="ghost"
-                display={{ base: "flex", md: "none" }}
-                onClick={onClose}
-              >
-                <HiXMark size="20" />
-              </IconButton>
-            )}
-          </HStack>
+          {!open && (
+            <IconButton
+              aria-label="Open menu"
+              variant="ghost"
+              display={{ base: "flex", md: "none" }}
+              onClick={onOpen}
+            >
+              <HiBars3 size="20" />
+            </IconButton>
+          )}
+          {open && (
+            <IconButton
+              aria-label="Close menu"
+              variant="ghost"
+              display={{ base: "flex", md: "none" }}
+              onClick={onClose}
+            >
+              <HiXMark size="20" />
+            </IconButton>
+          )}
         </HStack>
       </Container>
 
@@ -174,27 +162,29 @@ export function Header() {
                 About Us
               </MobileNavLink>
               <MobileNavLink href="/patients" icon={<HiUsers size="20" />}>
-                Programs
+                For Patients
               </MobileNavLink>
               <MobileNavLink href="/donors" icon={<HiHeart size="20" />}>
-                Become a Donor
+                Support a Patient
               </MobileNavLink>
               <MobileNavLink
                 href="/campaigns"
                 icon={<HiCurrencyDollar size="20" />}
               >
-                Support Campaigns
+                Campaigns
               </MobileNavLink>
-              <Box pt={6}>
-                <VStack gap={3}>
-                  <Button w="full" variant="outline" rounded="full">
-                    Sign In
-                  </Button>
-                  <Button w="full" variant="solid" rounded="full">
-                    Get Started
-                  </Button>
-                </VStack>
-              </Box>
+              <MobileNavLink
+                href="/help"
+                icon={<HiQuestionMarkCircle size="20" />}
+              >
+                Help
+              </MobileNavLink>
+              <MobileNavLink
+                href="/contact"
+                icon={<HiEnvelope size="20" />}
+              >
+                Contact
+              </MobileNavLink>
             </VStack>
           </Container>
         </Box>

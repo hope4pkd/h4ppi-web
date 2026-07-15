@@ -1,16 +1,15 @@
 import { Layout } from "@/components/layout/Layout"
-import { HeroSection, TestimonialsSection, PartnerSection, StatsSection, HowItWorksSection, CoreFocusSection, AboutSection } from "@/components/home"
+import { HeroSection, AboutSection, ProblemSection, CoreFocusSection, HowItWorksSection, PartnerSection } from "@/components/home"
 
 export default function Home() {
   return (
     <Layout>
       <HeroSection />
-      <CoreFocusSection />
       <AboutSection />
-      {/* <StatsSection />
+      <ProblemSection />
+      <CoreFocusSection />
       <HowItWorksSection />
-      <TestimonialsSection />
-      <PartnerSection /> */}
+      <PartnerSection />
     </Layout>
   )
-}   
+}
