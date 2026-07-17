@@ -56,8 +56,8 @@ export function AboutSection() {
             }}
           >
             <Image
-              src="https://images.unsplash.com/photo-1579154204601-01588f351e67?q=80&w=2670&auto=format&fit=crop"
-              alt="Medical professionals with patient"
+              src="https://images.unsplash.com/photo-1666886573531-48d2e3c2b684?q=80&w=2670&auto=format&fit=crop"
+              alt="Medical professionals reviewing patient records"
               borderRadius="lg"
               boxShadow="lg"
               objectFit="cover"

@@ -12,21 +12,23 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 
+const photoScrim = "linear-gradient(180deg, rgba(10, 30, 60, 0) 45%, rgba(10, 30, 60, 0.65))";
+
 const photoCards = [
   {
-    label: "Photo — patient & caregiver, Abuja clinic",
-    bgImage: "linear-gradient(135deg, {colors.sky.600}, {colors.sky.300} 60%, {colors.sky.100})",
+    label: "Patient & caregiver, Abuja clinic",
+    bgImage: `${photoScrim}, url('/assets/images/patient-caregiver-hands.png')`,
     labelColor: "whiteAlpha.900",
   },
   {
-    label: "Photo — volunteers",
-    bgImage: "linear-gradient(160deg, {colors.accent.600}, {colors.accent.100})",
-    labelColor: "accent.900",
+    label: "Our volunteers",
+    bgImage: `${photoScrim}, url('https://images.unsplash.com/photo-1710093072228-8c3129f27357?q=80&w=1200&auto=format&fit=crop')`,
+    labelColor: "whiteAlpha.900",
   },
   {
-    label: "Photo — community walk",
-    bgImage: "linear-gradient(200deg, {colors.brand.500}, {colors.sky.500})",
-    labelColor: "whiteAlpha.800",
+    label: "Community walk",
+    bgImage: `${photoScrim}, url('https://images.unsplash.com/photo-1770240366958-9d00bca04e26?q=80&w=1200&auto=format&fit=crop')`,
+    labelColor: "whiteAlpha.900",
   },
 ];
 
@@ -103,6 +105,8 @@ export function HeroSection() {
                 h={{ base: "220px", md: "320px" }}
                 rounded="20px"
                 bgImage={card.bgImage}
+                bgSize="cover"
+                bgPos="center"
                 display="flex"
                 alignItems="flex-end"
                 p={5}
