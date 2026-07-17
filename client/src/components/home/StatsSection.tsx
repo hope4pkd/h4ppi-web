@@ -57,7 +57,7 @@ const StatCard = ({
       <Text 
         fontSize={{ base: "3xl", md: "4xl" }} 
         fontWeight="black" 
-        bgGradient="linear(to-r, brand.400, brand.600)"
+        bgGradient="to-r" gradientFrom="brand.400" gradientTo="brand.600"
         bgClip="text"
       >
         {value}
@@ -104,7 +104,7 @@ export function StatsSection() {
               fontWeight="black" 
               color="gray.900"
               textAlign="center"
-              bgGradient="linear(to-r, brand.500, accent.500)"
+              bgGradient="to-r" gradientFrom="brand.500" gradientTo="sky.500"
               bgClip="text"
             >
               Making a Real Impact

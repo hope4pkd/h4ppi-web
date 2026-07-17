@@ -10,7 +10,7 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { FaTwitter, FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
-import logo from "@public/assets/logo.png";
+import logo from "@public/assets/logo-new.png";
 
 const FooterSection = ({
   title,
@@ -61,9 +61,9 @@ export function Footer() {
               objectFit="contain"
             />
             <Text fontSize="sm" color="gray.600" maxW="sm">
-              Restoring hope, one kidney at a time. Connecting PKD patients with
-              verified donors and crowdfunded financial aid through Adenike
-              Renal Centre.
+              A trusted patient support ecosystem for individuals living with
+              Polycystic Kidney Disease in Nigeria — connecting patients to
+              care, guidance, financial access, community, and hope.
             </Text>
             <HStack>
               <IconButton
@@ -110,17 +110,19 @@ export function Footer() {
             <FooterLink href="/patients/register">
               Register as Patient
             </FooterLink>
-            <FooterLink href="/patients/find-donor">Find a Donor</FooterLink>
+            <FooterLink href="/patients/find-donor">
+              Patient Navigation
+            </FooterLink>
             <FooterLink href="/patients/support">Get Support</FooterLink>
             <FooterLink href="/campaigns/create">Start Campaign</FooterLink>
           </FooterSection>
 
-          {/* For Donors */}
-          <FooterSection title="For Donors">
-            <FooterLink href="/donors/register">Become a Donor</FooterLink>
-            <FooterLink href="/donors/process">Donation Process</FooterLink>
-            <FooterLink href="/donors/requirements">Requirements</FooterLink>
-            <FooterLink href="/donors/faq">Donor FAQ</FooterLink>
+          {/* For Supporters */}
+          <FooterSection title="For Supporters">
+            <FooterLink href="/donors/register">Support a Patient</FooterLink>
+            <FooterLink href="/donors/process">How Support Works</FooterLink>
+            <FooterLink href="/donors/requirements">Partner With Us</FooterLink>
+            <FooterLink href="/donors/faq">FAQ</FooterLink>
           </FooterSection>
 
           {/* Support */}

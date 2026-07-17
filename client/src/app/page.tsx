@@ -1,16 +1,17 @@
 import { Layout } from "@/components/layout/Layout"
-import { HeroSection, TestimonialsSection, PartnerSection, StatsSection, HowItWorksSection, CoreFocusSection, AboutSection } from "@/components/home"
+import { HeroSection, PkdDayRibbon, WhatWeDoSection, AboutSection, HowItWorksSection, PartnerSection } from "@/components/home"
 
+// ProblemSection and CoreFocusSection are intentionally unmounted (superseded
+// by WhatWeDoSection in the Warm Sky Editorial redesign) but kept on disk.
 export default function Home() {
   return (
     <Layout>
       <HeroSection />
-      <CoreFocusSection />
+      <PkdDayRibbon />
+      <WhatWeDoSection />
       <AboutSection />
-      {/* <StatsSection />
       <HowItWorksSection />
-      <TestimonialsSection />
-      <PartnerSection /> */}
+      <PartnerSection />
     </Layout>
   )
-}   
+}
