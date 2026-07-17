@@ -11,43 +11,34 @@ import {
   Icon,
   Flex,
 } from "@chakra-ui/react";
+import Image from "next/image";
 import type { IconType } from "react-icons";
-import {
-  PiTShirt,
-  PiBaseballCap,
-  PiWatch,
-  PiTote,
-} from "react-icons/pi";
+import { PiWatch } from "react-icons/pi";
 import { HiEnvelope } from "react-icons/hi2";
 
 type MerchItem = {
-  icon: IconType;
+  icon?: IconType;
   name: string;
   description: string;
   price: string;
-  bgImage: string;
+  bgImage?: string;
+  image?: string;
 };
 
-// Placeholder items — swap descriptions, prices, and gradient tiles for real
-// product photos (public/assets/merch/) when available.
 const merchItems: MerchItem[] = [
   {
-    icon: PiTShirt,
+    image: "/assets/images/shirt-merch.png",
     name: "Hope4PKD T-Shirt",
     description:
       "Soft cotton tee with the Hope4PKD logo — wear it to walks, runs, and everyday awareness",
     price: "₦7,500",
-    bgImage:
-      "linear-gradient(135deg, {colors.brand.500}, {colors.sky.400} 70%, {colors.sky.100})",
   },
   {
-    icon: PiBaseballCap,
+    image: "/assets/images/cap-merch.png",
     name: "Hope4PKD Cap",
     description:
       "Adjustable embroidered cap for community events and sunny-day advocacy",
     price: "₦5,000",
-    bgImage:
-      "linear-gradient(160deg, {colors.sky.600}, {colors.sky.300} 60%, {colors.sky.100})",
   },
   {
     icon: PiWatch,
@@ -58,13 +49,25 @@ const merchItems: MerchItem[] = [
     bgImage: "linear-gradient(200deg, {colors.accent.500}, {colors.accent.100})",
   },
   {
-    icon: PiTote,
+    image: "/assets/images/tote-merch.png",
     name: "Hope4PKD Tote Bag",
     description:
       "Sturdy canvas tote for market runs, clinic visits, and carrying hope around",
     price: "₦4,000",
-    bgImage:
-      "linear-gradient(135deg, {colors.brand.600}, {colors.brand.400} 65%, {colors.brand.100})",
+  },
+  {
+    image: "/assets/images/bottle-merch.png",
+    name: "Hope4PKD Water Bottle",
+    description:
+      "Insulated bottle that keeps you hydrated — a daily reminder that kidney health matters",
+    price: "₦6,000",
+  },
+  {
+    image: "/assets/images/umbrella-merch.png",
+    name: "Hope4PKD Umbrella",
+    description:
+      "Bold branded umbrella that shelters you and shows your support, rain or shine",
+    price: "₦8,000",
   },
 ];
 
@@ -87,7 +90,7 @@ const orderSteps = [
 // TODO: replace with the real Hope4PKD account details
 const bankDetails = [
   { label: "Bank", value: "Account details coming soon" },
-  { label: "Account Name", value: "Hope4PKD Initiative" },
+  { label: "Account Name", value: "Hope4PKD Patients Initiative" },
   { label: "Account Number", value: "—" },
 ];
 
@@ -117,7 +120,7 @@ export function MerchSection() {
             </Text>
           </VStack>
 
-          <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap={6} w="full">
+          <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} gap={6} w="full">
             {merchItems.map((item) => (
               <Box
                 key={item.name}
@@ -130,14 +133,26 @@ export function MerchSection() {
                 transition="transform 0.3s"
                 _hover={{ transform: "translateY(-5px)" }}
               >
-                <Flex
-                  h="160px"
-                  bgImage={item.bgImage}
-                  align="center"
-                  justify="center"
-                >
-                  <Icon as={item.icon} w={16} h={16} color="whiteAlpha.900" />
-                </Flex>
+                {item.image ? (
+                  <Box position="relative" h="200px">
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      sizes="(max-width: 480px) 100vw, (max-width: 992px) 50vw, 33vw"
+                    />
+                  </Box>
+                ) : (
+                  <Flex
+                    h="200px"
+                    bgImage={item.bgImage}
+                    align="center"
+                    justify="center"
+                  >
+                    <Icon as={item.icon} w={16} h={16} color="whiteAlpha.900" />
+                  </Flex>
+                )}
                 <VStack align="start" gap={2} p={5}>
                   <Text fontSize="lg" fontWeight="semibold" color="gray.900">
                     {item.name}
