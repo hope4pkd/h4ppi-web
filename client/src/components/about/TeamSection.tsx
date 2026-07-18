@@ -4,18 +4,18 @@ import React from "react";
 import {
   Box,
   Container,
+  Flex,
   Heading,
-  SimpleGrid,
   Text,
   VStack,
 } from "@chakra-ui/react";
 
-// TODO: replace placeholder team data with real names, roles, and photos.
 const team: { name: string; role: string }[] = [
-  { name: "Adaeze Okafor", role: "Founder / Executive Director" },
-  { name: "Dr. Emeka Nwosu", role: "Medical Advisor" },
-  { name: "Funmi Adebayo", role: "Patient Navigation Lead" },
-  { name: "Chidi Eze", role: "Community & Partnerships Lead" },
+  { name: "Onyekachi Nwakaihe", role: "Founder / Executive Director" },
+  { name: "Maureen Alor", role: "Patient Support and Programs" },
+  { name: "Ifunanya Nwakaihe", role: "Partnerships and Fundraising" },
+  { name: "Israel Oyebamiji", role: "Communications and Events" },
+  { name: "Praise Komolafe", role: "Medical Research and Impact" },
 ];
 
 const initials = (name: string) =>
@@ -47,14 +47,15 @@ export function TeamSection() {
               alone.
             </Text>
           </VStack>
-          <SimpleGrid
-            columns={{ base: 1, sm: 2, lg: 4 }}
-            gap={8}
-            width="100%"
-          >
+          <Flex wrap="wrap" justify="center" gap={8} width="100%">
             {team.map((member) => (
               <VStack
                 key={member.name}
+                width={{
+                  base: "100%",
+                  sm: "calc(50% - 1rem)",
+                  lg: "calc(25% - 1.5rem)",
+                }}
                 bg="white"
                 borderRadius="lg"
                 boxShadow="md"
@@ -98,7 +99,7 @@ export function TeamSection() {
                 </VStack>
               </VStack>
             ))}
-          </SimpleGrid>
+          </Flex>
         </VStack>
       </Container>
     </Box>

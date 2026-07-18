@@ -11,10 +11,10 @@ const gabarito = Gabarito({
   display: "swap",
 });
 
-const appName = "Hope4PKD Initiative";
+const appName = "Hope4PKD Patients Initiative";
 const appMetaTitle = `${appName} - A Patient Support Ecosystem for PKD in Nigeria`;
 const appMetaDescription =
-  "Hope4PKD is a trusted patient support ecosystem for individuals living with Polycystic Kidney Disease (PKD) in Nigeria — providing patient navigation, medical verification, financial access, community, awareness, and advocacy. No one should navigate PKD alone. #Hope4PKD #Hope4PKDPatients #Hope4PKDPatientsInitiative #Health #Healthcare #PKD";
+  "Hope4PKD Patients Initiative is a trusted patient support ecosystem for individuals living with Polycystic Kidney Disease (PKD) in Nigeria — providing patient navigation, medical verification, financial access, community, awareness, and advocacy. No one should navigate PKD alone. #Hope4PKD #Hope4PKDPatients #Hope4PKDPatientsInitiative #Health #Healthcare #PKD";
 
 export const metadata: Metadata = {
   title: appMetaTitle,
