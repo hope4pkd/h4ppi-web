@@ -13,7 +13,6 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import type { IconType } from "react-icons";
-import { PiWatch } from "react-icons/pi";
 import { HiEnvelope } from "react-icons/hi2";
 
 type MerchItem = {
@@ -41,12 +40,11 @@ const merchItems: MerchItem[] = [
     price: "₦5,000",
   },
   {
-    icon: PiWatch,
+    image: "/assets/images/handband-merch.png",
     name: "Awareness Wristband",
     description:
       "Silicone wristband that starts conversations about PKD wherever you go",
     price: "₦1,000",
-    bgImage: "linear-gradient(200deg, {colors.accent.500}, {colors.accent.100})",
   },
   {
     image: "/assets/images/tote-merch.png",
