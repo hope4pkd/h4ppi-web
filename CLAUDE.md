@@ -1,29 +1,36 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+**Read [AGENTS.md](AGENTS.md) first — it is the primary anchor.** Then follow the document map there:
+[CONVENTIONS.md](CONVENTIONS.md) before writing code, [DESIGN_SPEC.md](DESIGN_SPEC.md) before touching UI,
+[ARCHITECTURE.md](ARCHITECTURE.md) before touching page structure or navigation, [PLAN.md](PLAN.md) for
+status, and append to [DECISIONS.log](DECISIONS.log) before any meaningful change.
 
-## Repository layout
+**`client/` is front-end only (since 2026-08-02).** No Supabase, no `/api` routes, no forms, no admin
+console, no `middleware.ts`, no `'use server'`. The service will be rebuilt in a separate top-level
+`server/` folder. Do not add a backend here — if a feature needs one, ship the UI with a "Coming soon"
+marker and flag it.
 
-All application code lives in `client/` — a Next.js 15 (App Router) site for the Hope4PKD Initiative (patient support for Polycystic Kidney Disease in Nigeria). Run all commands from `client/`.
-
-## Commands
+## Commands (always from `client/`)
 
 ```bash
 cd client
-npm run dev     # dev server at http://localhost:3000
-npm run build   # production build
-npm run lint    # ESLint (next lint)
+npm run dev       # dev server at http://localhost:3000
+npm run check     # lint + typecheck + vitest + content check + build — run before declaring done
+npm run test:e2e  # Playwright
 ```
 
-There is no test framework configured.
+## Claude-specific notes
 
-## Architecture
-
-- **Pages** (`src/app/*/page.tsx`) are thin server components: each wraps a list of page-specific section components in the shared `Layout` (Header + main + Footer) from `src/components/layout/`.
-- **Section components** live in `src/components/<page-name>/` (home, patients, donors, campaigns) and are marked `"use client"` since they use Chakra UI.
-- **Theming**: Chakra UI v3 custom system in `src/lib/theme.ts` — `brand.*` (health green, primary) and `accent.*` (hope orange) color tokens, Poppins fonts, light-mode-only semantic tokens, and a custom button recipe (`variant="solid" | "outline"`). The system is provided app-wide via `src/components/ui/provider.tsx`, mounted in `src/app/layout.tsx`.
-- **Path aliases**: `@/*` → `src/*`, `@public/*` → `public/*`.
-
-## Chakra UI v3 (not v2)
-
-This project uses Chakra UI **v3**, which removed many v2 components. Do not import Card, FormControl, FormLabel, Stepper, Radio, RadioGroup, Checkbox, Avatar, Progress, Alert, List, Select, or InputLeftElement from `@chakra-ui/react` — they don't exist in v3. The codebase replaces Card with a styled `Box` (`rounded="xl" shadow="md" border="1px solid" borderColor="gray.200"`). Prefer brand/accent theme tokens over hardcoded colors. (`client/fix-components.js` is a one-off v2→v3 migration script, not part of the app.)
+- **Chakra UI v3, not v2.** Do not import Card, FormControl, FormLabel, Stepper, Radio, RadioGroup,
+  Checkbox, Avatar, Progress, Alert, List, Select, or InputLeftElement from `@chakra-ui/react` — they
+  don't exist in v3 and this is the most common hallucination in this repo. Replacements are in
+  CONVENTIONS.md ("Components & styling").
+- Style only with theme tokens from `client/src/lib/theme.ts` (`navy.*`, `teal.*`, `action.*`, `pink.*`,
+  `canvas.50`). Tailwind/`cn()`/react-icons/next-themes are installed but forbidden (see AGENTS.md contract).
+- Never write plausible-looking placeholder facts (phone numbers, prices, event details, bank accounts) —
+  `client/scripts/check-content.mjs` fails the build on them. Use `EmptyState` instead.
+- Two different placeholders, don't mix them up: `EmptyState` = "this list is legitimately empty";
+  `ComingSoonPanel` / `ComingSoonAction` / `ComingSoonTag` = "this needs the server we don't have".
+  A coming-soon control must not navigate, submit, or be a `<button disabled>` — see ARCHITECTURE.md ADR-3b.
+- The `restructure` branch working tree is canonical and largely uncommitted — do not "clean up" deleted
+  files or revert working-tree changes based on git history.

@@ -22,17 +22,6 @@ const nextConfig: NextConfig = {
           { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
         ],
       },
-      {
-        source: "/api/(.*)",
-        headers: [{ key: "Cache-Control", value: "no-store, max-age=0" }],
-      },
-      {
-        source: "/admin/(.*)",
-        headers: [
-          { key: "Cache-Control", value: "no-store, max-age=0" },
-          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
-        ],
-      },
     ];
   },
 };

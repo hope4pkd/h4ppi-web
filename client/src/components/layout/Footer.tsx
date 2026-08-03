@@ -2,34 +2,34 @@ import { Box, Container, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/rea
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@public/assets/logo-wordmark.png";
-import { donateLink, legalNavLinks, primaryNavLinks, secondaryNavLinks } from "@/lib/navigation";
-
-const groups = [
-  { title: "Explore", links: [...primaryNavLinks.filter((link) => link.href !== "/"), donateLink] },
-  { title: "Get Involved", links: [...secondaryNavLinks] },
-  { title: "Trust & Legal", links: [...legalNavLinks] },
-];
+import { ComingSoonTag } from "@/components/common/PublicPage";
+import { footerGroups, isNavLink } from "@/lib/navigation";
 
 export function Footer() {
   return (
     <Box as="footer" bg="navy.900" color="white" borderTop="6px solid" borderColor="brightTeal.500">
       <Container maxW="7xl" py={{ base: 12, md: 16 }}>
-        <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap={{ base: 10, lg: 8 }}>
-          <VStack align="start" gap={5}>
-            <Box bg="white" borderRadius="lg" px={3} py={2}>
-              <Image src={logo} alt="Hope4PKD Patients Initiative" width={190} />
-            </Box>
-            <Text color="navy.100" fontSize="sm" lineHeight="1.7" maxW="sm">
-              Building a coordinated support pathway for people and families navigating polycystic kidney disease in Nigeria.
-            </Text>
-          </VStack>
+        <VStack align="start" gap={5} mb={{ base: 10, lg: 12 }}>
+          <Box bg="white" borderRadius="lg" px={3} py={2}>
+            <Image src={logo} alt="Hope4PKD Patients Initiative" width={190} />
+          </Box>
+          <Text color="navy.100" fontSize="sm" lineHeight="1.7" maxW="lg">
+            Building a coordinated support pathway for people and families navigating polycystic kidney disease in Nigeria.
+          </Text>
+        </VStack>
 
-          {groups.map((group) => (
-            <VStack key={group.title} align="start" gap={1}>
-              <Text fontWeight="800" color="pink.400" mb={2}>{group.title}</Text>
-              {group.links.map((link) => (
-                <Link key={link.href} href={link.href}>
-                  <Text as="span" display="inline-flex" alignItems="center" minH="44px" color="navy.100" fontSize="sm" lineHeight="1.6" _hover={{ color: "white" }}>{link.label}</Text>
+        <SimpleGrid columns={{ base: 1, sm: 2, lg: 5 }} gap={{ base: 10, lg: 8 }}>
+          {footerGroups.map((group) => (
+            <VStack key={group.label} align="start" gap={1}>
+              <Text fontWeight="800" color="pink.400" mb={2}>{group.label}</Text>
+              {group.items.map((item) => !isNavLink(item) ? (
+                <VStack key={item.label} as="span" align="start" gap={1} minH="44px" justify="center" py={1}>
+                  <Text as="span" color="navy.200" fontSize="sm" lineHeight="1.6">{item.label}</Text>
+                  <ComingSoonTag />
+                </VStack>
+              ) : (
+                <Link key={item.href} href={item.href}>
+                  <Text as="span" display="inline-flex" alignItems="center" minH="44px" color="navy.100" fontSize="sm" lineHeight="1.6" _hover={{ color: "white" }}>{item.label}</Text>
                 </Link>
               ))}
             </VStack>

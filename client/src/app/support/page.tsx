@@ -1,4 +1,4 @@
-import { ActionLink, ContentSection, FeatureGrid, FeatureItem, PageHero, SectionHeading } from "@/components/common/PublicPage";
+import { ComingSoonAction, ContentSection, FeatureGrid, FeatureItem, PageHero, SectionHeading } from "@/components/common/PublicPage";
 import { Layout } from "@/components/layout/Layout";
 import { Box, HStack, Text, VStack } from "@chakra-ui/react";
 import type { Metadata } from "next";
@@ -9,7 +9,7 @@ export default function SupportPage() {
   return (
     <Layout>
       <PageHero eyebrow="Get support" title="A careful first step toward the right support." description="Start with a short request. Hope4PKD will collect only the minimum information needed for an initial review—never medical files at this stage.">
-        <HStack gap={3} flexWrap="wrap"><ActionLink href="/support/request">Start a request</ActionLink><ActionLink href="/case-status" variant="outline">Check case status</ActionLink></HStack>
+        <HStack gap={3} flexWrap="wrap"><ComingSoonAction>Start a request</ComingSoonAction><ComingSoonAction>Check case status</ComingSoonAction></HStack>
       </PageHero>
       <ContentSection>
         <SectionHeading eyebrow="The pathway" title="What happens after you contact us." description="A request is not a promise of financial help. It is the beginning of a structured review that identifies a safe, realistic next step." />

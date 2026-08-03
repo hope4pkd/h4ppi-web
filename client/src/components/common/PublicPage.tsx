@@ -1,7 +1,7 @@
-import { Box, Button, Container, Heading, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Container, Heading, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ArrowRight, CircleAlert } from "lucide-react";
+import { ArrowRight, CircleAlert, Clock } from "lucide-react";
 
 export function Eyebrow({ children }: { children: ReactNode }) {
   return (
@@ -58,6 +58,38 @@ export function EmptyState({ title, description, actionLabel, actionHref }: { ti
 
 export function ActionLink({ href, children, variant = "solid" }: { href: string; children: ReactNode; variant?: "solid" | "outline" | "ghost" }) {
   return <Button asChild variant={variant} size="lg"><Link href={href}>{children}<ArrowRight aria-hidden="true" size={18} /></Link></Button>;
+}
+
+export function ComingSoonTag() {
+  return (
+    <HStack as="span" display="inline-flex" gap={1.5} bg="action.50" color="action.700" borderRadius="full" px={2.5} py={1} fontSize="xs" fontWeight="800" letterSpacing="0.08em" textTransform="uppercase" whiteSpace="nowrap">
+      <Clock aria-hidden="true" size={13} />
+      <Text as="span">Coming soon</Text>
+    </HStack>
+  );
+}
+
+export function ComingSoonPanel({ title, description }: { title: string; description: string }) {
+  return (
+    <Box borderWidth="1px" borderColor="navy.100" borderRadius="2xl" bg="white" p={{ base: 6, md: 10 }}>
+      <VStack align="start" gap={4} maxW="2xl">
+        <ComingSoonTag />
+        <Heading as="h3" fontSize="2xl" color="navy.900">{title}</Heading>
+        <Text color="navy.500" lineHeight="1.7">{description}</Text>
+      </VStack>
+    </Box>
+  );
+}
+
+// The non-navigating counterpart to ActionLink. A styled span rather than a disabled Button: the button
+// recipe defines no _disabled state, and a dead button advertises an affordance that never fires.
+export function ComingSoonAction({ children }: { children: ReactNode }) {
+  return (
+    <HStack as="span" display="inline-flex" gap={3} minH={12} px={6} borderWidth="1px" borderColor="navy.200" borderRadius="full" bg="white" color="navy.500" fontWeight="700">
+      <Text as="span">{children}</Text>
+      <ComingSoonTag />
+    </HStack>
+  );
 }
 
 export function InfoPage({ eyebrow, title, description, children }: { eyebrow: string; title: string; description: string; children: ReactNode }) {

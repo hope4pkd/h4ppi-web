@@ -67,7 +67,7 @@ export function HomePage() {
                 Hope4PKD is building a coordinated pathway for people and families living with polycystic kidney disease—from first questions to verified, accountable support.
               </Text>
               <HStack gap={3} flexWrap="wrap" pt={2}>
-                <ActionLink href="/support/request">Request support</ActionLink>
+                <ActionLink href="/support">Get support</ActionLink>
                 <ActionLink href="/campaigns" variant="outline">View campaigns</ActionLink>
                 <ActionLink href="/knowledge" variant="ghost">Understand PKD</ActionLink>
               </HStack>
@@ -163,7 +163,7 @@ export function HomePage() {
             </VStack>
           ))}
         </SimpleGrid>
-        <HStack mt={10}><ActionLink href="/support/request">Start a support request</ActionLink></HStack>
+        <HStack mt={10}><ActionLink href="/support">See the support pathway</ActionLink></HStack>
       </ContentSection>
 
       <ContentSection tone="navy" id="founder">
@@ -235,7 +235,7 @@ export function HomePage() {
           <Grid templateColumns={{ base: "1fr", lg: "1.1fr 0.9fr" }} gap={10} alignItems="end">
             <Box><Text fontWeight="800" letterSpacing="0.12em" textTransform="uppercase" fontSize="sm">Take the next step</Text><Heading as="h2" fontSize={{ base: "4xl", md: "6xl" }} lineHeight="0.98" mt={3}>Support begins with one clear action.</Heading></Box>
             <HStack gap={3} flexWrap="wrap" justify={{ lg: "end" }}>
-              <ActionLink href="/support/request">Request support</ActionLink>
+              <ActionLink href="/support">Get support</ActionLink>
               <ActionLink href="/partner" variant="outline">Partner with us</ActionLink>
               <ActionLink href="/donate" variant="ghost">Donate</ActionLink>
             </HStack>
