@@ -1,0 +1,9 @@
+import { ComingSoonPanel, ContentSection, FeatureGrid, FeatureItem, PageHero } from "@/components/common/PublicPage";
+import { Layout } from "@/components/layout/Layout";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Donate", description: "Hope4PKD online donations remain gated until payment, finance, fee, refund, surplus, and settlement controls are approved.", alternates: { canonical: "/donate" } };
+
+export default function DonatePage() {
+  return <Layout><PageHero eyebrow="Donate" title="Generosity deserves a transparent destination." description="Online donations will use Paystack-hosted checkout, signature-verified webhooks, receipts and separately recorded allocations—without Hope4PKD handling card data." /><ContentSection><FeatureGrid columns={3}><FeatureItem title="Server-initialised">The browser never creates or authorises a payment by itself.</FeatureItem><FeatureItem title="Webhook-confirmed">A successful browser return is not treated as proof of payment.</FeatureItem><FeatureItem title="Allocation-aware">Approved general-fund and campaign allocations remain traceable.</FeatureItem><FeatureItem title="No card storage">Card details stay with the regulated payment provider.</FeatureItem><FeatureItem title="Receipted">Confirmed donations receive an idempotent acknowledgement and receipt.</FeatureItem><FeatureItem title="Policy governed">Fees, refunds, subscriptions and campaign surplus follow approved rules.</FeatureItem></FeatureGrid><ComingSoonPanel title="Online donations are not active yet" description="Hope4PKD is confirming its live Paystack account, settlement details, fee treatment, finance owner, refund policy and campaign-surplus policy. No placeholder bank information or test checkout is shown." /></ContentSection></Layout>;
+}

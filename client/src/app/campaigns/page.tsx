@@ -1,25 +1,9 @@
-import type { Metadata } from "next";
+import { ContentSection, EmptyState, FeatureGrid, FeatureItem, PageHero, SectionHeading } from "@/components/common/PublicPage";
 import { Layout } from "@/components/layout/Layout";
-import { CampaignsHeroSection } from "@/components/campaigns/CampaignsHeroSection";
-import { CampaignTransparency } from "@/components/campaigns/CampaignTransparency";
-import { CampaignsGrid } from "@/components/campaigns/CampaignsGrid";
-import { MerchSection } from "@/components/campaigns/MerchSection";
-import { HowToSupport } from "@/components/campaigns/HowToSupport";
+import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Campaigns | Hope4PKD",
-  description:
-    "Verified fundraising campaigns and awareness initiatives for PKD patients in Nigeria — dialysis support, transplant initiatives, emergency medical support, and more.",
-};
+export const metadata: Metadata = { title: "Verified campaigns", description: "Hope4PKD campaigns publish only after case, consent, cost, programme, and finance verification.", alternates: { canonical: "/campaigns" } };
 
 export default function CampaignsPage() {
-  return (
-    <Layout>
-      <CampaignsHeroSection />
-      <CampaignTransparency />
-      <CampaignsGrid />
-      <MerchSection />
-      <HowToSupport />
-    </Layout>
-  );
+  return <Layout><PageHero eyebrow="Campaigns" title="Patient stories protected by a verification gate." description="A public campaign is a limited, consented view of an approved case—not a copy of private medical records." /><ContentSection><SectionHeading eyebrow="Publication standard" title="What must be true before a campaign is public." /><FeatureGrid columns={3}><FeatureItem number="01" title="Case verified">Authorised reviewers have completed the required assessment.</FeatureItem><FeatureItem number="02" title="Consent current">The patient or authorised representative has approved the identity and story level.</FeatureItem><FeatureItem number="03" title="Costs validated">Published needs map to documented, reviewed cost items.</FeatureItem><FeatureItem number="04" title="Approvals complete">Programme and finance owners have signed off the public campaign.</FeatureItem><FeatureItem number="05" title="Privacy limited">The public projection contains no private medical documents or internal notes.</FeatureItem><FeatureItem number="06" title="Updates accountable">Allocations, disbursements, surplus and closure follow approved policies.</FeatureItem></FeatureGrid><EmptyState title="No verified campaigns are public yet" description="Campaign publishing remains off until real cases, valid consent, cost validation and operational approvals are complete. Hope4PKD will not substitute fictional patients, progress totals or donor activity." actionLabel="Read the transparency framework" actionHref="/impact" /></ContentSection></Layout>;
 }

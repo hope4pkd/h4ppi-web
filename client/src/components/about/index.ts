@@ -1,7 +1,0 @@
-export { AboutHero } from './AboutHero'
-export { OurStorySection } from './OurStorySection'
-export { VisionMissionSection } from './VisionMissionSection'
-export { CoreValuesSection } from './CoreValuesSection'
-export { DifferenceSection } from './DifferenceSection'
-export { TeamSection } from './TeamSection'
-export { AboutCTA } from './AboutCTA'

@@ -1,197 +1,235 @@
 "use client";
 
-import {
-  Box,
-  Container,
-  HStack,
-  VStack,
-  Text,
-  Button,
-  IconButton,
-  useDisclosure,
-  Spacer,
-  Image,
-} from "@chakra-ui/react";
-import {
-  HiBars3,
-  HiHeart,
-  HiUsers,
-  HiCurrencyDollar,
-  HiInformationCircle,
-  HiCalendarDays,
-  HiXMark,
-} from "react-icons/hi2";
+import { Accordion, Box, Button, chakra, CloseButton, Container, Drawer, HStack, IconButton, Menu, Portal, Text, VStack } from "@chakra-ui/react";
+import { ChevronDown, Menu as MenuIcon, X as CloseIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import logo from "@public/assets/logo-new.png";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import logo from "@public/assets/logo-wordmark.png";
+import { ComingSoonTag } from "@/components/common/PublicPage";
+import { donateLink, homeLink, isActiveGroup, isActiveHref, isNavLink, navGroups, standaloneNavLinks, type NavGroup, type NavItem } from "@/lib/navigation";
 
-const NavLink = ({
-  href,
-  children,
-  isActive = false,
-}: {
-  href: string;
-  children: React.ReactNode;
-  isActive?: boolean;
-}) => (
-  <Link href={href}>
-    <Text
-      fontSize="sm"
-      fontWeight={isActive ? "semibold" : "medium"}
-      color={isActive ? "brand.500" : "gray.900"}
-      _hover={{ color: "brand.500" }}
-      cursor="pointer"
-    >
-      {children}
-    </Text>
-  </Link>
-);
+const LogoImage = chakra(Image);
 
-const MobileNavLink = ({
-  href,
-  children,
-  icon,
-  onClick,
-}: {
-  href: string;
-  children: React.ReactNode;
-  icon: React.ReactNode;
-  onClick?: () => void;
-}) => (
-  <Link href={href} onClick={onClick}>
-    <HStack w="full" p={3} _hover={{ bg: "brand.50" }} rounded="md">
-      {icon}
-      <Text fontWeight="medium">{children}</Text>
-    </HStack>
-  </Link>
-);
-
-export function Header() {
-  const { open, onOpen, onClose } = useDisclosure();
+function NavigationLink({ href, label, onClick }: { href: string; label: string; onClick?: () => void }) {
+  const pathname = usePathname();
+  const active = isActiveHref(pathname, href);
 
   return (
-    <Box
-      as="header"
-      bg="white"
-      borderBottom="1px solid"
-      borderColor="gray.200"
-      position="sticky"
-      top={0}
-      zIndex={10}
-    >
-      <Container maxW="7xl" py={3}>
-        <HStack>
-          {/* Logo */}
-          <Link href="/">
-            <Image
-              src={logo.src}
-              alt="Hope4PKD Patients Initiative Logo"
-              h="52px"
-              w="auto"
-              objectFit="contain"
-            />
-          </Link>
+    <Link href={href} onClick={onClick} aria-current={active ? "page" : undefined}>
+      <Text
+        as="span"
+        display="inline-flex"
+        alignItems="center"
+        minH="44px"
+        px={{ base: 3, lg: 2 }}
+        color={active ? "action.700" : "navy.800"}
+        fontSize={{ base: "md", lg: "sm" }}
+        fontWeight={active ? "700" : "600"}
+        borderBottomWidth={active ? "2px" : "0"}
+        borderColor="action.600"
+        _hover={{ color: "action.700" }}
+      >
+        {label}
+      </Text>
+    </Link>
+  );
+}
 
-          <Spacer />
+// Stacked rather than inline: the drawer column is too narrow to hold the label and the
+// nowrap tag side by side, which wrapped labels mid-phrase ("Request / Support").
+function ComingSoonNavRow({ label }: { label: string }) {
+  return (
+    <VStack as="span" align="start" justify="center" gap={1} minH="44px" px={{ base: 3, lg: 2 }} py={1}>
+      <Text as="span" color="navy.400" fontSize={{ base: "md", lg: "sm" }} fontWeight="600">{label}</Text>
+      <ComingSoonTag />
+    </VStack>
+  );
+}
 
-          {/* Desktop Navigation */}
-          <HStack gap={7} display={{ base: "none", md: "flex" }}>
-            <NavLink href="/about">About</NavLink>
-            <NavLink href="/patients">Patients</NavLink>
-            <NavLink href="/campaigns">Campaigns</NavLink>
-            <NavLink href="/#pkd-day">PKD Day</NavLink>
-            <NavLink href="/donors">Sponsors</NavLink>
+function NavigationItem({ item, onClick }: { item: NavItem; onClick?: () => void }) {
+  return isNavLink(item) ? <NavigationLink {...item} onClick={onClick} /> : <ComingSoonNavRow label={item.label} />;
+}
+
+function NavigationMenu({ group }: { group: NavGroup }) {
+  const pathname = usePathname();
+  const active = isActiveGroup(pathname, group);
+
+  return (
+    <Menu.Root positioning={{ placement: "bottom-start", gutter: 6 }}>
+      <Menu.Trigger asChild>
+        <Button
+          variant="ghost"
+          size="sm"
+          minH="44px"
+          px={2}
+          gap={1}
+          borderRadius="md"
+          color={active ? "action.700" : "navy.800"}
+          fontSize="sm"
+          fontWeight={active ? "700" : "600"}
+          borderWidth="0"
+          borderBottomWidth={active ? "2px" : "0"}
+          borderBottomColor="action.600"
+          borderBottomStyle="solid"
+          _hover={{ color: "action.700", bg: "teal.50" }}
+        >
+          {group.label}
+          <ChevronDown size={16} aria-hidden="true" />
+        </Button>
+      </Menu.Trigger>
+      <Portal>
+        <Menu.Positioner>
+          <Menu.Content bg="canvas.50" borderWidth="1px" borderColor="navy.100" borderRadius="xl" boxShadow="lg" minW="14rem" py={2} _focusVisible={{ outline: "none" }}>
+            {group.items.map((item) => !isNavLink(item) ? (
+              <Menu.Item key={item.label} value={item.label} disabled px={0} borderRadius="md">
+                <Text as="span" display="flex" alignItems="center" gap={2} width="full" minH="44px" px={3} color="navy.400" fontSize="sm" fontWeight="600">
+                  {item.label}
+                  <ComingSoonTag />
+                </Text>
+              </Menu.Item>
+            ) : (
+              <Menu.Item
+                key={item.href}
+                value={item.href}
+                px={0}
+                borderRadius="md"
+                _highlighted={{ bg: "teal.50" }}
+                asChild
+              >
+                <Link href={item.href} aria-current={isActiveHref(pathname, item.href) ? "page" : undefined}>
+                  <Text
+                    as="span"
+                    display="flex"
+                    alignItems="center"
+                    width="full"
+                    minH="44px"
+                    px={3}
+                    color={isActiveHref(pathname, item.href) ? "action.700" : "navy.800"}
+                    fontSize="sm"
+                    fontWeight={isActiveHref(pathname, item.href) ? "700" : "600"}
+                  >
+                    {item.label}
+                  </Text>
+                </Link>
+              </Menu.Item>
+            ))}
+          </Menu.Content>
+        </Menu.Positioner>
+      </Portal>
+    </Menu.Root>
+  );
+}
+
+export function Header() {
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => setOpen(false), [pathname]);
+
+  const closeDrawer = () => setOpen(false);
+  const openGroups = navGroups.filter((group) => isActiveGroup(pathname, group)).map((group) => group.label);
+
+  return (
+    <Box as="header" bg="rgba(252, 250, 247, 0.96)" borderBottomWidth="1px" borderColor="navy.100" position="sticky" top={0} zIndex={50} backdropFilter="blur(12px)">
+      <Container maxW="7xl" py={2.5}>
+        <HStack justify="space-between" gap={4}>
+          <Box flexShrink={0}>
+            <Link href="/" aria-label="Hope4PKD home">
+              <LogoImage src={logo} alt="Hope4PKD Patients Initiative" width={166} w={{ base: "136px", sm: "166px" }} h="auto" priority />
+            </Link>
+          </Box>
+
+          <HStack as="nav" aria-label="Primary navigation" gap={1} display={{ base: "none", lg: "flex" }}>
+            <NavigationLink {...homeLink} />
+            {navGroups.map((group) => <NavigationMenu key={group.label} group={group} />)}
+            {standaloneNavLinks.map((link) => <NavigationLink key={link.href} {...link} />)}
           </HStack>
-          <Spacer />
-          <Link href="/donors">
-            <Button
-              variant="solid"
-              rounded="full"
-              fontSize="sm"
-              fontWeight="700"
-              px={6}
-              display={{ base: "none", md: "flex" }}
-            >
-              Donate
+
+          <HStack gap={2}>
+            <Button asChild size="sm">
+              <Link href={donateLink.href}>{donateLink.label}</Link>
             </Button>
-          </Link>
-          {!open && (
-            <IconButton
-              aria-label="Open menu"
-              variant="ghost"
-              display={{ base: "flex", md: "none" }}
-              onClick={onOpen}
-            >
-              <HiBars3 size="20" />
-            </IconButton>
-          )}
-          {open && (
-            <IconButton
-              aria-label="Close menu"
-              variant="ghost"
-              display={{ base: "flex", md: "none" }}
-              onClick={onClose}
-            >
-              <HiXMark size="20" />
-            </IconButton>
-          )}
+
+            <Drawer.Root open={open} onOpenChange={(details) => setOpen(details.open)} placement="end" size="xs">
+              <Drawer.Trigger asChild>
+                <IconButton
+                  aria-label="Open navigation menu"
+                  variant="ghost"
+                  display={{ base: "inline-flex", lg: "none" }}
+                  minW="44px"
+                  minH="44px"
+                >
+                  <MenuIcon aria-hidden="true" />
+                </IconButton>
+              </Drawer.Trigger>
+              <Portal>
+                <Drawer.Backdrop />
+                <Drawer.Positioner>
+                  <Drawer.Content bg="canvas.50">
+                    <Drawer.Header borderBottomWidth="1px" borderColor="navy.100">
+                      <Drawer.Title color="navy.900">Menu</Drawer.Title>
+                    </Drawer.Header>
+                    <Drawer.Body>
+                      <VStack as="nav" aria-label="Mobile navigation" align="stretch" gap={1}>
+                        <VStack align="stretch" gap={1} pb={2}>
+                          <NavigationLink {...homeLink} onClick={closeDrawer} />
+                        </VStack>
+
+                        <Accordion.Root collapsible multiple defaultValue={openGroups}>
+                          {navGroups.map((group) => (
+                            <Accordion.Item key={group.label} value={group.label} borderBottomWidth="1px" borderColor="navy.100">
+                              <Accordion.ItemTrigger minH="44px" px={3} py={2} cursor="pointer">
+                                <Text
+                                  as="span"
+                                  flex="1"
+                                  textAlign="start"
+                                  color={isActiveGroup(pathname, group) ? "action.700" : "navy.800"}
+                                  fontSize="md"
+                                  fontWeight="700"
+                                >
+                                  {group.label}
+                                </Text>
+                                <Accordion.ItemIndicator color="navy.500" />
+                              </Accordion.ItemTrigger>
+                              <Accordion.ItemContent>
+                                <Accordion.ItemBody pb={2}>
+                                  <VStack align="stretch" gap={0} pl={2}>
+                                    {group.items.map((item) => (
+                                      <NavigationItem key={item.label} item={item} onClick={closeDrawer} />
+                                    ))}
+                                  </VStack>
+                                </Accordion.ItemBody>
+                              </Accordion.ItemContent>
+                            </Accordion.Item>
+                          ))}
+                        </Accordion.Root>
+
+                        <VStack align="stretch" gap={1} pt={2}>
+                          {standaloneNavLinks.map((link) => (
+                            <NavigationLink key={link.href} {...link} onClick={closeDrawer} />
+                          ))}
+                        </VStack>
+                      </VStack>
+                    </Drawer.Body>
+                    <Drawer.Footer borderTopWidth="1px" borderColor="navy.100">
+                      <Button asChild width="full">
+                        <Link href={donateLink.href} onClick={closeDrawer}>{donateLink.label}</Link>
+                      </Button>
+                    </Drawer.Footer>
+                    <Drawer.CloseTrigger asChild>
+                      <CloseButton aria-label="Close navigation menu" minW="44px" minH="44px">
+                        <CloseIcon aria-hidden="true" />
+                      </CloseButton>
+                    </Drawer.CloseTrigger>
+                  </Drawer.Content>
+                </Drawer.Positioner>
+              </Portal>
+            </Drawer.Root>
+          </HStack>
         </HStack>
       </Container>
-
-      {/* Mobile Menu */}
-      {open && (
-        <Box
-          display={{ base: "block", md: "none" }}
-          bg="white"
-          borderTop="1px solid"
-          borderColor="gray.200"
-          py={4}
-        >
-          <Container maxW="7xl">
-            <VStack align="stretch" gap={1}>
-              <MobileNavLink
-                href="/about"
-                icon={<HiInformationCircle size="20" />}
-                onClick={onClose}
-              >
-                About
-              </MobileNavLink>
-              <MobileNavLink
-                href="/patients"
-                icon={<HiUsers size="20" />}
-                onClick={onClose}
-              >
-                Patients
-              </MobileNavLink>
-              <MobileNavLink
-                href="/campaigns"
-                icon={<HiCurrencyDollar size="20" />}
-                onClick={onClose}
-              >
-                Campaigns
-              </MobileNavLink>
-              <MobileNavLink
-                href="/#pkd-day"
-                icon={<HiCalendarDays size="20" />}
-                onClick={onClose}
-              >
-                PKD Day
-              </MobileNavLink>
-              <MobileNavLink
-                href="/donors"
-                icon={<HiHeart size="20" />}
-                onClick={onClose}
-              >
-                Sponsors
-              </MobileNavLink>
-              <Link href="/donors" onClick={onClose}>
-                <Button variant="solid" rounded="full" w="full" mt={2} py={5}>
-                  Donate
-                </Button>
-              </Link>
-            </VStack>
-          </Container>
-        </Box>
-      )}
     </Box>
   );
 }

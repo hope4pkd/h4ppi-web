@@ -1,160 +1,49 @@
-import {
-  Box,
-  Container,
-  SimpleGrid,
-  VStack,
-  HStack,
-  Text,
-  Link,
-  IconButton,
-  Image,
-} from "@chakra-ui/react";
-import { FaTwitter, FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
-import logo from "@public/assets/logo-new.png";
-
-const FooterSection = ({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) => (
-  <VStack align="start" gap={3}>
-    <Text fontWeight="semibold" color="gray.900">
-      {title}
-    </Text>
-    <VStack align="start" gap={2}>
-      {children}
-    </VStack>
-  </VStack>
-);
-
-const FooterLink = ({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) => (
-  <Link
-    href={href}
-    color="gray.600"
-    fontSize="sm"
-    _hover={{ color: "brand.500" }}
-  >
-    {children}
-  </Link>
-);
+import { Box, Container, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import Image from "next/image";
+import Link from "next/link";
+import logo from "@public/assets/logo-wordmark.png";
+import { ComingSoonTag } from "@/components/common/PublicPage";
+import { footerGroups, isNavLink } from "@/lib/navigation";
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
   return (
-    <Box as="footer" bg="gray.50">
-      <Container maxW="7xl" py={12}>
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap={8}>
-          {/* Brand */}
-          <VStack align="start" gap={4}>
-            <Image
-              src={logo.src}
-              alt="Hope4PKD Patients Initiative Logo"
-              width={180}
-              objectFit="contain"
-            />
-            <Text fontSize="sm" color="gray.600" maxW="sm">
-              A trusted patient support ecosystem for individuals living with
-              Polycystic Kidney Disease in Nigeria — connecting patients to
-              care, guidance, financial access, community, and hope.
-            </Text>
-            <HStack>
-              <IconButton
-                aria-label="Twitter"
-                variant="ghost"
-                size="sm"
-                color="gray.600"
-                _hover={{ color: "brand.500" }}
-              >
-                <FaTwitter />
-              </IconButton>
-              <IconButton
-                aria-label="Facebook"
-                variant="ghost"
-                size="sm"
-                color="gray.600"
-                _hover={{ color: "brand.500" }}
-              >
-                <FaFacebook />
-              </IconButton>
-              <IconButton
-                aria-label="Instagram"
-                variant="ghost"
-                size="sm"
-                color="gray.600"
-                _hover={{ color: "brand.500" }}
-              >
-                <FaInstagram />
-              </IconButton>
-              <IconButton
-                aria-label="LinkedIn"
-                variant="ghost"
-                size="sm"
-                color="gray.600"
-                _hover={{ color: "brand.500" }}
-              >
-                <FaLinkedin />
-              </IconButton>
-            </HStack>
-          </VStack>
+    <Box as="footer" bg="navy.900" color="white" borderTop="6px solid" borderColor="brightTeal.500">
+      <Container maxW="7xl" py={{ base: 12, md: 16 }}>
+        <VStack align="start" gap={5} mb={{ base: 10, lg: 12 }}>
+          <Box bg="white" borderRadius="lg" px={3} py={2}>
+            <Image src={logo} alt="Hope4PKD Patients Initiative" width={190} />
+          </Box>
+          <Text color="navy.100" fontSize="sm" lineHeight="1.7" maxW="lg">
+            Building a coordinated support pathway for people and families navigating polycystic kidney disease in Nigeria.
+          </Text>
+        </VStack>
 
-          {/* For Patients */}
-          <FooterSection title="For Patients">
-            <FooterLink href="/patients/register">
-              Register as Patient
-            </FooterLink>
-            <FooterLink href="/patients/find-donor">
-              Patient Navigation
-            </FooterLink>
-            <FooterLink href="/patients/support">Get Support</FooterLink>
-            <FooterLink href="/campaigns/create">Start Campaign</FooterLink>
-          </FooterSection>
-
-          {/* For Supporters */}
-          <FooterSection title="For Supporters">
-            <FooterLink href="/donors/register">Support a Patient</FooterLink>
-            <FooterLink href="/donors/process">How Support Works</FooterLink>
-            <FooterLink href="/donors/requirements">Partner With Us</FooterLink>
-            <FooterLink href="/donors/faq">FAQ</FooterLink>
-          </FooterSection>
-
-          {/* Support */}
-          <FooterSection title="Support & Info">
-            <FooterLink href="/about">About Hope4PKD</FooterLink>
-            {/* <FooterLink href="/about/adenike">Adenike Renal Centre</FooterLink> */}
-            <FooterLink href="/help">Help Center</FooterLink>
-            <FooterLink href="/contact">Contact Us</FooterLink>
-            <FooterLink href="/privacy">Privacy Policy</FooterLink>
-            <FooterLink href="/terms">Terms of Service</FooterLink>
-          </FooterSection>
+        <SimpleGrid columns={{ base: 1, sm: 2, lg: 5 }} gap={{ base: 10, lg: 8 }}>
+          {footerGroups.map((group) => (
+            <VStack key={group.label} align="start" gap={1}>
+              <Text fontWeight="800" color="pink.400" mb={2}>{group.label}</Text>
+              {group.items.map((item) => !isNavLink(item) ? (
+                <VStack key={item.label} as="span" align="start" gap={1} minH="44px" justify="center" py={1}>
+                  <Text as="span" color="navy.200" fontSize="sm" lineHeight="1.6">{item.label}</Text>
+                  <ComingSoonTag />
+                </VStack>
+              ) : (
+                <Link key={item.href} href={item.href}>
+                  <Text as="span" display="inline-flex" alignItems="center" minH="44px" color="navy.100" fontSize="sm" lineHeight="1.6" _hover={{ color: "white" }}>{item.label}</Text>
+                </Link>
+              ))}
+            </VStack>
+          ))}
         </SimpleGrid>
 
-        <Box h="1px" bg="gray.200" my={8} />
-
-        <HStack
-          justify="space-between"
-          flexDirection={{ base: "column", md: "row" }}
-          gap={4}
-        >
-          <Text fontSize="sm" color="gray.600">
-            © {currentYear} Hope4PKD Patients Initiative. All rights reserved.
-          </Text>
-          <HStack gap={6}>
-            {/* <Text fontSize="sm" color="gray.600">
-              🏥 Partner: Adenike Renal Centre
-            </Text> */}
-            <Text fontSize="sm" color="gray.600">
-              🇳🇬 Made in Nigeria
-            </Text>
+        <Box borderTopWidth="1px" borderColor="navy.700" mt={12} pt={6}>
+          <HStack justify="space-between" align={{ base: "start", md: "center" }} flexDirection={{ base: "column", md: "row" }} gap={3}>
+            <Text fontSize="sm" color="navy.200">© {new Date().getFullYear()} Hope4PKD Patients Initiative.</Text>
+            <HStack gap={5} flexWrap="wrap">
+              <Link href="/cookies"><Text as="span" display="inline-flex" alignItems="center" minH="44px" fontSize="sm" color="navy.200" _hover={{ color: "white" }}>Cookies</Text></Link>
+            </HStack>
           </HStack>
-        </HStack>
+        </Box>
       </Container>
     </Box>
   );

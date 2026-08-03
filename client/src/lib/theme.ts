@@ -2,12 +2,19 @@ import { createSystem, defaultConfig, defineConfig, defineRecipe } from "@chakra
 
 const buttonRecipe = defineRecipe({
   base: {
-    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: "full",
+    fontWeight: "700",
+    letterSpacing: "-0.01em",
+    transition: "background-color 160ms ease, color 160ms ease, border-color 160ms ease, transform 160ms ease",
+    _focusVisible: { outline: "3px solid", outlineColor: "pink.500", outlineOffset: "3px" },
   },
   variants: {
     variant: {
-      solid: { bg: "brand.500", color: "white", _hover: { bg: "brand.600", transform: "translateY(-2px)" } },
-      outline: { borderWidth: "1px", borderColor: "brand.500", color: "brand.500", _hover: { bg: "brand.50", transform: "translateY(-2px)" } },
+      solid: { bg: "action.600", color: "white", _hover: { bg: "action.700", transform: "translateY(-1px)" } },
+      outline: { borderWidth: "1px", borderColor: "action.600", color: "action.700", _hover: { bg: "teal.50", transform: "translateY(-1px)" } },
+      ghost: { color: "navy.900", _hover: { bg: "teal.50" } },
     },
     boxShadow: {
       lg: { boxShadow: "lg" },
@@ -17,7 +24,7 @@ const buttonRecipe = defineRecipe({
     },
     size: {
       sm: { h: "9", px: "4", fontSize: "sm" },
-      lg: { h: "12", minW: "44", px: "7", fontSize: "md", fontWeight: "600" },
+      lg: { minH: "12", px: "7", fontSize: "md" },
     },
   },
 })
@@ -26,64 +33,82 @@ const config = defineConfig({
   theme: {
     tokens: {
       colors: {
-        brand: {
-          50: { value: "#EAF7FC" },
-          100: { value: "#D9F2FA" },
-          200: { value: "#B9D8E8" },
-          300: { value: "#7FA6C4" },
-          400: { value: "#3E5B77" }, // muted body text
-          500: { value: "#16305C" }, // deep navy - primary
-          600: { value: "#122750" },
-          700: { value: "#0D1D3D" },
-          800: { value: "#09142B" },
-          900: { value: "#050B18" },
+        navy: {
+          50: { value: "#EFF4F8" },
+          100: { value: "#D7E2EA" },
+          200: { value: "#AFC1CF" },
+          300: { value: "#8199AB" },
+          400: { value: "#567186" },
+          500: { value: "#344F65" },
+          600: { value: "#243D52" },
+          700: { value: "#182F43" },
+          800: { value: "#10273B" },
+          900: { value: "#0B1F33" },
         },
-        sky: {
-          50: { value: "#EAF7FC" },
-          100: { value: "#D9F2FA" },
-          200: { value: "#7FDCEE" },
-          300: { value: "#35C3DC" },
-          400: { value: "#4FB3D6" },
-          500: { value: "#1B7FB8" },
-          600: { value: "#0F6E93" },
-          700: { value: "#0A5170" },
-          800: { value: "#0A2E3B" },
-          900: { value: "#052029" },
+        teal: {
+          50: { value: "#E6F8F7" },
+          100: { value: "#C3EFEE" },
+          200: { value: "#8FDEDC" },
+          300: { value: "#52C8C5" },
+          400: { value: "#1BAEAB" },
+          500: { value: "#009A98" },
+          600: { value: "#007A78" },
+          700: { value: "#006260" },
+          800: { value: "#084D4C" },
+          900: { value: "#083E3D" },
         },
-        accent: {
-          50: { value: "#FDEFF5" },
-          100: { value: "#FBE2EE" },
-          200: { value: "#F9CCE0" },
-          300: { value: "#F8BBD4" },
-          400: { value: "#F7B0CB" },
-          500: { value: "#F6A9C5" }, // hope pink - secondary
-          600: { value: "#E687AC" },
-          700: { value: "#C25580" },
-          800: { value: "#8E3057" },
-          900: { value: "#5C1637" }, // dark pink - text on pink
+        pink: {
+          50: { value: "#FFF0F6" },
+          100: { value: "#FFE0ED" },
+          200: { value: "#FFC5DC" },
+          300: { value: "#FFACCD" },
+          400: { value: "#FF9AC3" },
+          500: { value: "#F47FB0" },
+          600: { value: "#D95D91" },
+          700: { value: "#B53D72" },
+          800: { value: "#8E2B59" },
+          900: { value: "#651D40" },
+        },
+        action: {
+          50: { value: "#E6F8F7" },
+          100: { value: "#C3EFEE" },
+          200: { value: "#8FDEDC" },
+          300: { value: "#52C8C5" },
+          400: { value: "#1BAEAB" },
+          500: { value: "#008B89" },
+          600: { value: "#007A78" },
+          700: { value: "#006260" },
+          800: { value: "#084D4C" },
+          900: { value: "#083E3D" },
+        },
+        canvas: {
+          50: { value: "#FCFAF7" },
+        },
+        brightTeal: {
+          500: { value: "#00CECB" },
         },
       },
       fonts: {
         body: { value: "var(--font-gabarito), Gabarito, sans-serif" },
-        heading: { value: "var(--font-gabarito), Gabarito, sans-serif" },
+        heading: { value: "var(--font-newsreader), Newsreader, Georgia, serif" },
       },
     },
     semanticTokens: {
       colors: {
         // Simplified light-mode only semantic tokens
         bg: {
-          canvas: { value: "{colors.white}" },
-          default: { value: "{colors.white}" },
-          subtle: { value: "{colors.gray.50}" },
+          canvas: { value: "{colors.canvas.50}" },
+          default: { value: "{colors.canvas.50}" },
+          subtle: { value: "{colors.teal.50}" },
         },
         fg: {
-          default: { value: "{colors.gray.900}" },
-          muted: { value: "{colors.gray.600}" },
-          subtle: { value: "{colors.gray.500}" },
+          default: { value: "{colors.navy.900}" },
+          muted: { value: "{colors.navy.500}" },
+          subtle: { value: "{colors.navy.400}" },
         },
         border: {
-          default: { value: "{colors.gray.200}" },
-          muted: { value: "{colors.gray.100}" },
+          default: { value: "{colors.navy.100}" },
+          muted: { value: "{colors.navy.50}" },
         },
       },
     },

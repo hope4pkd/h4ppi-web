@@ -8,9 +8,9 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   return (
-    <Box minH="100vh" display="flex" flexDirection="column">
+    <Box minH="100dvh" display="flex" flexDirection="column" bg="canvas.50">
       <Header />
-      <Box as="main" flex="1">
+      <Box as="main" id="main-content" flex="1">
         {children}
       </Box>
       <Footer />

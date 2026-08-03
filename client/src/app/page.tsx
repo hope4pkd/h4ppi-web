@@ -1,17 +1,12 @@
-import { Layout } from "@/components/layout/Layout"
-import { HeroSection, PkdDayRibbon, WhatWeDoSection, AboutSection, HowItWorksSection, PartnerSection } from "@/components/home"
+import { HomePage } from "@/components/home/HomePage";
+import type { Metadata } from "next";
 
-// ProblemSection and CoreFocusSection are intentionally unmounted (superseded
-// by WhatWeDoSection in the Warm Sky Editorial redesign) but kept on disk.
+export const metadata: Metadata = {
+  title: "PKD support in Nigeria",
+  description: "Understand PKD, request coordinated support, explore verified campaigns, and see how Hope4PKD is building accountable patient support in Nigeria.",
+  alternates: { canonical: "/" },
+};
+
 export default function Home() {
-  return (
-    <Layout>
-      <HeroSection />
-      <PkdDayRibbon />
-      <WhatWeDoSection />
-      <AboutSection />
-      <HowItWorksSection />
-      <PartnerSection />
-    </Layout>
-  )
+  return <HomePage />;
 }
