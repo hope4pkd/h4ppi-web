@@ -56,8 +56,18 @@ export function EmptyState({ title, description, actionLabel, actionHref }: { ti
   );
 }
 
-export function ActionLink({ href, children, variant = "solid" }: { href: string; children: ReactNode; variant?: "solid" | "outline" | "ghost" }) {
-  return <Button asChild variant={variant} size="lg"><Link href={href}>{children}<ArrowRight aria-hidden="true" size={18} /></Link></Button>;
+export function ActionLink({ href, children, variant = "solid", onDark = false }: { href: string; children: ReactNode; variant?: "solid" | "outline" | "ghost"; onDark?: boolean }) {
+  const darkGhost = onDark && variant === "ghost";
+  return (
+    <Button
+      asChild
+      variant={variant}
+      size="lg"
+      {...(darkGhost ? { color: "white", _hover: { bg: "whiteAlpha.200", color: "white" } } : {})}
+    >
+      <Link href={href}>{children}<ArrowRight aria-hidden="true" size={18} /></Link>
+    </Button>
+  );
 }
 
 export function ComingSoonTag() {
