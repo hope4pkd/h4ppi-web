@@ -69,7 +69,7 @@ export function HomePage() {
               <HStack gap={3} flexWrap="wrap" pt={2}>
                 <ActionLink href="/support">Get support</ActionLink>
                 <ActionLink href="/campaigns" variant="outline">View campaigns</ActionLink>
-                <ActionLink href="/knowledge" variant="ghost">Understand PKD</ActionLink>
+                <ActionLink href="/knowledge" variant="ghost" onDark>Understand PKD</ActionLink>
               </HStack>
               <HStack color="navy.200" fontSize="sm" gap={2} pt={3}>
                 <ArrowDown size={16} aria-hidden="true" />
