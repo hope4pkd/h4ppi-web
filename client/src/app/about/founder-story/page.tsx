@@ -1,7 +1,8 @@
-import { ActionLink, ContentSection, PageHero } from "@/components/common/PublicPage";
+import { ActionLink, ContentSection, Eyebrow, MediaFrame, PageHero } from "@/components/common/PublicPage";
 import { Layout } from "@/components/layout/Layout";
-import { Grid, Heading, HStack, Text, VStack } from "@chakra-ui/react";
+import { Box, Grid, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import type { Metadata } from "next";
+import founderHospitalImage from "@public/assets/images/hospital.jpg";
 
 export const metadata: Metadata = { title: "Founder’s story", description: "The family experience and caregiver perspective behind Hope4PKD Patients Initiative.", alternates: { canonical: "/about/founder-story" } };
 
@@ -11,9 +12,17 @@ export default function FounderStoryPage() {
       <PageHero eyebrow="Founder’s story" title="From a family’s pain to an organised promise." description="Hope4PKD grew from Onyekachi Nwakaihe’s caregiver experience and a determination to build the coordinated support system the family could not find." />
       <ContentSection>
         <Grid templateColumns={{ base: "1fr", lg: "0.72fr 1.28fr" }} gap={{ base: 8, lg: 16 }}>
-          <VStack align="start" gap={4} position={{ lg: "sticky" }} top={{ lg: "120px" }} alignSelf="start">
-            <Text color="action.700" fontWeight="800">The founding commitment</Text>
-            <Heading as="h2" fontSize={{ base: "3xl", md: "5xl" }} lineHeight="1.05">No one should navigate PKD alone.</Heading>
+          {/* Not sticky: with the figure in it this rail is as tall as the prose column, so a sticky
+              rail would have no travel to move through and would simply never engage. */}
+          <VStack align="start" gap={6} alignSelf="start">
+            <VStack align="start" gap={4}>
+              <Eyebrow>The founding commitment</Eyebrow>
+              <Heading as="h2" textStyle="sectionTitle" color="navy.900">No one should navigate PKD alone.</Heading>
+            </VStack>
+            <Box as="figure" w="full" maxW={{ base: "420px", lg: "360px" }}>
+              <MediaFrame src={founderHospitalImage} alt="Onyekachi Nwakaihe in a surgical gown, cap and mask during a hospital visit as a caregiver" ratio={4 / 5} objectPosition="50% 82%" />
+              <Text as="figcaption" textStyle="bodySm" color="navy.400" pt={3}>Onyekachi Nwakaihe during a hospital visit as a caregiver.</Text>
+            </Box>
           </VStack>
           <VStack align="start" gap={6} color="navy.600" fontSize={{ base: "lg", md: "xl" }} lineHeight="1.8">
             <Text>The story of Hope4PKD is rooted in the experiences of Margaret Toyin Nwakaihe and John Ifeanyi Nwakaihe, and in the realities Onyekachi encountered while supporting family through the burden of dialysis and transplantation.</Text>

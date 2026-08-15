@@ -18,7 +18,7 @@ import { Box, Container, Grid, GridItem, Heading, HStack, SimpleGrid, Text, VSta
 import { ArrowDown, BookOpen, CircleCheck, Compass, HandHeart, HeartHandshake, Landmark, Megaphone, SearchCheck, Stethoscope, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import founderImage from "@public/assets/images/onyekachi.png";
+import founderImage from "@public/assets/images/hospital.jpg";
 import heroImage from "@public/assets/images/patient-caregiver-hands.png";
 
 const trustItems = ["Patient-centred", "Verification-led", "Privacy-aware", "Transparent by design"];
@@ -256,7 +256,7 @@ export function HomePage() {
             </VStack>
           </GridItem>
           <GridItem order={{ base: 1, lg: 2 }}>
-            <MediaFrame src={founderImage} alt="Portrait of Onyekachi Nwakaihe" ratio={1} />
+            <MediaFrame src={founderImage} alt="Onyekachi Nwakaihe in a surgical gown, cap and mask during a hospital visit as a caregiver" ratio={1} objectPosition="50% 56%" />
           </GridItem>
         </Grid>
       </ContentSection>

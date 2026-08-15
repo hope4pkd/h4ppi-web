@@ -574,10 +574,14 @@ export function MediaFrame({
   src,
   alt,
   ratio = 4 / 3,
+  objectPosition = "center",
 }: {
   src: StaticImageData | string;
   alt: string;
   ratio?: number;
+  /** Where the crop sits when the source and the frame disagree — a tall phone portrait in a 4/5
+   * frame is otherwise centred on the chest and loses the head. */
+  objectPosition?: string;
 }) {
   return (
     <Box
@@ -597,7 +601,7 @@ export function MediaFrame({
         "@media (prefers-reduced-motion: reduce)": { "&:hover img": { transform: "none" } },
       }}
     >
-      <Image src={src} alt={alt} fill sizes="(max-width: 1024px) 100vw, 50vw" style={{ objectFit: "cover" }} />
+      <Image src={src} alt={alt} fill sizes="(max-width: 1024px) 100vw, 50vw" style={{ objectFit: "cover", objectPosition }} />
     </Box>
   );
 }
