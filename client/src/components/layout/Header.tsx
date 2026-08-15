@@ -27,9 +27,14 @@ function NavigationLink({ href, label, onClick }: { href: string; label: string;
         color={active ? "action.700" : "navy.800"}
         fontSize={{ base: "md", lg: "sm" }}
         fontWeight={active ? "700" : "600"}
-        borderBottomWidth={active ? "2px" : "0"}
-        borderColor="action.600"
-        _hover={{ color: "action.700" }}
+        // The rule is always present and merely changes colour, so activating an item never
+        // shifts the row by 2px.
+        borderBottomWidth="2px"
+        borderColor={active ? "action.600" : "transparent"}
+        transitionProperty="color, border-color"
+        transitionDuration="fast"
+        transitionTimingFunction="standard"
+        _hover={{ color: "action.700", borderColor: active ? "action.600" : "teal.200" }}
       >
         {label}
       </Text>
@@ -65,15 +70,15 @@ function NavigationMenu({ group }: { group: NavGroup }) {
           minH="44px"
           px={2}
           gap={1}
-          borderRadius="md"
           color={active ? "action.700" : "navy.800"}
           fontSize="sm"
           fontWeight={active ? "700" : "600"}
           borderWidth="0"
-          borderBottomWidth={active ? "2px" : "0"}
-          borderBottomColor="action.600"
+          borderBottomWidth="2px"
+          borderBottomColor={active ? "action.600" : "transparent"}
           borderBottomStyle="solid"
-          _hover={{ color: "action.700", bg: "teal.50" }}
+          borderRadius="0"
+          _hover={{ color: "action.700", borderBottomColor: active ? "action.600" : "teal.200" }}
         >
           {group.label}
           <ChevronDown size={16} aria-hidden="true" />
@@ -125,19 +130,52 @@ function NavigationMenu({ group }: { group: NavGroup }) {
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => setOpen(false), [pathname]);
+
+  // Lifts the bar off the page once it starts overlapping content. The row keeps a fixed height and
+  // only the logo condenses, so nothing below the header reflows.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const closeDrawer = () => setOpen(false);
   const openGroups = navGroups.filter((group) => isActiveGroup(pathname, group)).map((group) => group.label);
 
   return (
-    <Box as="header" bg="rgba(252, 250, 247, 0.96)" borderBottomWidth="1px" borderColor="navy.100" position="sticky" top={0} zIndex={50} backdropFilter="blur(12px)">
-      <Container maxW="7xl" py={2.5}>
-        <HStack justify="space-between" gap={4}>
+    <Box
+      as="header"
+      bg="canvas.50/95"
+      borderBottomWidth="1px"
+      borderColor={scrolled ? "transparent" : "navy.100"}
+      boxShadow={scrolled ? "header" : "none"}
+      position="sticky"
+      top={0}
+      zIndex={50}
+      backdropFilter="blur(12px)"
+      transitionProperty="box-shadow, border-color"
+      transitionDuration="base"
+      transitionTimingFunction="standard"
+    >
+      <Container maxW="7xl" py={2}>
+        <HStack justify="space-between" gap={4} minH="60px">
           <Box flexShrink={0}>
-            <Link href="/" aria-label="Hope4PKD home">
-              <LogoImage src={logo} alt="Hope4PKD Patients Initiative" width={166} w={{ base: "136px", sm: "166px" }} h="auto" priority />
+            <Link href="/" aria-label="Hope4PKD home" style={{ display: "inline-flex", alignItems: "center", minHeight: "44px" }}>
+              <LogoImage
+                src={logo}
+                alt="Hope4PKD Patients Initiative"
+                width={166}
+                w={{ base: "132px", sm: scrolled ? "144px" : "166px" }}
+                h="auto"
+                priority
+                transitionProperty="width"
+                transitionDuration="base"
+                transitionTimingFunction="standard"
+              />
             </Link>
           </Box>
 
@@ -148,7 +186,7 @@ export function Header() {
           </HStack>
 
           <HStack gap={2}>
-            <Button asChild size="sm">
+            <Button asChild size="sm" minH="44px">
               <Link href={donateLink.href}>{donateLink.label}</Link>
             </Button>
 
@@ -157,7 +195,9 @@ export function Header() {
                 <IconButton
                   aria-label="Open navigation menu"
                   variant="ghost"
+                  size="sm"
                   display={{ base: "inline-flex", lg: "none" }}
+                  px={0}
                   minW="44px"
                   minH="44px"
                 >
@@ -219,7 +259,7 @@ export function Header() {
                       </Button>
                     </Drawer.Footer>
                     <Drawer.CloseTrigger asChild>
-                      <CloseButton aria-label="Close navigation menu" minW="44px" minH="44px">
+                      <CloseButton aria-label="Close navigation menu" size="sm" px={0} minW="44px" minH="44px">
                         <CloseIcon aria-hidden="true" />
                       </CloseButton>
                     </Drawer.CloseTrigger>

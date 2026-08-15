@@ -67,7 +67,7 @@ describe("navigation items", () => {
   });
 
   it("keeps the top-level nav shape the header and e2e specs rely on", () => {
-    expect(navGroups.map((group) => group.label)).toEqual(["About", "Get Support", "Learn", "Get Involved"]);
+    expect(navGroups.map((group) => group.label)).toEqual(["About", "Learn About PKD", "Get Support", "Get Involved"]);
     expect(standaloneNavLinks.map((link) => link.label)).toEqual(["Contact"]);
   });
 });

@@ -23,6 +23,12 @@ Legend: **Done** = built and passing `npm run check` · **In Progress** = built 
 
 - [Done] 34 public routes: home, about (+ founder story), help, contact, donate, support, campaigns,
   events, impact, knowledge, volunteer, partner, complaints, accessibility.
+- [Done] Learn About PKD section (2026-08-15): `/pkd`, `/pkd/symptoms-and-diagnosis`, `/pkd/treatment-and-care`,
+  copy in `content/pkd.ts`, each page closing with `SourceNote` (external source named, no reviewed label).
+- [Done] Navbar restructured to the owner's IA (2026-08-15): Home | About | Learn About PKD | Get Support |
+  Get Involved | Contact | Donate. New pages `/about/leadership` and `/support/process`; `/help` relabelled
+  "Patient & Caregiver Resources". Not in the nav and not yet written: **Our Ecosystem**, **Living With PKD**
+  — both need source material from the owner (see DECISIONS.log 2026-08-15).
 - [Done] Legal/policy suite driven by `content/policies.ts` (privacy, terms, refunds, safeguarding,
   whistleblowing, complaints, cookies, data-retention, medical disclaimer, conflict-of-interest, surplus policy).
 - [Done] Alias redirects for legacy routes (e.g. `/privacy` → `/policies/privacy`, `/donors` → `/donate`).
@@ -59,7 +65,9 @@ Legend: **Done** = built and passing `npm run check` · **In Progress** = built 
 ## Phase 5 — Knowledge centre — **Not Started**
 
 - [Not Started] Articles: `/knowledge` lists planned collections only; "Medical review is being established".
-  No article content, no reviewer accounts, no review workflow. The `[slug]` shell route was deleted.
+  No article content, no reviewer accounts, no review workflow. The `[slug]` shell route was deleted. It now
+  links out to the Learn About PKD pages so the page is not a dead end — those carry an external source and
+  explicitly claim no medical review, which is what the missing workflow would grant.
 
 ## Cross-cutting / housekeeping
 

@@ -37,13 +37,43 @@ test("navigation groups destinations behind a reduced top level", async ({ page 
     await hamburger.click();
     const mobileNav = page.getByRole("navigation", { name: "Mobile navigation" });
     await expect(mobileNav.getByRole("link", { name: "Home" })).toBeVisible();
-    await mobileNav.getByRole("button", { name: "Learn" }).click();
-    await expect(mobileNav.getByRole("link", { name: "Learn About PKD" })).toBeVisible();
+    await mobileNav.getByRole("button", { name: "Learn About PKD" }).click();
+    await expect(mobileNav.getByRole("link", { name: "What Is PKD?" })).toBeVisible();
   } else {
     const primaryNav = page.getByRole("navigation", { name: "Primary navigation" });
-    await expect(primaryNav.getByRole("button")).toHaveText(["About", "Get Support", "Learn", "Get Involved"]);
+    await expect(primaryNav.getByRole("button")).toHaveText(["About", "Learn About PKD", "Get Support", "Get Involved"]);
     await expect(primaryNav.getByRole("link")).toHaveText(["Home", "Contact"]);
-    await primaryNav.getByRole("button", { name: "Learn" }).click();
-    await expect(page.getByRole("menuitem", { name: "Learn About PKD" })).toBeVisible();
+    await primaryNav.getByRole("button", { name: "Learn About PKD" }).click();
+    await expect(page.getByRole("menuitem", { name: "What Is PKD?" })).toBeVisible();
+  }
+});
+
+test("the Learn About PKD pages explain the disease and name their source", async ({ page }) => {
+  await page.goto("/pkd");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Polycystic kidney disease");
+  await expect(page.getByRole("link", { name: "Symptoms and diagnosis" }).first()).toBeVisible();
+
+  await page.goto("/pkd/symptoms-and-diagnosis");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Symptoms and diagnosis");
+
+  await page.goto("/pkd/treatment-and-care");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Treatment and care");
+  // Clinical copy must always carry its provenance and the "not medically reviewed" statement.
+  await expect(page.getByText("Hope4PKD has not medically reviewed this page")).toBeVisible();
+  await expect(page.getByRole("link", { name: /Mayo Clinic/ })).toHaveAttribute("target", "_blank");
+});
+
+// Every nav item must resolve to a page that exists — nothing in the menu points at a route we plan to write.
+test("the nav destinations added for the owner's structure all resolve", async ({ page }) => {
+  const destinations = [
+    ["/about/leadership", "Who decides"],
+    ["/support/process", "What happens at each stage"],
+    ["/help", "Clear answers"],
+  ] as const;
+
+  for (const [route, heading] of destinations) {
+    const response = await page.goto(route);
+    expect(response?.status(), route).toBe(200);
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(heading);
   }
 });
