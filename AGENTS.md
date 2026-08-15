@@ -62,6 +62,9 @@ npm run test:e2e     # Playwright
   a destination that needs the missing service carries `comingSoon: true` and **no** `href`. Header and
   Footer branch on `isNavLink()`. Guarded by `src/lib/__tests__/navigation.test.ts`.
 - **Legal/policy copy** is data in `client/src/content/policies.ts`, rendered by `components/legal/`.
+- **Clinical copy** is data in `client/src/content/pkd.ts`, rendered by the `/pkd` routes. Every page built
+  from it ends with `SourceNote` — the external source is named and linked, and the page states that
+  Hope4PKD has not medically reviewed it. Do not add clinical claims without a named source.
 - **Copy constraints** are `client/scripts/check-content.mjs` — read it before writing user-facing text.
 
 ## Document map — when to read what

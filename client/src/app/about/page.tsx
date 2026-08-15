@@ -9,7 +9,7 @@ export default function AboutPage() {
   return (
     <Layout>
       <PageHero eyebrow="About Hope4PKD" title="A support system built from lived experience." description="Hope4PKD Patients Initiative is building a coordinated, accountable pathway for people and families navigating polycystic kidney disease in Nigeria.">
-        <HStack gap={3} flexWrap="wrap"><ActionLink href="/about/founder-story">Read the founder’s story</ActionLink><ActionLink href="/impact" variant="outline">How accountability works</ActionLink></HStack>
+        <HStack gap={3} flexWrap="wrap"><ActionLink href="/about/founder-story">Read the founder’s story</ActionLink><ActionLink href="/impact" variant="outline" surface="dark">How accountability works</ActionLink></HStack>
       </PageHero>
       <ContentSection>
         <Grid templateColumns={{ base: "1fr", lg: "0.8fr 1.2fr" }} gap={{ base: 8, lg: 16 }}>
@@ -34,7 +34,7 @@ export default function AboutPage() {
       </ContentSection>
       <ContentSection>
         <SectionHeading eyebrow="Governance & leadership" title="Profiles will be complete, attributable and approved." description="Current names and photographs remain source material until Hope4PKD approves biographies, roles, governance status and publication consent." />
-        <Box mt={10}><EmptyState title="Leadership profiles are under organisational review" description="The site will not imply a constituted advisory board or publish incomplete biographies. Registration details, governance documents, declared conflicts and approved LinkedIn profiles will appear here when confirmed." actionLabel="View the transparency framework" actionHref="/impact" /></Box>
+        <Box mt={10}><EmptyState title="Leadership profiles are under organisational review" description="The site will not imply a constituted advisory board or publish incomplete biographies. Registration details, governance documents, declared conflicts and approved LinkedIn profiles will appear here when confirmed." actionLabel="See how decisions are governed" actionHref="/about/leadership" /></Box>
       </ContentSection>
     </Layout>
   );

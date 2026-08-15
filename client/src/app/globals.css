@@ -45,6 +45,9 @@ body {
 }
 
 .skip-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   position: fixed;
   left: 16px;
   top: 12px;

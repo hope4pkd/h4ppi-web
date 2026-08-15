@@ -1,4 +1,4 @@
-import { ComingSoonAction, ContentSection, FeatureGrid, FeatureItem, PageHero, SectionHeading } from "@/components/common/PublicPage";
+import { ComingSoonAction, ContentSection, FeatureGrid, FeatureItem, PageHero, SectionHeading, TextLink } from "@/components/common/PublicPage";
 import { Layout } from "@/components/layout/Layout";
 import { Box, HStack, Text, VStack } from "@chakra-ui/react";
 import type { Metadata } from "next";
@@ -21,6 +21,7 @@ export default function SupportPage() {
           <FeatureItem number="05" title="Assessment">Medical and programme reviewers verify the case, costs and suitable support without exposing private records.</FeatureItem>
           <FeatureItem number="06" title="Support & follow-up">Approved plans move through safe status updates, delivery, follow-up, completion or withdrawal.</FeatureItem>
         </FeatureGrid>
+        <TextLink href="/support/process">See what gets decided at each stage</TextLink>
       </ContentSection>
       <ContentSection tone="pink">
         <SectionHeading eyebrow="Before you begin" title="Safety, eligibility and expectations." />

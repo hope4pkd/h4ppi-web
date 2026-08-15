@@ -7,15 +7,20 @@ const buttonRecipe = defineRecipe({
     borderRadius: "full",
     fontWeight: "700",
     letterSpacing: "-0.01em",
-    transition: "background-color 160ms ease, color 160ms ease, border-color 160ms ease, transform 160ms ease",
+    transitionProperty: "background-color, color, border-color, transform, box-shadow",
+    transitionDuration: "fast",
+    transitionTimingFunction: "standard",
     _focusVisible: { outline: "3px solid", outlineColor: "pink.500", outlineOffset: "3px" },
   },
   variants: {
     variant: {
-      solid: { bg: "action.600", color: "white", _hover: { bg: "action.700", transform: "translateY(-1px)" } },
+      solid: { bg: "action.600", color: "white", boxShadow: "soft", _hover: { bg: "action.700", transform: "translateY(-1px)", boxShadow: "lift" } },
       outline: { borderWidth: "1px", borderColor: "action.600", color: "action.700", _hover: { bg: "teal.50", transform: "translateY(-1px)" } },
       ghost: { color: "navy.900", _hover: { bg: "teal.50" } },
     },
+    // boxShadow / transition are variant axes rather than style props: a fix-components.js migration
+    // artifact flagged in DESIGN_SPEC.md. Left in place pending owner confirmation — removing them is a
+    // separate change, and call sites may still pass boxShadow="lg".
     boxShadow: {
       lg: { boxShadow: "lg" },
     },
@@ -26,6 +31,10 @@ const buttonRecipe = defineRecipe({
       sm: { h: "9", px: "4", fontSize: "sm" },
       lg: { minH: "12", px: "7", fontSize: "md" },
     },
+  },
+  defaultVariants: {
+    variant: "solid",
+    size: "lg",
   },
 })
 
@@ -92,6 +101,40 @@ const config = defineConfig({
         body: { value: "var(--font-gabarito), Gabarito, sans-serif" },
         heading: { value: "var(--font-newsreader), Newsreader, Georgia, serif" },
       },
+      // Elevation is tinted with navy rather than black so shadows read as part of the palette.
+      // Wide radius, low opacity: depth you notice only when it is missing.
+      shadows: {
+        soft: { value: "0 1px 2px rgba(11, 31, 51, 0.04), 0 8px 24px -12px rgba(11, 31, 51, 0.10)" },
+        lift: { value: "0 2px 4px rgba(11, 31, 51, 0.05), 0 18px 40px -20px rgba(11, 31, 51, 0.18)" },
+        float: { value: "0 4px 8px rgba(11, 31, 51, 0.05), 0 32px 70px -30px rgba(11, 31, 51, 0.28)" },
+        header: { value: "0 1px 0 rgba(11, 31, 51, 0.06), 0 10px 30px -24px rgba(11, 31, 51, 0.45)" },
+      },
+      durations: {
+        fast: { value: "160ms" },
+        base: { value: "240ms" },
+        slow: { value: "420ms" },
+      },
+      easings: {
+        standard: { value: "cubic-bezier(0.2, 0.8, 0.2, 1)" },
+        entrance: { value: "cubic-bezier(0.16, 1, 0.3, 1)" },
+      },
+      sizes: {
+        // Line-length caps. Body copy that runs the full 7xl container is the fastest way to look untended.
+        measureTight: { value: "54ch" },
+        measure: { value: "68ch" },
+        measureWide: { value: "78ch" },
+      },
+      // Spacing rhythm. Fluid like the type scale, and for the same reason: these are relationships, not
+      // numbers, so they must not be re-typed at a call site. ContentSection and the layerStyles below own
+      // them — a page should never need to pass `mt` or `p` to get the house rhythm.
+      spacing: {
+        // Section heading -> its content, and between sibling blocks inside a section.
+        blockGap: { value: "clamp(2.5rem, 1.9rem + 2.4vw, 3.5rem)" },
+        // Padding for a card sitting in a grid.
+        cardPad: { value: "clamp(1.5rem, 1.35rem + 0.6vw, 1.75rem)" },
+        // Padding for a large standalone panel.
+        panelPad: { value: "clamp(1.5rem, 1.1rem + 1.6vw, 2.5rem)" },
+      },
     },
     semanticTokens: {
       colors: {
@@ -119,9 +162,170 @@ const config = defineConfig({
       xl: "1280px",
       "2xl": "1536px",
     },
+    // The type scale. Fluid clamp() values rather than responsive objects: one token value, no visible
+    // step at md, and headings that keep their proportions at every width. Reference these with
+    // textStyle="…" — never re-type fontSize/lineHeight/letterSpacing at a call site.
+    textStyles: {
+      display: {
+        value: {
+          fontFamily: "heading",
+          fontSize: "clamp(2.75rem, 1.6rem + 4.8vw, 4.5rem)",
+          lineHeight: "0.94",
+          letterSpacing: "-0.045em",
+          fontWeight: "500",
+        },
+      },
+      pageTitle: {
+        value: {
+          fontFamily: "heading",
+          fontSize: "clamp(2.25rem, 1.5rem + 3.2vw, 3.75rem)",
+          lineHeight: "1.0",
+          letterSpacing: "-0.035em",
+          fontWeight: "500",
+        },
+      },
+      sectionTitle: {
+        value: {
+          fontFamily: "heading",
+          fontSize: "clamp(1.875rem, 1.35rem + 2.2vw, 3rem)",
+          lineHeight: "1.06",
+          letterSpacing: "-0.03em",
+          fontWeight: "500",
+        },
+      },
+      cardTitle: {
+        value: {
+          fontFamily: "heading",
+          fontSize: "clamp(1.375rem, 1.2rem + 0.6vw, 1.625rem)",
+          lineHeight: "1.2",
+          letterSpacing: "-0.02em",
+          fontWeight: "500",
+        },
+      },
+      // Card and feature headings opt back to the sans face — serif at small sizes reads as decoration.
+      featureTitle: {
+        value: {
+          fontFamily: "body",
+          fontSize: "1.25rem",
+          lineHeight: "1.3",
+          letterSpacing: "-0.015em",
+          fontWeight: "700",
+        },
+      },
+      eyebrow: {
+        value: {
+          fontFamily: "body",
+          fontSize: "0.875rem",
+          lineHeight: "1.4",
+          letterSpacing: "0.14em",
+          fontWeight: "800",
+          textTransform: "uppercase",
+        },
+      },
+      lede: {
+        value: {
+          fontFamily: "body",
+          fontSize: "clamp(1.0625rem, 1rem + 0.45vw, 1.25rem)",
+          lineHeight: "1.65",
+          letterSpacing: "-0.005em",
+        },
+      },
+      body: {
+        value: { fontFamily: "body", fontSize: "1rem", lineHeight: "1.7" },
+      },
+      bodySm: {
+        value: { fontFamily: "body", fontSize: "0.9375rem", lineHeight: "1.65" },
+      },
+      quote: {
+        value: {
+          fontFamily: "heading",
+          fontSize: "clamp(1.5rem, 1.1rem + 1.6vw, 2rem)",
+          lineHeight: "1.3",
+          letterSpacing: "-0.02em",
+          fontStyle: "italic",
+        },
+      },
+      // Ordinal markers on ledger rows and pathway steps.
+      counter: {
+        value: {
+          fontFamily: "body",
+          fontSize: "0.875rem",
+          lineHeight: "1",
+          letterSpacing: "0.08em",
+          fontWeight: "800",
+          fontVariantNumeric: "tabular-nums",
+        },
+      },
+    },
+    // Surfaces. Every card in the app was the same border/radius trio copy-pasted; these name it once.
+    // Padding lives here too, so a surface cannot be padded two different ways at two call sites.
+    // `card*` = sits in a grid (cardPad). `panel*` = large and standalone (panelPad).
+    layerStyles: {
+      card: {
+        value: {
+          bg: "white",
+          borderWidth: "1px",
+          borderColor: "navy.100",
+          borderRadius: "2xl",
+          boxShadow: "soft",
+          p: "cardPad",
+        },
+      },
+      cardInteractive: {
+        value: {
+          bg: "white",
+          borderWidth: "1px",
+          borderColor: "navy.100",
+          borderRadius: "2xl",
+          boxShadow: "soft",
+          p: "cardPad",
+          transitionProperty: "box-shadow, border-color, transform",
+          transitionDuration: "base",
+          transitionTimingFunction: "standard",
+          _hover: { boxShadow: "lift", borderColor: "teal.200", transform: "translateY(-2px)" },
+        },
+      },
+      panel: {
+        value: {
+          bg: "white",
+          borderWidth: "1px",
+          borderColor: "navy.100",
+          borderRadius: "2xl",
+          boxShadow: "soft",
+          p: "panelPad",
+        },
+      },
+      panelDark: {
+        value: {
+          bg: "navy.900",
+          color: "white",
+          borderRadius: "2xl",
+          boxShadow: "float",
+          p: "panelPad",
+        },
+      },
+      panelTeal: {
+        value: { bg: "teal.50", borderWidth: "1px", borderColor: "teal.200", borderRadius: "2xl", p: "panelPad" },
+      },
+      panelPink: {
+        value: { bg: "pink.50", borderWidth: "1px", borderColor: "pink.200", borderRadius: "2xl", p: "panelPad" },
+      },
+      hairline: {
+        value: { borderTopWidth: "1px", borderColor: "navy.100" },
+      },
+      hairlineOnDark: {
+        value: { borderTopWidth: "1px", borderColor: "whiteAlpha.200" },
+      },
+    },
     recipes: {
       button: buttonRecipe,
     },
+  },
+  globalCss: {
+    // Stops the orphaned last word that makes an otherwise good headline look untended. Progressive —
+    // browsers without text-wrap simply keep the current behaviour.
+    "h1, h2, h3, h4, blockquote": { textWrap: "balance" },
+    p: { textWrap: "pretty" },
   },
 })
 
