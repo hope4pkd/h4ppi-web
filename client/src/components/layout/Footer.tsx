@@ -21,7 +21,7 @@ export function Footer() {
               <Image src={logo} alt="Hope4PKD Patients Initiative" width={190} />
             </Box>
             <Text textStyle="lede" color="navy.100" maxW="measureTight">
-              Building a coordinated support pathway for people and families navigating polycystic kidney disease in Nigeria.
+              PKD information and coordinated support planning for people and families in Nigeria.
             </Text>
           </VStack>
           <HStack gap={3} flexWrap="wrap">

@@ -28,7 +28,7 @@ export default function PkdTreatmentAndCarePage() {
       <PageHero
         eyebrow="Learn about PKD"
         title="Treatment and care"
-        description="There is no cure for PKD yet. There is a great deal of care — and most of it works better the earlier it starts."
+        description="PKD has no cure yet, but treatment can slow kidney damage and manage complications. Starting care early matters."
       >
         <HStack gap={3} flexWrap="wrap">
           <ActionLink href="/support">Get support</ActionLink>
@@ -40,16 +40,15 @@ export default function PkdTreatmentAndCarePage() {
 
       <ContentSection>
         <Grid templateColumns={{ base: "1fr", lg: "0.8fr 1.2fr" }} gap={{ base: 8, lg: 16 }}>
-          <SectionHeading eyebrow="Treatment" title="Not a cure. Still worth everything." />
+          <SectionHeading eyebrow="Treatment" title="Protect kidney function and manage complications." />
           <VStack align="start" gap={5} color="navy.500" textStyle="lede" maxW="measure">
             <Text>
-              Treatment for PKD works on two fronts at once: slowing the damage, and dealing with the
-              complications as they come. Neither removes the cysts, and both change how many good years the
-              kidneys have.
+              Treatment aims to slow kidney damage and manage complications as they appear. It does not
+              remove the cysts, but it can help the kidneys work for longer.
             </Text>
             <Text>
-              None of this is self-prescribed. Doses, diets and painkiller choices depend on how the kidneys
-              are working right now, which only monitoring can tell you.
+              A healthcare professional should guide medicines, diet and pain relief using current kidney
+              test results.
             </Text>
           </VStack>
         </Grid>
@@ -63,8 +62,8 @@ export default function PkdTreatmentAndCarePage() {
       <ContentSection tone="teal">
         <SectionHeading
           eyebrow="Ongoing care"
-          title="What care watches for."
-          description="Not everyone gets all of these, and several are treatable — which is exactly why ongoing monitoring matters more than waiting for something to go wrong."
+          title="Complications that ongoing care monitors."
+          description="People experience different complications. Regular monitoring helps a healthcare professional find and treat them earlier."
         />
         <FeatureGrid columns={3}>
           {pkdComplications.map((complication) => (
@@ -79,10 +78,9 @@ export default function PkdTreatmentAndCarePage() {
         <VStack align="start" gap={5} maxW="measure">
           <SectionHeading eyebrow="Before you change anything" title="Check the painkillers." />
           <Text textStyle="lede" color="navy.700">
-            The most common everyday mistake is reaching for an anti-inflammatory painkiller. Many of them can
-            worsen kidney function, so pain relief, blood pressure medicines, diet changes, pregnancy plans,
-            dialysis and transplantation are all conversations to have with a qualified professional who knows
-            your results — not decisions to take from a web page, including this one.
+            Some anti-inflammatory painkillers can worsen kidney function. Ask a qualified professional who
+            knows your results about pain relief, blood pressure medicines, diet changes, pregnancy plans,
+            dialysis and transplantation.
           </Text>
           <TextLink href="/medical-disclaimer">Read our medical disclaimer</TextLink>
         </VStack>
@@ -93,14 +91,13 @@ export default function PkdTreatmentAndCarePage() {
       </ContentSection>
 
       <StatementBand
-        eyebrow="What Hope4PKD is solving"
-        statement="Knowing the treatment exists is not the same as being able to reach it."
+        eyebrow="The access gap"
+        statement="Access to treatment depends on the system around the patient."
       >
         <Text textStyle="lede" color="navy.100" maxW="measure">
-          Monitoring, medicines, dialysis and transplantation all assume a system around the patient:
-          somewhere to ask questions, someone to verify a need, and a way to fund care that does not collapse
-          on one family. Hope4PKD is building that pathway in Nigeria — with consent, verification and
-          transparency built in rather than promised later.
+          Monitoring, medicines, dialysis and transplantation require somewhere to ask questions, someone to
+          verify a need and a way to fund care without placing the full burden on one family. Hope4PKD is
+          developing that pathway in Nigeria with consent, verification and transparent reporting.
         </Text>
         <HStack gap={3} flexWrap="wrap" pt={2}>
           <ActionLink href="/support" surface="dark">

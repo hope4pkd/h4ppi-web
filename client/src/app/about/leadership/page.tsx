@@ -15,7 +15,7 @@ import { Layout } from "@/components/layout/Layout";
 export const metadata: Metadata = {
   title: "Leadership & governance",
   description:
-    "How Hope4PKD governs decisions about cases, money and publication — and what must be approved before leadership profiles and registration details are published.",
+    "How Hope4PKD governs decisions about cases, money and publication, and the approvals required before leadership profiles and registration details are published.",
   alternates: { canonical: "/about/leadership" },
 };
 
@@ -29,8 +29,8 @@ export default function LeadershipPage() {
     <Layout>
       <PageHero
         eyebrow="Leadership & governance"
-        title="Who decides, and what constrains them."
-        description="Hope4PKD handles medical information, patient consent and other people’s money. Governance is not paperwork around that work — it is the work."
+        title="How Hope4PKD separates authority."
+        description="Governance determines who can access medical information, approve patient stories and authorise the use of donated money."
       >
         <HStack gap={3} flexWrap="wrap">
           <ActionLink href="/impact">See the transparency framework</ActionLink>
@@ -46,12 +46,11 @@ export default function LeadershipPage() {
           <VStack align="start" gap={5} color="navy.500" textStyle="lede" maxW="measure">
             <Text>
               Eligibility, medical verification and financial approval are three separate decisions taken by
-              different roles. Access follows least privilege and case assignment, so reviewing one part of a
-              case does not open the rest of it.
+              different roles. Staff can access only the part of a case their role and assignment require.
             </Text>
             <Text>
-              Sensitive actions generate append-only records with actor, reason and time. That trail is what
-              makes a decision reviewable later — including by the patient it concerns.
+              Sensitive actions create a permanent record of who acted, why and when. The record allows later
+              review, including by the patient the decision concerns.
             </Text>
           </VStack>
         </Grid>
@@ -60,8 +59,8 @@ export default function LeadershipPage() {
       <ContentSection tone="teal">
         <SectionHeading
           eyebrow="Standing rules"
-          title="The constraints that do not move."
-          description="These are in force now and shape everything the service will be allowed to do when it is built."
+          title="Rules that apply to every decision."
+          description="These rules apply now and will constrain the service when it is built."
         />
         <FeatureGrid columns={3}>
           <FeatureItem title="Separation of duties">
@@ -94,12 +93,12 @@ export default function LeadershipPage() {
       <ContentSection>
         <SectionHeading
           eyebrow="What is still pending"
-          title="Names come last, not first."
+          title="Publish names only after consent and approval."
           description="Photographs and roles exist internally. They stay there until the people in them have approved how they are described publicly."
         />
         <EmptyState
           title="Leadership profiles are under organisational review"
-          description="The site will not imply a constituted advisory board or publish incomplete biographies. Registration details, governance documents, declared conflicts and approved profiles will appear here when confirmed."
+          description="Leadership pages will name only confirmed roles and use approved biographies. Registration details, governance documents, declared conflicts and approved profiles will appear here when confirmed."
           actionLabel="Read the conflict of interest policy"
           actionHref="/conflict-of-interest"
         />

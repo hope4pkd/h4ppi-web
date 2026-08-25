@@ -42,12 +42,12 @@ export function SourceNote({
       <VStack align="start" gap={2}>
         <Eyebrow>Where this comes from</Eyebrow>
         <Text textStyle="bodySm" color="navy.500">
-          Adapted from{" "}
+          This page adapts information from{" "}
           <ChakraLink href={href} target="_blank" rel="noopener noreferrer" {...inlineLink}>
             {publisher}, “{title}”
           </ChakraLink>
-          . Hope4PKD has not medically reviewed this page, so it carries no reviewed label. It is general
-          information, not advice about your own care — speak with a qualified healthcare professional, and
+          . Hope4PKD has not medically reviewed it, and it carries no reviewed label. It provides general
+          information. For advice about your own care, speak with a qualified healthcare professional and
           read our{" "}
           <Link href="/medical-disclaimer">
             <Text as="span" {...inlineLink}>

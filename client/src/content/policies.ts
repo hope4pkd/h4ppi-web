@@ -5,10 +5,10 @@ export const policies = {
     title: "Privacy notice",
     summary: "How Hope4PKD intends to collect, use, protect and respect personal information across public enquiries and the patient pathway.",
     sections: [
-      ["Scope", "This notice covers website enquiries, support requests, onboarding, case operations, donations and public-content consent. Hope4PKD must publish verified registration, controller and DPO contact details before processing begins."],
+      ["Scope", "This notice covers website enquiries, support requests, onboarding, case operations, donations and public-content consent. Hope4PKD must publish verified registration, controller and data protection officer contact details before processing begins."],
       ["Information collected", "The initial support request is limited to identity and contact details, state, relationship to the patient, broad diagnosis status, support need, a short summary and consent records. Medical records are collected only after protected onboarding is operational."],
-      ["Purpose and lawful basis", "Information is used to review requests, manage consent, verify cases, coordinate approved support, prevent abuse, meet legal obligations and send safe service messages. A final lawful-basis schedule requires DPO and legal approval."],
-      ["Access and sharing", "Access follows staff role and case assignment. Healthcare, payment, email, hosting, scanning and other vendors may process limited data only under approved contracts and data-processing terms. Public campaign data comes from a separate consented projection."],
+      ["Purpose and lawful basis", "Information is used to review requests, manage consent, verify cases, coordinate approved support, prevent abuse, meet legal obligations and send safe service messages. A final lawful-basis schedule requires data protection and legal approval."],
+      ["Access and sharing", "Access follows staff role and case assignment. Healthcare, payment, email, hosting, scanning and other vendors may process limited data only under approved contracts and data-processing terms. Public campaign data comes from a separate record approved through consent."],
       ["Retention and rights", "Hope4PKD will honour applicable access, correction, deletion, restriction, objection and consent-withdrawal rights. The retention schedule, request contact and approved cross-border safeguards must be published before launch."],
     ],
   },
@@ -69,7 +69,7 @@ export const policies = {
     sections: [
       ["Payment method", "Online payments will be initialised on the server and completed through Paystack-hosted checkout. Hope4PKD will not store card data."],
       ["Designations", "Donors may choose an approved public campaign or approved general fund. A designation does not bypass case, allocation or disbursement controls."],
-      ["Confirmation", "Only signature-verified, idempotent provider webhooks confirm payment. Receipts identify the donation and permitted allocation without disclosing patient medical details."],
+      ["Confirmation", "Only a signature-verified payment-provider message can confirm payment, and the same message cannot record a donation twice. Receipts identify the donation and permitted allocation without disclosing patient medical details."],
       ["Fees and recurring support", "The approved policy must state fee treatment, subscription management, failed payments, cancellations, settlement and financial reporting before checkout opens."],
     ],
   },
@@ -100,7 +100,7 @@ export const policies = {
       ["Purpose limitation", "Records are retained only while needed for the stated programme, legal, safeguarding, audit or financial purpose."],
       ["Record schedule", "Separate periods must be approved for enquiries, declined requests, active and closed cases, medical documents, consent, donations, audit logs, complaints, staff access and backups."],
       ["Deletion", "Expiry triggers controlled deletion or irreversible anonymisation across primary data, storage and recoverable backups, subject to lawful holds."],
-      ["Launch gate", "Medical uploads remain disabled until the DPO and legal reviewer approve the retention schedule and deletion evidence process."],
+      ["Launch gate", "Medical uploads remain disabled until data protection and legal reviewers approve the retention schedule and deletion evidence process."],
     ],
   },
   refunds: {
