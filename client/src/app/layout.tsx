@@ -10,7 +10,7 @@ const gabarito = Gabarito({ subsets: ["latin"], variable: "--font-gabarito", dis
 const newsreader = Newsreader({ subsets: ["latin"], variable: "--font-newsreader", display: "swap" });
 
 const appName = "Hope4PKD Patients Initiative";
-const description = "A coordinated support pathway for people and families navigating polycystic kidney disease in Nigeria.";
+const description = "PKD information and coordinated support planning for people and families in Nigeria.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),

@@ -22,20 +22,20 @@ export const pkdSource = {
 
 /** The one-paragraph answer, reused on the hub page and in page metadata. */
 export const pkdInBrief =
-  "Polycystic kidney disease is an inherited condition in which clusters of fluid-filled sacs, called cysts, grow in the kidneys. As the cysts multiply the kidneys enlarge and gradually work less well, and cysts can form in the liver and other organs too.";
+  "Polycystic kidney disease (PKD) is most often inherited. It causes clusters of fluid-filled sacs, called cysts, to grow mainly in the kidneys. Over time, the cysts can enlarge the kidneys and reduce how well they work. Cysts may also form in the liver and other organs.";
 
 export const pkdTypes = [
   {
     eyebrow: "Autosomal dominant · ADPKD",
     title: "The common adult form",
     description:
-      "The most common inherited kidney disease. Signs often begin between the ages of 30 and 40, so many people live for years without knowing they have it. Only one parent needs the gene change to pass it on, and each child then has a 50% chance of inheriting the condition.",
+      "ADPKD is the most common inherited kidney disease. Signs often begin between the ages of 30 and 40, so someone may live with it for years without knowing. When one parent has ADPKD, each child has a 50% chance of inheriting it.",
   },
   {
     eyebrow: "Autosomal recessive · ARPKD",
     title: "The rarer childhood form",
     description:
-      "Far less common and usually more serious. Symptoms can appear shortly after birth, or later in childhood or the teenage years. Both parents must carry the gene change, and each child then has a 25% chance of inheriting the condition.",
+      "ARPKD is far less common than ADPKD and usually more serious. Symptoms can appear shortly after birth, later in childhood or during the teenage years. When both parents carry the changed gene, each child has a 25% chance of inheriting it.",
   },
 ] as const satisfies readonly (PkdEntry & { eyebrow: string })[];
 
@@ -59,7 +59,7 @@ export const pkdComplications = [
   {
     title: "High blood pressure",
     description:
-      "Common in PKD, and untreated it damages the kidneys further while raising the risk of heart disease and stroke. It is also one of the most treatable parts of the condition.",
+      "High blood pressure is common in PKD. Without treatment, it can damage the kidneys further and raise the risk of heart disease and stroke. Blood pressure can usually be treated.",
   },
   {
     title: "Loss of kidney function",
@@ -69,12 +69,12 @@ export const pkdComplications = [
   {
     title: "Ongoing pain",
     description:
-      "Usually felt in the side or back. It can come from a cyst that has bled, an infection, or a kidney stone, so new or severe pain is worth reporting rather than enduring.",
+      "Pain is usually felt in the side or back. It can come from a cyst that has bled, an infection or a kidney stone. Report new or severe pain to a healthcare professional.",
   },
   {
     title: "Cysts in the liver",
     description:
-      "Liver cysts become more likely with age and affect almost everyone with PKD eventually. Women tend to develop larger cysts than men.",
+      "Liver cysts become more likely with age and usually do not stop the liver working. Women tend to develop larger cysts than men.",
   },
   {
     title: "Brain aneurysm",
@@ -98,21 +98,63 @@ export const pkdComplications = [
   },
 ] as const satisfies readonly PkdEntry[];
 
+/**
+ * Practical, non-clinical preparation for an appointment. Deliberately separated from the sourced
+ * clinical exports above and below: none of these lines states a fact about the disease, so none of
+ * them needs the Mayo reference to stand behind it. They are here rather than inline in the page for
+ * the same reason as the rest of this file — this copy gets reviewed as a body.
+ *
+ * /pkd/early-detection makes no clinical claim that is not already carried by pkdTypes, pkdSymptoms,
+ * pkdDiagnosis or pkdTreatments.
+ */
+export const pkdAppointmentPrep = [
+  {
+    title: "Write down the family history",
+    description:
+      "Note who in the family has been diagnosed with PKD or kidney failure, and at roughly what age. A clinician weighs family history alongside what a scan shows.",
+  },
+  {
+    title: "Bring your blood pressure readings",
+    description:
+      "If blood pressure has been measured anywhere — a pharmacy, a previous appointment, a home monitor — bring the numbers and the dates rather than a summary from memory.",
+  },
+  {
+    title: "List every symptom, including the vague ones",
+    description:
+      "Pain in the side or back, headaches, blood in the urine, repeated urinary infections. Say when each began and how often it happens.",
+  },
+  {
+    title: "List your medicines",
+    description:
+      "Include anything bought without a prescription, especially painkillers, and any herbal or traditional preparations.",
+  },
+  {
+    title: "Ask what the result would change",
+    description:
+      "Ask what a scan would show at your age, what happens if it finds cysts, and what happens if it does not. Ask what it costs before agreeing to it.",
+  },
+  {
+    title: "Take someone with you",
+    description:
+      "A second person remembers what was said. If you are attending on behalf of a relative, agree beforehand what you are allowed to ask about.",
+  },
+] as const satisfies readonly PkdEntry[];
+
 export const pkdDiagnosis = [
   {
     title: "Ultrasound",
     description:
-      "The usual first look. A handheld probe sends sound waves through the abdomen and builds an image of the kidneys, with no radiation and no injection.",
+      "Ultrasound is usually the first scan. A handheld probe sends sound waves through the abdomen to create an image of the kidneys, without radiation or an injection.",
   },
   {
     title: "CT scan",
     description:
-      "X-ray imaging taken from many angles inside a doughnut-shaped scanner. It picks up smaller cysts than ultrasound can.",
+      "A CT scan takes X-ray images from many angles inside a doughnut-shaped scanner. It can detect smaller cysts than ultrasound.",
   },
   {
     title: "MRI scan",
     description:
-      "Uses a magnetic field rather than X-rays, and can measure total kidney volume — the number clinicians watch to judge how quickly the disease is progressing.",
+      "An MRI uses a magnetic field instead of X-rays and can measure total kidney volume, which helps clinicians track how quickly the disease is progressing.",
   },
 ] as const satisfies readonly PkdEntry[];
 
@@ -125,7 +167,7 @@ export const pkdTreatments = [
   {
     title: "Controlling blood pressure",
     description:
-      "The single most useful lever. ACE inhibitors or ARBs, combined with a low-salt diet, regular activity, a healthy weight and not smoking, protect kidney function over years.",
+      "Controlling blood pressure is one of the most important parts of PKD care. ACE inhibitors or ARBs, combined with a low-salt diet, regular activity, a healthy weight and not smoking, can protect kidney function over time.",
   },
   {
     title: "Protecting kidney function",

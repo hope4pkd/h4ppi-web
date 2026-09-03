@@ -18,17 +18,17 @@ import { Box, Container, Grid, GridItem, Heading, HStack, SimpleGrid, Text, VSta
 import { ArrowDown, BookOpen, CircleCheck, Compass, HandHeart, HeartHandshake, Landmark, Megaphone, SearchCheck, Stethoscope, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import founderImage from "@public/assets/images/onyekachi.png";
+import founderImage from "@public/assets/images/hospital.jpg";
 import heroImage from "@public/assets/images/patient-caregiver-hands.png";
 
-const trustItems = ["Patient-centred", "Verification-led", "Privacy-aware", "Transparent by design"];
+const trustItems = ["Patient-centred", "Verification-led", "Privacy protected", "Clear public reporting"];
 
 const problems = [
   ["Diagnosis can feel disorienting", "People need clear, medically responsible information and a practical next step after a suspected or confirmed diagnosis."],
   ["Care pathways are fragmented", "Appointments, tests, referrals and treatment decisions often sit across different providers without a patient navigator."],
   ["Costs are difficult to assess", "Families may face significant diagnostic and treatment costs before they know what support is appropriate or available."],
   ["Trust requires verification", "Patients, providers and supporters need a careful process that protects dignity while confirming each case and cost."],
-  ["Long-term support matters", "PKD is a lifelong condition. People need follow-up, community and reliable information—not a single moment of attention."],
+  ["Long-term support matters", "PKD is lifelong. People need follow-up, community and reliable information throughout care."],
 ] as const;
 
 const pillars = [
@@ -37,7 +37,7 @@ const pillars = [
   { title: "Financial access", text: "Validated costs, controlled allocations and accountable disbursement records.", icon: Landmark },
   { title: "Community", text: "Human support for patients and the people caring for them.", icon: Users },
   { title: "Awareness", text: "Responsible public education without sensationalising patient stories.", icon: Megaphone },
-  { title: "Advocacy", text: "Evidence-led work toward stronger, fairer PKD support systems.", icon: HeartHandshake },
+  { title: "Advocacy", text: "Use verified programme evidence to argue for fairer access to PKD support.", icon: HeartHandshake },
 ] as const;
 
 const journey = [
@@ -49,10 +49,10 @@ const journey = [
 ];
 
 const pathways = [
-  ["Patient navigation", "Help understanding the pathway from first request to a clearly explained next step.", Compass],
+  ["Patient navigation", "Help moving from a first request to a clearly explained next step.", Compass],
   ["Verified support planning", "A structured review of the case and appropriate support options after onboarding.", SearchCheck],
   ["Knowledge and guidance", "Medically reviewed information as the Knowledge Centre completes its review process.", BookOpen],
-  ["Community connection", "Compassionate signposting for patients, caregivers and families navigating PKD.", Users],
+  ["Community connection", "Connections to patient, caregiver and family support for people navigating PKD.", Users],
 ] as const;
 
 // The three programme areas that exist but are not yet live. Grouped into one section rather than three
@@ -60,7 +60,7 @@ const pathways = [
 const programmeStatus = [
   {
     eyebrow: "Verified campaigns",
-    title: "Every public case must earn trust before it asks for support.",
+    title: "Every public campaign must pass verification before publication.",
     description: "Campaigns publish only after verification, valid consent, cost review and programme and finance approval.",
     status: "No verified campaigns are public yet",
     linkLabel: "How campaign verification works",
@@ -76,7 +76,7 @@ const programmeStatus = [
   },
   {
     eyebrow: "Partnerships",
-    title: "Building the clinical, community and funding network.",
+    title: "Confirmed partnerships need a clear role and scope.",
     description: "Confirmed organisations will be listed only after the relationship, permission to display their identity and partnership scope are documented.",
     status: "Our partnership network is being formalised",
     linkLabel: "Explore partnership pathways",
@@ -99,7 +99,7 @@ export function HomePage() {
     url: "https://hope4pkd.org",
     logo: "https://hope4pkd.org/assets/logo-new.png",
     areaServed: "Nigeria",
-    description: "A coordinated support pathway for people and families navigating polycystic kidney disease in Nigeria.",
+    description: "PKD information and coordinated support planning for people and families in Nigeria.",
   };
 
   return (
@@ -118,7 +118,7 @@ export function HomePage() {
                 No one should navigate PKD alone.
               </Heading>
               <Text textStyle="lede" color="navy.100" maxW="measureTight">
-                Hope4PKD is building a coordinated pathway for people and families living with polycystic kidney disease—from first questions to verified, accountable support.
+                Hope4PKD is developing coordinated support for people and families living with polycystic kidney disease in Nigeria. We connect early questions with verified help.
               </Text>
               <HStack gap={3} flexWrap="wrap" pt={2}>
                 <ActionLink href="/support">Get support</ActionLink>
@@ -180,7 +180,7 @@ export function HomePage() {
       </ContentSection>
 
       <ContentSection id="the-challenge" size="spacious">
-        <SectionHeading eyebrow="The PKD journey" title="The problem is not one moment. It is the whole pathway." description="PKD affects more than clinical appointments. People need trustworthy information, coordinated care and sustained support while protecting their privacy and dignity." />
+        <SectionHeading eyebrow="Living with PKD" title="PKD affects diagnosis, treatment and daily life." description="People need trustworthy information, coordinated care and sustained support while protecting their privacy and dignity." />
         <Box>
           <Ledger>
             {problems.map(([title, text], index) => (
@@ -195,7 +195,7 @@ export function HomePage() {
       {/* One layout at every width. The old radial diagram existed only above lg and had a separate
           stacked list below it — two implementations of the same six facts. */}
       <ContentSection tone="teal" id="ecosystem" size="spacious">
-        <SectionHeading align="center" eyebrow="The Hope4PKD ecosystem" title="Six connected pillars, centred on the patient." description="Each pillar answers a different part of the journey. Together, they form one accountable support system." />
+        <SectionHeading align="center" eyebrow="The Hope4PKD ecosystem" title="Six connected parts of patient support." description="Each part covers a different need while keeping the patient at the centre." />
 
         <VStack align="stretch" gap={6}>
         <Grid
@@ -212,7 +212,7 @@ export function HomePage() {
               The patient
             </Heading>
             <Text textStyle="lede" color="navy.100" maxW="measure">
-              Dignity, agency and informed consent at the centre.
+              Patient dignity, agency and informed consent guide every part of the service.
             </Text>
           </VStack>
         </Grid>
@@ -244,10 +244,10 @@ export function HomePage() {
             <VStack align="start" gap={6}>
               <Eyebrow surface="dark">Why Hope4PKD exists</Eyebrow>
               <Heading as="h2" textStyle="sectionTitle" color="white" maxW="measureTight">
-                Pain transformed into organised impact.
+                A family’s experience became Hope4PKD.
               </Heading>
               <Text textStyle="lede" color="navy.100" maxW="measure">
-                Hope4PKD grew from Onyekachi Nwakaihe’s experience as a caregiver and the family’s experience of the dialysis and transplant burden faced by Margaret Toyin Nwakaihe and John Ifeanyi Nwakaihe.
+                Hope4PKD grew from Onyekachi Nwakaihe’s experience caring for his mother, Margaret Toyin Nwakaihe, and his brother, John Ifeanyi Nwakaihe.
               </Text>
               <PullQuote>“No one should navigate PKD alone.”</PullQuote>
               <TextLink href="/about/founder-story" surface="dark">
@@ -256,7 +256,7 @@ export function HomePage() {
             </VStack>
           </GridItem>
           <GridItem order={{ base: 1, lg: 2 }}>
-            <MediaFrame src={founderImage} alt="Portrait of Onyekachi Nwakaihe" ratio={1} />
+            <MediaFrame src={founderImage} alt="Onyekachi Nwakaihe in a surgical gown, cap and mask during a hospital visit as a caregiver" ratio={1} objectPosition="50% 56%" />
           </GridItem>
         </Grid>
       </ContentSection>
@@ -273,7 +273,7 @@ export function HomePage() {
       </ContentSection>
 
       <ContentSection id="impact">
-        <SectionHeading eyebrow="Impact & accountability" title="Results and targets will never be mixed." description="Public reporting separates verified delivery from future operating goals, with sources and reporting periods attached." />
+        <SectionHeading eyebrow="Impact & accountability" title="Reports will separate results from targets." description="Every published figure will include its source and reporting period." />
         <Grid templateColumns={{ base: "1fr", lg: "1fr 1fr" }} gap={6}>
           <VStack layerStyle="panelDark" align="start" gap={4}>
             <Eyebrow surface="dark">Results to date</Eyebrow>
@@ -281,13 +281,13 @@ export function HomePage() {
               Pilot reporting state
             </Heading>
             <Text textStyle="body" color="navy.100">
-              Verified programme totals and reports will appear here after data owners approve the methodology, reporting period and evidence. Unverified figures are deliberately withheld.
+              Hope4PKD will publish programme totals only after data owners approve the methodology, reporting period and evidence.
             </Text>
           </VStack>
           <VStack layerStyle="panelTeal" align="start" gap={4}>
             <Eyebrow>Year-one operating targets</Eyebrow>
             <Heading as="h3" textStyle="cardTitle" color="navy.900">
-              Build the accountable pathway
+              Put the controls into operation
             </Heading>
             <VStack align="start" gap={3} color="navy.600">
               {yearOneTargets.map((item) => (
@@ -307,7 +307,7 @@ export function HomePage() {
       </ContentSection>
 
       <ContentSection tone="white" id="campaigns" size="spacious">
-        <SectionHeading eyebrow="Where things stand" title="What is built, what is under review, and what is not live yet." description="Each programme area publishes only when its safeguards are complete. Nothing below is placeholder content." />
+        <SectionHeading eyebrow="Where things stand" title="Each programme goes live only after its safeguards are complete." description="The current status below contains no placeholder activity or invented results." />
         <Box>
           <FeatureGrid columns={3}>
             {programmeStatus.map((item) => (
@@ -317,7 +317,7 @@ export function HomePage() {
         </Box>
       </ContentSection>
 
-      <StatementBand tone="brightTeal" eyebrow="Take the next step" statement="Support begins with one clear action.">
+      <StatementBand tone="brightTeal" eyebrow="Take the next step" statement="Read about support, partnerships or donations.">
         <HStack gap={3} flexWrap="wrap" justify="center" pt={2}>
           <ActionLink href="/support" surface="brand">Get support</ActionLink>
           <ActionLink href="/partner" variant="outline" surface="brand">Partner with us</ActionLink>

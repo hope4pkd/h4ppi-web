@@ -29,17 +29,17 @@ const decisions = [
   {
     title: "On hold",
     description:
-      "Something needed for the decision is missing or the programme has no capacity right now. A hold is not a refusal, and it is communicated as what it is.",
+      "The case stays open while Hope4PKD waits for missing information or programme capacity. The person who submitted it is told why it is on hold.",
   },
   {
     title: "Declined",
     description:
-      "Hope4PKD is not an appropriate pathway for this need. Reasons stay internal and are communicated with safe, respectful wording, with a review route where one applies.",
+      "Hope4PKD cannot meet this need through its programme. Reasons stay internal and are communicated with safe, respectful wording, with a review route where one applies.",
   },
   {
     title: "Withdrawn",
     description:
-      "A case can be withdrawn — by the patient, or internally. Public status views never expose the reason behind an internal decision.",
+      "The patient or Hope4PKD can withdraw a case. Public status views never expose the reason behind an internal decision.",
   },
 ];
 
@@ -49,7 +49,7 @@ export default function SupportProcessPage() {
       <PageHero
         eyebrow="Get support"
         title="What happens at each stage."
-        description="The six steps on the previous page are the shape of a case. This is what actually gets decided inside them, who decides it, and what each answer means."
+        description="The six stages describe how a case moves. This page explains the decision made at each stage, who makes it and what the outcome means."
       >
         <TextLink href="/support" surface="dark">
           Back to how we help
@@ -58,13 +58,13 @@ export default function SupportProcessPage() {
 
       <ContentSection>
         <SectionHeading
-          eyebrow="Three decisions, not one"
-          title="Being eligible, being verified and being funded are separate answers."
-          description="Collapsing them is how a charity ends up promising what it cannot deliver. Keeping them apart is why a request can move forward even when money cannot."
+          eyebrow="Three separate decisions"
+          title="Eligibility, verification and funding are decided separately."
+          description="Separating them prevents a request from becoming a funding promise. A case can still receive navigation or guidance when financial support is unavailable."
         />
         <Ledger>
           <LedgerRow number="01" title="Eligibility">
-            Whether Hope4PKD is an appropriate pathway at all — geographic scope, relationship to PKD,
+            Whether Hope4PKD is an appropriate pathway at all, based on geographic scope, relationship to PKD,
             evidence requirements, programme capacity and any exclusions. A request may be appropriate for
             navigation and guidance even when financial support is unavailable.
           </LedgerRow>
@@ -82,8 +82,8 @@ export default function SupportProcessPage() {
       <ContentSection tone="teal">
         <SectionHeading
           eyebrow="What we ask for, and when"
-          title="The minimum, in the right order."
-          description="Information is collected at the point it is needed for a decision, not gathered up front in case it becomes useful."
+          title="Collect only what each decision needs."
+          description="Hope4PKD requests information only when it is needed for a decision."
         />
         <FeatureGrid columns={3}>
           <FeatureItem number="01" title="At the first request">
@@ -95,8 +95,8 @@ export default function SupportProcessPage() {
             rather than completed in one sitting.
           </FeatureItem>
           <FeatureItem number="03" title="Only once invited">
-            Permitted documents, into private quarantined storage after malware scanning. Never through the
-            contact form, social media or email.
+            Permitted documents go into private storage that scans files before staff can access them.
+            Hope4PKD will not accept documents through the contact form, social media or email.
           </FeatureItem>
         </FeatureGrid>
       </ContentSection>
@@ -104,8 +104,8 @@ export default function SupportProcessPage() {
       <ContentSection tone="white">
         <SectionHeading
           eyebrow="What a decision means"
-          title="Four answers, each said plainly."
-          description="Whatever the outcome, it is communicated to you — a case does not go quiet."
+          title="Four possible outcomes."
+          description="Hope4PKD communicates each outcome directly."
         />
         <VStack align="stretch" gap={0}>
           {decisions.map((decision) => (
@@ -126,8 +126,8 @@ export default function SupportProcessPage() {
       <ContentSection tone="pink">
         <SectionHeading
           eyebrow="Still being approved"
-          title="What has to exist before intake opens."
-          description="Hope4PKD will not open a request form it cannot answer. Realistic eligibility rules, a realistic response window and a responsible programme owner are the gate on that decision, not the technology."
+          title="Requirements before intake can open."
+          description="Intake requires approved eligibility rules, response standards and a named programme owner before the form can open."
         />
         <HStack gap={3} flexWrap="wrap">
           <TextLink href="/patient-eligibility">Read the eligibility policy</TextLink>
@@ -135,7 +135,7 @@ export default function SupportProcessPage() {
         </HStack>
         <ComingSoonPanel
           title="Support requests are not open yet"
-          description="The intake described on this page needs the operational service Hope4PKD is building. Nothing on this site accepts a case today — when it does, this page will say so."
+          description="The intake described on this page needs an operational service. No case submission is available on this site today. This page will say when intake opens."
         />
       </ContentSection>
     </Layout>

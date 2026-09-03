@@ -11,13 +11,14 @@ import {
   TextLink,
 } from "@/components/common/PublicPage";
 import { SourceNote } from "@/components/common/SourceNote";
+import { KidneyComparison } from "@/components/pkd/KidneyComparison";
 import { Layout } from "@/components/layout/Layout";
 import { pkdInBrief, pkdSource, pkdTypes } from "@/content/pkd";
 
 export const metadata: Metadata = {
   title: "What is PKD?",
   description:
-    "Polycystic kidney disease explained in plain language: what the cysts do, why it runs in families, the two inherited forms, and what Hope4PKD is building around the gaps it leaves.",
+    "A plain-language guide to what polycystic kidney disease does to the kidneys, why it runs in families, and the difference between ADPKD and ARPKD.",
   alternates: { canonical: "/pkd" },
 };
 
@@ -26,8 +27,8 @@ export default function AboutPkdPage() {
     <Layout>
       <PageHero
         eyebrow="Learn about PKD"
-        title="Polycystic kidney disease, in plain language."
-        description="Most people meet this condition through a relative, a scan result or a word on a hospital form. Start here, then follow it as far as you need to."
+        title="Polycystic kidney disease in plain language."
+        description="Most people meet this condition through a relative, a scan result or a word on a hospital form. This page explains what PKD does and why it runs in families."
       >
         <HStack gap={3} flexWrap="wrap">
           <ActionLink href="/pkd/symptoms-and-diagnosis">Symptoms and diagnosis</ActionLink>
@@ -39,36 +40,36 @@ export default function AboutPkdPage() {
 
       <ContentSection>
         <Grid templateColumns={{ base: "1fr", lg: "0.8fr 1.2fr" }} gap={{ base: 8, lg: 16 }}>
-          <SectionHeading eyebrow="The short answer" title="Cysts crowd out working kidney." />
+          <SectionHeading eyebrow="What PKD does" title="As cysts grow, the kidneys work less well." />
           <VStack align="start" gap={5} color="navy.500" textStyle="lede" maxW="measure">
             <Text>{pkdInBrief}</Text>
             <Text>
-              Kidneys filter waste and extra fluid out of the blood, and they help control blood pressure. As
-              cysts fill more of the organ, less of it is doing that work — which is why blood pressure often
-              rises long before anything hurts.
+              Kidneys remove waste and extra fluid from the blood and help control blood pressure. As cysts
+              take up more space, less healthy kidney tissue can do that work. High blood pressure is common
+              in PKD and can damage the kidneys further if it is not treated.
             </Text>
             <Text>
-              PKD is lifelong and there is no cure yet. That is not the whole picture: blood pressure control,
-              monitoring and prompt treatment of complications change how the years ahead go, and they work
-              best when they start early.
+              PKD is lifelong and there is no cure yet. Treatment and lifestyle changes can help protect the
+              kidneys and prevent some complications, especially when high blood pressure is managed.
             </Text>
           </VStack>
         </Grid>
+        <KidneyComparison />
       </ContentSection>
 
       <ContentSection tone="teal">
         <Grid templateColumns={{ base: "1fr", lg: "0.8fr 1.2fr" }} gap={{ base: 8, lg: 16 }}>
-          <SectionHeading eyebrow="Why it happens" title="A change in a gene, almost always inherited." />
+          <SectionHeading eyebrow="Why PKD happens" title="PKD starts with a changed gene, usually inherited." />
           <VStack align="start" gap={5} color="navy.600" textStyle="lede" maxW="measure">
             <Text>
-              PKD is caused by a change in a gene. In most cases that change is passed down from a parent, so
-              the disease follows families through generations. Occasionally it appears on its own in someone
-              with no family history of it.
+              Gene changes cause PKD. Most people inherit one from a parent, so the condition can run through
+              several generations of a family. Sometimes the change happens on its own in a child whose
+              parents do not carry it.
             </Text>
             <Text>
-              That inheritance is also the main risk factor: what raises a person’s chance of PKD is having a
-              parent — or, for the recessive form, two parents — carrying the gene change. It is not something
-              anyone brought on themselves, and nothing about diet or lifestyle causes it.
+              Family history is the biggest risk factor. One parent can pass on the dominant form; both
+              parents must carry gene changes for the recessive form. Diet, lifestyle and personal choices do
+              not cause PKD.
             </Text>
           </VStack>
         </Grid>
@@ -80,13 +81,13 @@ export default function AboutPkdPage() {
       </ContentSection>
 
       <StatementBand
-        eyebrow="Why this matters here"
-        statement="A diagnosis is rarely about one person. It is about everyone who shares the family tree."
+        eyebrow="What it means for families"
+        statement="A PKD diagnosis can affect the whole family."
       >
         <Text textStyle="lede" color="navy.100" maxW="measure">
-          Inherited means siblings, parents and children carry a real chance of the same condition. That is
-          also the opening: a family that knows can ask about screening, get blood pressure treated, and stop
-          finding out at the point of kidney failure.
+          Parents, siblings and children may have inherited the same gene change. Knowing the family history
+          gives them a reason to ask a healthcare professional about screening and blood pressure checks
+          before kidney function declines.
         </Text>
         <HStack gap={3} flexWrap="wrap" pt={2}>
           <ActionLink href="/support" surface="dark">
@@ -99,24 +100,24 @@ export default function AboutPkdPage() {
       </StatementBand>
 
       <ContentSection>
-        <SectionHeading eyebrow="Keep reading" title="Follow it as far as you need to." />
+        <SectionHeading eyebrow="Keep reading" title="Read about symptoms, diagnosis and care." />
         <FeatureGrid columns={3}>
           <FeatureCard
             title="Symptoms and diagnosis"
-            description="What people actually notice, when to ask a professional about it, and the scans that confirm an answer."
+            description="Which symptoms PKD can cause, when to speak with a healthcare professional and how scans help diagnose it."
             href="/pkd/symptoms-and-diagnosis"
             linkLabel="Read symptoms and diagnosis"
           />
           <FeatureCard
             title="Treatment and care"
-            description="What care can do about cyst growth, blood pressure, pain and kidney failure — and what it watches for."
+            description="How care can slow cyst growth, control blood pressure, manage pain and respond when kidney function declines."
             href="/pkd/treatment-and-care"
             linkLabel="Read treatment and care"
           />
           <FeatureCard
             title="Knowledge Centre"
-            description="Longer articles, each naming its author and qualified reviewer, its sources and its next review date."
-            status="The Knowledge Centre is in medical review"
+            description="The planned collection will include longer PKD articles with named authors, qualified reviewers, sources and review dates."
+            status="Medical review in progress"
             href="/knowledge"
             linkLabel="Visit the Knowledge Centre"
           />

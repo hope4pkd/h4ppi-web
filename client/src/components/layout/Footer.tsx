@@ -21,7 +21,7 @@ export function Footer() {
               <Image src={logo} alt="Hope4PKD Patients Initiative" width={190} />
             </Box>
             <Text textStyle="lede" color="navy.100" maxW="measureTight">
-              Building a coordinated support pathway for people and families navigating polycystic kidney disease in Nigeria.
+              PKD information and coordinated support planning for people and families in Nigeria.
             </Text>
           </VStack>
           <HStack gap={3} flexWrap="wrap">
@@ -32,9 +32,12 @@ export function Footer() {
           </HStack>
         </Grid>
 
+        {/* Seven groups, so four across and three under rather than one cramped row: at lg a seventh
+            column leaves ~130px, which wraps "Health Professionals" onto three lines. */}
         <SimpleGrid
-          columns={{ base: 1, sm: 2, lg: 5 }}
-          gap={{ base: 10, lg: 8 }}
+          columns={{ base: 1, sm: 2, md: 3, lg: 4 }}
+          gapX={{ base: 10, lg: 8 }}
+          gapY={{ base: 10, lg: 12 }}
           layerStyle="hairlineOnDark"
           pt={{ base: 10, md: 12 }}
         >

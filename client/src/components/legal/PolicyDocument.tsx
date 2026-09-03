@@ -10,7 +10,7 @@ export function PolicyDocument({ policyKey }: { policyKey: PolicyKey }) {
       <PageHero eyebrow="Policy suite" title={policy.title} description={policy.summary} />
       <ContentSection>
         <HStack align="start" bg="pink.50" borderWidth="1px" borderColor="pink.200" borderRadius="xl" p={5} mb={10}>
-          <Box><Text color="pink.800" fontWeight="800">Publication status: draft operational policy</Text><Text color="navy.600" mt={1}>This route documents the intended control framework. It is not effective until Hope4PKD’s legal/DPO review, responsible owner, dates and official organisation details are approved.</Text></Box>
+          <Box><Text color="pink.800" fontWeight="800">Publication status: draft operational policy</Text><Text color="navy.600" mt={1}>This page records the intended controls. Hope4PKD’s legal and data protection reviewers must approve the responsible owner, dates and official organisation details before the policy takes effect.</Text></Box>
         </HStack>
         <VStack align="stretch" gap={0} maxW="4xl">
           {policy.sections.map(([title, body], index) => (

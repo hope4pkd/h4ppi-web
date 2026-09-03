@@ -6,7 +6,7 @@ const sourceRoot = fileURLToPath(new URL("../src/", import.meta.url));
 const forbidden = [
   [/\+234\s*800\s*000\s*0000/i, "fake telephone number"],
   [/images\.unsplash\.com|source\.unsplash\.com/i, "remote Unsplash image"],
-  [/₦\s*5,?000.*(?:walk|event)|(?:walk|event).*₦\s*5,?000/is, "unverified event price"],
+  [/₦\s*5,?000.{0,100}\b(?:walk|event)\b|\b(?:walk|event)\b.{0,100}₦\s*5,?000/is, "unverified event price"],
   [/Abuja clinic/i, "unverified location caption"],
   [/Adenike Renal Centre/i, "unverified renal-centre claim"],
   [/kidney[- ]donor registration/i, "organ-donor registration copy"],

@@ -2,12 +2,12 @@ import { ContentSection, EmptyState, FeatureCard, FeatureGrid, FeatureItem, Page
 import { Layout } from "@/components/layout/Layout";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "PKD Knowledge Centre", description: "A medically reviewed, dated, referenced and accessible PKD information centre in development.", alternates: { canonical: "/knowledge" } };
+export const metadata: Metadata = { title: "PKD Knowledge Centre", description: "A planned PKD information centre with named medical review, dates, references and accessibility checks.", alternates: { canonical: "/knowledge" } };
 
 export default function KnowledgePage() {
   return (
     <Layout>
-      <PageHero eyebrow="PKD Knowledge Centre" title="Clear information, with medical review you can verify." description="Articles will show authorship, reviewer qualifications, references, publication and review dates, a disclaimer and the next review date." />
+      <PageHero eyebrow="PKD Knowledge Centre" title="Every article will show who wrote and reviewed it." description="Articles will include reviewer qualifications, references, publication and review dates, a disclaimer and the next review date." />
 
       {/* The review programme is not built yet, so the page opens with what does exist rather than
           with three collections that cannot be read. */}
@@ -21,7 +21,7 @@ export default function KnowledgePage() {
       </ContentSection>
 
       <ContentSection>
-        <SectionHeading eyebrow="Planned collections" title="Information for each point in the journey." />
+        <SectionHeading eyebrow="Planned collections" title="Guidance for diagnosis, treatment and daily life." />
         <FeatureGrid columns={3}>
           <FeatureItem title="Understanding PKD">Foundational information about inherited cystic kidney disease and questions to discuss with a clinician.</FeatureItem>
           <FeatureItem title="Diagnosis &amp; monitoring">Responsible explanations of tests, appointments and monitoring without replacing clinical advice.</FeatureItem>
@@ -30,7 +30,7 @@ export default function KnowledgePage() {
           <FeatureItem title="Caregiving">Support for the people coordinating care, appointments and family communication.</FeatureItem>
           <FeatureItem title="Rights &amp; support">Information about consent, privacy, support processes and responsible fundraising.</FeatureItem>
         </FeatureGrid>
-        <EmptyState title="Medical review is being established" description="No article is labelled medically reviewed until a qualified reviewer account, independence rule, references and next-review date are complete. For personal medical advice, speak with a qualified healthcare professional." actionLabel="Read the medical disclaimer" actionHref="/medical-disclaimer" />
+        <EmptyState title="Medical review is being established" description="An article receives a medically reviewed label only after its qualified reviewer, independence check, references and next-review date are complete. For personal medical advice, speak with a qualified healthcare professional." actionLabel="Read the medical disclaimer" actionHref="/medical-disclaimer" />
       </ContentSection>
     </Layout>
   );
