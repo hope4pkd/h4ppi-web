@@ -247,7 +247,7 @@ export function HomePage() {
                 A family’s experience became Hope4PKD.
               </Heading>
               <Text textStyle="lede" color="navy.100" maxW="measure">
-                Hope4PKD grew from Onyekachi Nwakaihe’s experience caring for Margaret Toyin Nwakaihe and John Ifeanyi Nwakaihe through dialysis and transplantation.
+                Hope4PKD grew from Onyekachi Nwakaihe’s experience caring for his mother, Margaret Toyin Nwakaihe, and his brother, John Ifeanyi Nwakaihe.
               </Text>
               <PullQuote>“No one should navigate PKD alone.”</PullQuote>
               <TextLink href="/about/founder-story" surface="dark">

@@ -98,6 +98,48 @@ export const pkdComplications = [
   },
 ] as const satisfies readonly PkdEntry[];
 
+/**
+ * Practical, non-clinical preparation for an appointment. Deliberately separated from the sourced
+ * clinical exports above and below: none of these lines states a fact about the disease, so none of
+ * them needs the Mayo reference to stand behind it. They are here rather than inline in the page for
+ * the same reason as the rest of this file — this copy gets reviewed as a body.
+ *
+ * /pkd/early-detection makes no clinical claim that is not already carried by pkdTypes, pkdSymptoms,
+ * pkdDiagnosis or pkdTreatments.
+ */
+export const pkdAppointmentPrep = [
+  {
+    title: "Write down the family history",
+    description:
+      "Note who in the family has been diagnosed with PKD or kidney failure, and at roughly what age. A clinician weighs family history alongside what a scan shows.",
+  },
+  {
+    title: "Bring your blood pressure readings",
+    description:
+      "If blood pressure has been measured anywhere — a pharmacy, a previous appointment, a home monitor — bring the numbers and the dates rather than a summary from memory.",
+  },
+  {
+    title: "List every symptom, including the vague ones",
+    description:
+      "Pain in the side or back, headaches, blood in the urine, repeated urinary infections. Say when each began and how often it happens.",
+  },
+  {
+    title: "List your medicines",
+    description:
+      "Include anything bought without a prescription, especially painkillers, and any herbal or traditional preparations.",
+  },
+  {
+    title: "Ask what the result would change",
+    description:
+      "Ask what a scan would show at your age, what happens if it finds cysts, and what happens if it does not. Ask what it costs before agreeing to it.",
+  },
+  {
+    title: "Take someone with you",
+    description:
+      "A second person remembers what was said. If you are attending on behalf of a relative, agree beforehand what you are allowed to ask about.",
+  },
+] as const satisfies readonly PkdEntry[];
+
 export const pkdDiagnosis = [
   {
     title: "Ultrasound",

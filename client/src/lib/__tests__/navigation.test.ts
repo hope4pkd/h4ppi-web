@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
+  audienceLinks,
+  contactLink,
   donateLink,
   footerGroups,
   homeLink,
@@ -8,19 +10,18 @@ import {
   isNavLink,
   legalNavLinks,
   navGroups,
-  standaloneNavLinks,
   type NavGroup,
   type NavItem,
 } from "@/lib/navigation";
 
-// Widen away the `as const` tuple literals so flatMap infers a plain NavItem[].
 const allGroups: readonly NavGroup[] = [...navGroups, ...footerGroups];
 
 const everyItem: readonly NavItem[] = [
   ...allGroups.flatMap((group) => [...group.items]),
-  ...standaloneNavLinks,
+  ...audienceLinks,
   ...legalNavLinks,
   homeLink,
+  contactLink,
   donateLink,
 ];
 
@@ -67,8 +68,63 @@ describe("navigation items", () => {
   });
 
   it("keeps the top-level nav shape the header and e2e specs rely on", () => {
-    expect(navGroups.map((group) => group.label)).toEqual(["About", "Learn About PKD", "Get Support", "Get Involved"]);
-    expect(standaloneNavLinks.map((link) => link.label)).toEqual(["Contact"]);
+    expect(navGroups.map((group) => group.label)).toEqual([
+      "About",
+      "Learn About PKD",
+      "Get Support",
+      "Get Involved",
+      "Campaigns",
+    ]);
+  });
+});
+
+describe("mega-panel groups", () => {
+  // items is derived from columns; if the two ever diverge the footer and sitemap silently lose links.
+  it("flattens every column item into the group's items list", () => {
+    for (const group of navGroups) {
+      if (!group.columns) continue;
+      const fromColumns = group.columns.flatMap((column) => column.items);
+      expect(group.items, group.label).toEqual(fromColumns);
+    }
+  });
+
+  it("gives every column a label and at least one item", () => {
+    for (const group of navGroups) {
+      for (const column of group.columns ?? []) {
+        expect(column.label.length, `${group.label} has an unlabelled column`).toBeGreaterThan(0);
+        expect(column.items.length, `${group.label} / ${column.label} is empty`).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  // The panel lays columns and the featured card out in one row, so a fourth column plus a card wraps.
+  it("never pairs a featured card with more than two columns", () => {
+    for (const group of navGroups) {
+      if (!group.featured) continue;
+      expect(group.columns?.length ?? 0, group.label).toBeLessThanOrEqual(2);
+    }
+  });
+});
+
+describe("audience routing", () => {
+  it("routes every audience under /for/ so check-content's legacy-route rule cannot fire", () => {
+    for (const link of audienceLinks) {
+      expect(link.href.startsWith("/for/"), link.label).toBe(true);
+    }
+  });
+
+  it("surfaces the audiences and contact in the footer, since the bar is hidden on phones", () => {
+    const startHere = footerGroups[0];
+    expect(startHere.label).toBe("Start here");
+    expect(startHere.items.filter(isNavLink).map((item) => item.href)).toEqual([
+      ...audienceLinks.map((link) => link.href),
+      contactLink.href,
+    ]);
+  });
+
+  it("mirrors every header group in the footer", () => {
+    const footerLabels = footerGroups.map((group) => group.label);
+    for (const group of navGroups) expect(footerLabels).toContain(group.label);
   });
 });
 
@@ -85,5 +141,13 @@ describe("active-state helpers", () => {
     expect(isActiveGroup("/support", supportGroup)).toBe(true);
     expect(isActiveGroup("/help", supportGroup)).toBe(true);
     expect(isActiveGroup("/impact", supportGroup)).toBe(false);
+  });
+
+  it("resolves a columned group from any of its columns", () => {
+    const learnGroup = navGroups.find((group) => group.label === "Learn About PKD")!;
+    expect(isActiveGroup("/pkd/treatment-and-care", learnGroup)).toBe(true);
+    expect(isActiveGroup("/pkd/early-detection", learnGroup)).toBe(true);
+    expect(isActiveGroup("/knowledge", learnGroup)).toBe(true);
+    expect(isActiveGroup("/support", learnGroup)).toBe(false);
   });
 });

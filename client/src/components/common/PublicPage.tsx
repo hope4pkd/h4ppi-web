@@ -413,6 +413,95 @@ export function LedgerRow({ number, title, children }: { number: string; title: 
   );
 }
 
+/**
+ * The unnumbered sibling of Ledger: a run of destinations, each a whole-row link. An audience hub is
+ * mostly "here are six places to go next", and rendering that as a third consecutive FeatureGrid is
+ * what makes a page read as templated. Rows carry the reading order a grid of equal cards destroys.
+ */
+export function DirectoryList({ children }: { children: ReactNode }) {
+  return (
+    <VStack as="ul" align="stretch" gap={0} listStyleType="none">
+      {children}
+    </VStack>
+  );
+}
+
+export function DirectoryRow({ href, title, children }: { href: string; title: string; children: ReactNode }) {
+  return (
+    <Box as="li" layerStyle="hairline">
+      <Link href={href}>
+        <Grid
+          templateColumns={{ base: "minmax(0, 1fr) auto", md: "minmax(0, 0.85fr) minmax(0, 1.15fr) auto" }}
+          gap={{ base: 2, md: 8 }}
+          alignItems={{ base: "center", md: "start" }}
+          py={{ base: 5, md: 6 }}
+          px={{ base: 0, md: 2 }}
+          borderRadius="lg"
+          transitionProperty="background-color, padding-left"
+          transitionDuration="fast"
+          transitionTimingFunction="standard"
+          css={{
+            "& svg": { transitionProperty: "transform", transitionDuration: "fast", transitionTimingFunction: "standard" },
+            "&:hover svg": { transform: "translateX(3px)" },
+            "@media (prefers-reduced-motion: reduce)": { "&:hover svg": { transform: "none" } },
+          }}
+          _hover={{ bg: "teal.50" }}
+        >
+          <Heading as="h3" textStyle="featureTitle" color="navy.900">
+            {title}
+          </Heading>
+          <Text
+            textStyle="bodySm"
+            color="navy.500"
+            maxW="measure"
+            gridColumn={{ base: "1 / -1", md: "auto" }}
+            pt={{ base: 1, md: "2px" }}
+          >
+            {children}
+          </Text>
+          <Box color="action.700" gridRow={{ base: "1", md: "auto" }} gridColumn={{ base: "2", md: "auto" }} pt={{ md: "3px" }}>
+            <ArrowRight aria-hidden="true" size={18} />
+          </Box>
+        </Grid>
+      </Link>
+    </Box>
+  );
+}
+
+export type Faq = { question: string; answer: string };
+
+/**
+ * Native <details> rather than Chakra's Accordion: these are static server-rendered pages, the
+ * questions must be findable by in-page search with the browser's own find, and an accordion here
+ * would drag a client boundary onto every hub for no behaviour a <details> does not already have.
+ */
+export function FaqList({ items }: { items: readonly Faq[] }) {
+  return (
+    <VStack align="stretch" gap={3}>
+      {items.map(({ question, answer }) => (
+        <Box
+          as="details"
+          key={question}
+          bg="white"
+          borderWidth="1px"
+          borderColor="navy.100"
+          borderRadius="xl"
+          p={{ base: 5, md: 6 }}
+        >
+          <Box as="summary" cursor="pointer">
+            <Heading as="h3" display="inline" textStyle="featureTitle" color="navy.900">
+              {question}
+            </Heading>
+          </Box>
+          <Text textStyle="body" color="navy.500" pt={4} maxW="measure">
+            {answer}
+          </Text>
+        </Box>
+      ))}
+    </VStack>
+  );
+}
+
 export type Step = { title: string; description: string };
 
 /**

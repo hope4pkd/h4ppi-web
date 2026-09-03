@@ -32,9 +32,12 @@ export function Footer() {
           </HStack>
         </Grid>
 
+        {/* Seven groups, so four across and three under rather than one cramped row: at lg a seventh
+            column leaves ~130px, which wraps "Health Professionals" onto three lines. */}
         <SimpleGrid
-          columns={{ base: 1, sm: 2, lg: 5 }}
-          gap={{ base: 10, lg: 8 }}
+          columns={{ base: 1, sm: 2, md: 3, lg: 4 }}
+          gapX={{ base: 10, lg: 8 }}
+          gapY={{ base: 10, lg: 12 }}
           layerStyle="hairlineOnDark"
           pt={{ base: 10, md: 12 }}
         >
