@@ -39,9 +39,9 @@ const steps = [
 ];
 
 export const metadata: Metadata = {
-  title: "Awareness",
+  title: "Awareness & advocacy",
   description:
-    "Why polycystic kidney disease goes unrecognised in Nigeria, what you can do about it without overstating what is known, and what Hope4PKD will publish once it is reviewed.",
+    "Why polycystic kidney disease goes unrecognised in Nigeria, what you can do about it without overstating what is known, and how Hope4PKD will work with government, health leaders and the media to change it.",
   alternates: { canonical: "/awareness" },
 };
 
@@ -49,7 +49,7 @@ export default function AwarenessPage() {
   return (
     <Layout>
       <PageHero
-        eyebrow="Awareness"
+        eyebrow="Awareness & advocacy"
         title="Most people meet PKD for the first time in a hospital corridor."
         description="By then the questions are urgent and the answers are expensive. Awareness moves that first meeting earlier, to a point where a conversation with a clinician still changes something."
       >
@@ -92,6 +92,25 @@ export default function AwarenessPage() {
           description="None of these require Hope4PKD, a launch date or a printed asset. They are available today."
         />
         <StepList steps={steps} />
+      </ContentSection>
+
+      <ContentSection tone="navy" id="advocacy">
+        <Grid templateColumns={{ base: "1fr", lg: "0.8fr 1.2fr" }} gap={{ base: 8, lg: 16 }}>
+          <SectionHeading surface="dark" eyebrow="Advocacy" title="PKD patients are invisible in healthcare planning." />
+          <VStack align="start" gap={5} color="navy.100" textStyle="lede" maxW="measure">
+            <Text>
+              A condition that is not counted does not appear in budgets, screening programmes or policy. Hope4PKD will work with government, healthcare leaders and the media to raise awareness of the realities of living with PKD in Nigeria and to push for care that patients can actually reach.
+            </Text>
+            {/* The concept note's policy asks are bracketed team decisions. Naming them before they are
+                agreed would commit the organisation to positions it has not taken. */}
+            <Text textStyle="body" color="navy.200">
+              The specific policy asks are being agreed. They will be published here, with the evidence behind each one, once the team has settled them.
+            </Text>
+            <TextLink href="/partner" surface="dark">
+              Work with us as a hospital, organisation or journalist
+            </TextLink>
+          </VStack>
+        </Grid>
       </ContentSection>
 
       <ContentSection tone="white" size="compact">

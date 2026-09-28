@@ -13,47 +13,33 @@ export type NavItem = NavLink | ComingSoonNavItem;
 
 export const isNavLink = (item: NavItem): item is NavLink => "href" in item;
 
-/** One sub-headed column inside a mega panel. */
-export interface NavColumn {
-  readonly label: string;
-  readonly items: readonly NavItem[];
-}
-
-/** The promoted destination in the last cell of a mega panel. At most one per group. */
-export interface NavFeatured {
-  readonly eyebrow: string;
-  readonly title: string;
-  readonly description: string;
-  /** Names the destination. The whole card is the link, so a bare "Go" tells a screen reader nothing. */
-  readonly cta: string;
-  readonly href: string;
-}
-
+/** A labelled list of destinations. The footer renders these as columns. */
 export interface NavGroup {
   readonly label: string;
-  /** Flattened destinations. The footer, the sitemap and the tests read this, never `columns`. */
   readonly items: readonly NavItem[];
-  /** Present on groups that render as a wide, sub-headed panel. Absent groups render as a plain list. */
-  readonly columns?: readonly NavColumn[];
-  readonly featured?: NavFeatured;
 }
 
 /**
- * `items` is derived rather than declared beside `columns`, because three separate consumers read the
- * flat list and hand-maintaining both copies drifts.
+ * The primary row: five flat links, each landing on a hub page that lists its own sub-pages. The
+ * order follows the reader's questions — who are you, what is PKD, can you help me, how can I help,
+ * can I trust you — not the order of the concept note. Home is the logo (and an explicit link in the
+ * mobile drawer); Contact lives in the drawer and the footer.
  */
-function columnedGroup(label: string, columns: readonly NavColumn[], featured?: NavFeatured): NavGroup {
-  return { label, columns, featured, items: columns.flatMap((column) => column.items) };
-}
+export const primaryLinks = [
+  { label: "About", href: "/about" },
+  { label: "Understanding PKD", href: "/pkd" },
+  { label: "Get Support", href: "/support" },
+  { label: "Get Involved", href: "/get-involved" },
+  { label: "Transparency", href: "/impact" },
+] as const satisfies readonly NavLink[];
 
 /**
- * Who the reader is, answered before what they want to read. These sit in the slim bar above the
- * primary row and are the first thing in the mobile drawer.
+ * Who the reader is. These no longer sit in a header bar; Home's "Where would you like to start?"
+ * section and the footer's "Start here" column carry them.
  *
  * The prefix is `/for/` rather than a bare `/patients`: check-content.mjs treats hrefs under the old
  * top-level patients and donors segments as dead legacy routes and fails the build on them, and
- * `/patients` is in any case already a redirect to `/support`. (Quoting either offending path literally
- * in a comment trips the same check — it greps source text, not JSX.)
+ * `/patients` is in any case already a redirect to `/support`.
  */
 export const audienceLinks = [
   { label: "Patients", href: "/for/patients" },
@@ -62,106 +48,12 @@ export const audienceLinks = [
   { label: "Everyone", href: "/for/everyone" },
 ] as const satisfies readonly NavLink[];
 
-export const navGroups: readonly NavGroup[] = [
-  // Who we are, and what earns trust in us. The one group with a single topic, so it stays a plain
-  // list rather than a panel with one column in it.
-  {
-    label: "About",
-    items: [
-      { label: "About Hope4PKD", href: "/about" },
-      { label: "Founder's Story", href: "/about/founder-story" },
-      { label: "Leadership & Governance", href: "/about/leadership" },
-      { label: "Impact & Transparency", href: "/impact" },
-    ],
-  },
-  // The disease, not the organisation. Ordered by the reader's own questions — what it is, what I
-  // notice and how they confirm it, what can be done — rather than by our source article's headings.
-  columnedGroup(
-    "Learn About PKD",
-    [
-      {
-        label: "The disease",
-        items: [
-          { label: "What Is PKD?", href: "/pkd" },
-          { label: "Symptoms & Diagnosis", href: "/pkd/symptoms-and-diagnosis" },
-          { label: "Treatment & Care", href: "/pkd/treatment-and-care" },
-        ],
-      },
-      {
-        label: "Acting early",
-        items: [
-          { label: "Early Detection & Family Testing", href: "/pkd/early-detection" },
-          { label: "Knowledge Centre", href: "/knowledge" },
-        ],
-      },
-    ],
-    {
-      eyebrow: "Just diagnosed",
-      title: "The patient route",
-      description: "A shorter path through these same pages, in the order most people need them.",
-      cta: "Start here",
-      href: "/for/patients",
-    },
-  ),
-  columnedGroup("Get Support", [
-    {
-      label: "Start here",
-      items: [
-        { label: "How We Help", href: "/support" },
-        { label: "Patient Support Process", href: "/support/process" },
-        { label: "Patient & Caregiver Resources", href: "/help" },
-      ],
-    },
-    {
-      label: "Find help",
-      items: [
-        { label: "Find Care", href: "/find-care" },
-        { label: "Community", href: "/community" },
-      ],
-    },
-    {
-      label: "When intake opens",
-      items: [
-        { label: "Request Support", comingSoon: true },
-        { label: "Check Case Status", comingSoon: true },
-      ],
-    },
-  ]),
-  columnedGroup("Get Involved", [
-    {
-      label: "Give time",
-      items: [
-        { label: "Volunteer", href: "/volunteer" },
-        { label: "Events", href: "/events" },
-      ],
-    },
-    {
-      label: "Work with us",
-      items: [
-        { label: "Partner With Us", href: "/partner" },
-        { label: "Awareness", href: "/awareness" },
-      ],
-    },
-  ]),
-  columnedGroup("Campaigns", [
-    {
-      label: "Give",
-      items: [
-        { label: "Campaigns", href: "/campaigns" },
-        { label: "Donate", href: "/donate" },
-        { label: "Shop", href: "/shop" },
-      ],
-    },
-    {
-      label: "Where it goes",
-      items: [{ label: "Impact & Transparency", href: "/impact" }],
-    },
-  ]),
-];
-
 export const homeLink = { label: "Home", href: "/" } as const satisfies NavLink;
 
 export const contactLink = { label: "Contact", href: "/contact" } as const satisfies NavLink;
+
+/** The two actions that stay visible on every page. */
+export const supportLink = { label: "Get support", href: "/support" } as const satisfies NavLink;
 
 export const donateLink = { label: "Donate", href: "/donate" } as const satisfies NavLink;
 
@@ -175,19 +67,59 @@ export const legalNavLinks = [
 ] as const satisfies readonly NavLink[];
 
 /**
- * The footer mirrors the header group for group, then adds the audience routes the slim bar carries
- * on desktop — the bar is hidden below md, so the footer is where a phone finds them a second time.
+ * The footer carries the sub-pages the flat header does not: one column per top-level section plus
+ * the audience routes and the legal suite. The sitemap and the navigation test read these too.
  */
 export const footerGroups: readonly NavGroup[] = [
   { label: "Start here", items: [...audienceLinks, contactLink] },
-  ...navGroups,
+  {
+    label: "Understanding PKD",
+    items: [
+      { label: "What Is PKD?", href: "/pkd" },
+      { label: "Symptoms & Diagnosis", href: "/pkd/symptoms-and-diagnosis" },
+      { label: "Treatment & Care", href: "/pkd/treatment-and-care" },
+      { label: "Early Detection & Family Testing", href: "/pkd/early-detection" },
+      { label: "Knowledge Centre", href: "/knowledge" },
+    ],
+  },
+  {
+    label: "Get Support",
+    items: [
+      { label: "How We Help", href: "/support" },
+      { label: "How to Apply", href: "/support/process" },
+      { label: "Find Care", href: "/find-care" },
+      { label: "Community", href: "/community" },
+      { label: "Patient & Caregiver Resources", href: "/help" },
+      { label: "Request Support", comingSoon: true },
+      { label: "Check Case Status", comingSoon: true },
+    ],
+  },
+  {
+    label: "Get Involved",
+    items: [
+      { label: "Ways to Help", href: "/get-involved" },
+      { label: "Donate", href: "/donate" },
+      { label: "Volunteer", href: "/volunteer" },
+      { label: "Partner With Us", href: "/partner" },
+      { label: "Shop", href: "/shop" },
+      { label: "Campaigns", href: "/campaigns" },
+      { label: "Events", href: "/events" },
+      { label: "Awareness & Advocacy", href: "/awareness" },
+    ],
+  },
+  {
+    label: "Organisation",
+    items: [
+      { label: "About Hope4PKD", href: "/about" },
+      { label: "Our Story", href: "/about/founder-story" },
+      { label: "Team & Governance", href: "/about/leadership" },
+      { label: "Transparency", href: "/impact" },
+      contactLink,
+    ],
+  },
   { label: "Trust & Legal", items: legalNavLinks },
 ];
 
 export function isActiveHref(pathname: string, href: string) {
   return pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
-}
-
-export function isActiveGroup(pathname: string, group: NavGroup) {
-  return group.items.some((item) => isNavLink(item) && isActiveHref(pathname, item.href));
 }

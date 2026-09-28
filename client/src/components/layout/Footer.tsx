@@ -4,7 +4,7 @@ import Link from "next/link";
 import logo from "@public/assets/logo-wordmark.png";
 import { ActionLink, ComingSoonTag } from "@/components/common/PublicPage";
 import { organisation } from "@/content/organisation";
-import { donateLink, footerGroups, isNavLink } from "@/lib/navigation";
+import { donateLink, footerGroups, isNavLink, supportLink } from "@/lib/navigation";
 
 export function Footer() {
   return (
@@ -26,17 +26,18 @@ export function Footer() {
             </Text>
           </VStack>
           <HStack gap={3} flexWrap="wrap">
-            <ActionLink href="/support">Get support</ActionLink>
+            <ActionLink href={supportLink.href}>{supportLink.label}</ActionLink>
             <ActionLink href={donateLink.href} variant="outline" surface="dark">
               {donateLink.label}
             </ActionLink>
           </HStack>
         </Grid>
 
-        {/* Seven groups, so four across and three under rather than one cramped row: at lg a seventh
-            column leaves ~130px, which wraps "Health Professionals" onto three lines. */}
+        {/* Six groups in two rows of three. The header is flat, so this is where every sub-page lives;
+            three columns keep "Early Detection & Family Testing" on one line at lg. No email or phone
+            appears here because none has been verified for publication — Contact is the route. */}
         <SimpleGrid
-          columns={{ base: 1, sm: 2, md: 3, lg: 4 }}
+          columns={{ base: 1, sm: 2, lg: 3 }}
           gapX={{ base: 10, lg: 8 }}
           gapY={{ base: 10, lg: 12 }}
           layerStyle="hairlineOnDark"
