@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "@public/assets/logo-wordmark.png";
 import { ActionLink, ComingSoonTag } from "@/components/common/PublicPage";
+import { organisation } from "@/content/organisation";
 import { donateLink, footerGroups, isNavLink } from "@/lib/navigation";
 
 export function Footer() {
@@ -18,7 +19,7 @@ export function Footer() {
         >
           <VStack align="start" gap={5}>
             <Box bg="white" borderRadius="lg" px={3} py={2}>
-              <Image src={logo} alt="Hope4PKD Patients Initiative" width={190} />
+              <Image src={logo} alt={organisation.brandName} width={190} />
             </Box>
             <Text textStyle="lede" color="navy.100" maxW="measureTight">
               PKD information and coordinated support planning for people and families in Nigeria.
@@ -84,8 +85,9 @@ export function Footer() {
             flexDirection={{ base: "column", md: "row" }}
             gap={3}
           >
-            <Text textStyle="bodySm" color="navy.200">
-              © {new Date().getFullYear()} Hope4PKD Patients Initiative.
+            {/* Copyright belongs to the legal entity; the brand follows so the two names are visibly one body. */}
+            <Text textStyle="bodySm" color="navy.200" textWrap="balance">
+              © {new Date().getFullYear()} {organisation.legalName}, operating as {organisation.brandName}.
             </Text>
             <HStack gap={5} flexWrap="wrap">
               <Link href="/cookies">

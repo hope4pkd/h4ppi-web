@@ -14,6 +14,7 @@ import {
   TextLink,
 } from "@/components/common/PublicPage";
 import { Layout } from "@/components/layout/Layout";
+import { organisation } from "@/content/organisation";
 import { Box, Container, Grid, GridItem, Heading, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { ArrowDown, BookOpen, CircleCheck, Compass, HandHeart, HeartHandshake, Landmark, Megaphone, SearchCheck, Stethoscope, Users } from "lucide-react";
 import Image from "next/image";
@@ -95,7 +96,9 @@ export function HomePage() {
   const organisationJsonLd = {
     "@context": "https://schema.org",
     "@type": "NGO",
-    name: "Hope4PKD Patients Initiative",
+    name: organisation.brandName,
+    legalName: organisation.legalName,
+    alternateName: organisation.shortName,
     url: "https://hope4pkd.org",
     logo: "https://hope4pkd.org/assets/logo-new.png",
     areaServed: "Nigeria",

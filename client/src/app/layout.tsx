@@ -5,11 +5,12 @@ import { Gabarito, Newsreader } from "next/font/google";
 import "./globals.css";
 import logo from "@public/assets/logo-new.png";
 import favicon from "@public/assets/h4ppi_logo.ico";
+import { organisation } from "@/content/organisation";
 
 const gabarito = Gabarito({ subsets: ["latin"], variable: "--font-gabarito", display: "swap" });
 const newsreader = Newsreader({ subsets: ["latin"], variable: "--font-newsreader", display: "swap" });
 
-const appName = "Hope4PKD Patients Initiative";
+const appName = organisation.brandName;
 const description = "PKD information and coordinated support planning for people and families in Nigeria.";
 
 export const metadata: Metadata = {

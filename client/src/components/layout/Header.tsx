@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import logo from "@public/assets/logo-wordmark.png";
 import { ComingSoonTag } from "@/components/common/PublicPage";
+import { organisation } from "@/content/organisation";
 import {
   audienceLinks,
   contactLink,
@@ -347,10 +348,10 @@ export function Header() {
         <Container maxW="7xl" py={2}>
           <HStack justify="space-between" gap={4} minH="60px">
             <Box flexShrink={0}>
-              <Link href="/" aria-label="Hope4PKD home" style={{ display: "inline-flex", alignItems: "center", minHeight: "44px" }}>
+              <Link href="/" aria-label={`${organisation.shortName} home`} style={{ display: "inline-flex", alignItems: "center", minHeight: "44px" }}>
                 <LogoImage
                   src={logo}
-                  alt="Hope4PKD Patients Initiative"
+                  alt={organisation.brandName}
                   width={166}
                   w={{ base: "132px", sm: scrolled ? "144px" : "166px" }}
                   h="auto"

@@ -1,5 +1,6 @@
 import { ActionLink, ContentSection, EmptyState, FeatureGrid, FeatureItem, PageHero, SectionHeading } from "@/components/common/PublicPage";
 import { Layout } from "@/components/layout/Layout";
+import { organisation } from "@/content/organisation";
 import { Box, Grid, HStack, Text, VStack } from "@chakra-ui/react";
 import type { Metadata } from "next";
 
@@ -34,6 +35,7 @@ export default function AboutPage() {
       </ContentSection>
       <ContentSection>
         <SectionHeading eyebrow="Governance & leadership" title="Profiles will be published only after approval." description="Current names and photographs remain source material until Hope4PKD approves biographies, roles, governance status and publication consent." />
+        <Text mt={6} color="navy.500" fontSize="lg" lineHeight="1.75" maxW="measure">Our legal name is {organisation.legalName}. We operate as {organisation.brandName}, or {organisation.shortName} for short.</Text>
         <Box mt={10}><EmptyState title="Leadership profiles are under organisational review" description="Leadership pages will include only confirmed roles and approved biographies. Registration details, governance documents, declared conflicts and approved LinkedIn profiles will appear here when confirmed." actionLabel="See how decisions are governed" actionHref="/about/leadership" /></Box>
       </ContentSection>
     </Layout>
