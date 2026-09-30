@@ -30,6 +30,22 @@ test("backend-dependent support actions are marked coming soon and do not link",
   await expect(main.getByText("Hope4PKD cannot provide emergency care")).toBeVisible();
 });
 
+test("the support video loads nothing from YouTube until the reader presses play", async ({ page }) => {
+  const youtubeRequests: string[] = [];
+  page.on("request", (request) => {
+    if (/youtube|ytimg|doubleclick/.test(new URL(request.url()).hostname)) youtubeRequests.push(request.url());
+  });
+  await page.goto("/support");
+  const play = page.getByRole("button", { name: /^Play video: / });
+  await play.scrollIntoViewIfNeeded();
+  await expect(play).toBeVisible();
+  await expect(page.locator("iframe")).toHaveCount(0);
+  expect(youtubeRequests).toEqual([]);
+
+  await play.click();
+  await expect(page.locator('iframe[src^="https://www.youtube-nocookie.com/embed/"]')).toHaveCount(1);
+});
+
 test("routes that needed the backend are gone", async ({ page }) => {
   for (const route of ["/support/request", "/case-status", "/admin", "/donate/confirmation"]) {
     const response = await page.goto(route);
@@ -104,7 +120,7 @@ test("the nav destinations added for the owner's structure all resolve", async (
     ["/about/leadership", "How Hope4PKD separates authority"],
     ["/support", "Let’s work out your next step together"],
     ["/support/process", "What happens at each stage"],
-    ["/get-involved", "Every kind of help has a place here"],
+    ["/get-involved", "Ways to help"],
     ["/impact", "Trust you can check"],
     ["/help", "Know what Hope4PKD can do"],
     ["/for/patients", "You have PKD"],

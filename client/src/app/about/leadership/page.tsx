@@ -34,7 +34,7 @@ export default function LeadershipPage() {
       >
         <HStack gap={3} flexWrap="wrap">
           <ActionLink href="/impact">See the transparency framework</ActionLink>
-          <TextLink href="/policies/privacy" surface="dark">
+          <TextLink href="/policies/privacy">
             Read the policy suite
           </TextLink>
         </HStack>

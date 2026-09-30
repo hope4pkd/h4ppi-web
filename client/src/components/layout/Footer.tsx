@@ -1,14 +1,14 @@
 import { Box, Container, Grid, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "@public/assets/logo-wordmark.png";
+import logo from "@public/assets/logo-full-white.png";
 import { ActionLink, ComingSoonTag } from "@/components/common/PublicPage";
 import { organisation } from "@/content/organisation";
 import { donateLink, footerGroups, isNavLink, supportLink } from "@/lib/navigation";
 
 export function Footer() {
   return (
-    <Box as="footer" bg="navy.900" color="white" borderTopWidth="6px" borderColor="brightTeal.500">
+    <Box as="footer" bg="navy.900" color="white">
       <Container maxW="7xl" py={{ base: 12, md: 16 }}>
         {/* Lead block: the brand and the two things we want people to do, before the link inventory. */}
         <Grid
@@ -18,11 +18,9 @@ export function Footer() {
           pb={{ base: 10, md: 12 }}
         >
           <VStack align="start" gap={5}>
-            <Box bg="white" borderRadius="lg" px={3} py={2}>
-              <Image src={logo} alt={organisation.brandName} width={190} />
-            </Box>
+            <Image src={logo} alt={organisation.brandName} width={200} />
             <Text textStyle="lede" color="navy.100" maxW="measureTight">
-              PKD information and coordinated support planning for people and families in Nigeria.
+              Support for people living with PKD in Nigeria, and the families who care for them.
             </Text>
           </VStack>
           <HStack gap={3} flexWrap="wrap">
@@ -45,7 +43,7 @@ export function Footer() {
         >
           {footerGroups.map((group) => (
             <VStack key={group.label} align="start" gap={1}>
-              <Text textStyle="eyebrow" color="pink.400" mb={3}>
+              <Text textStyle="bodySm" fontWeight="700" color="white" mb={2}>
                 {group.label}
               </Text>
               {group.items.map((item) =>

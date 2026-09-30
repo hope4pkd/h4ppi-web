@@ -64,7 +64,7 @@ export default function ForCaregiversPage() {
       >
         <HStack gap={3} flexWrap="wrap">
           <ActionLink href="/pkd">Understand the condition</ActionLink>
-          <ActionLink href="/community" variant="outline" surface="dark">
+          <ActionLink href="/community" variant="outline">
             Find other caregivers
           </ActionLink>
         </HStack>

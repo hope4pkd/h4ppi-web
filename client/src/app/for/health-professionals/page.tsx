@@ -55,7 +55,7 @@ export default function ForHealthProfessionalsPage() {
       >
         <HStack gap={3} flexWrap="wrap">
           <ActionLink href="/partner">Partnership pathways</ActionLink>
-          <TextLink href="/find-care" surface="dark">
+          <TextLink href="/find-care">
             How clinic verification works
           </TextLink>
         </HStack>

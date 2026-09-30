@@ -51,7 +51,7 @@ export default function SupportProcessPage() {
         title="What happens at each stage."
         description="The six stages describe how a case moves. This page explains the decision made at each stage, who makes it and what the outcome means."
       >
-        <TextLink href="/support" surface="dark">
+        <TextLink href="/support">
           Back to how we help
         </TextLink>
       </PageHero>

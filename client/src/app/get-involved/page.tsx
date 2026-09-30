@@ -1,11 +1,11 @@
 import { HStack, Text } from "@chakra-ui/react";
 import type { Metadata } from "next";
-import { ActionLink, ContentSection, DirectoryList, DirectoryRow, PageHero, SectionHeading, StatementBand } from "@/components/common/PublicPage";
+import { ActionLink, ContentSection, DirectoryList, DirectoryRow, PageHero, StatementBand } from "@/components/common/PublicPage";
 import { Layout } from "@/components/layout/Layout";
 
 export const metadata: Metadata = {
   title: "Get involved",
-  description: "Donate, fundraise, volunteer, partner with Hope4PKD as a hospital or organisation, or shop the merchandise. Every route, and where each one stands today.",
+  description: "Donate, fundraise, volunteer, partner with Hope4PKD as a hospital or organisation, or buy the merchandise, and which of these are open today.",
   alternates: { canonical: "/get-involved" },
 };
 
@@ -13,9 +13,10 @@ export default function GetInvolvedPage() {
   return (
     <Layout>
       <PageHero
+        tone="navy"
         eyebrow="Get involved"
-        title="Every kind of help has a place here."
-        description="Donate, fundraise, volunteer, partner with us as a hospital or organisation, or shop the merchandise. Each route below says honestly what is open today and what is still being set up."
+        title="Ways to help"
+        description="Donate, fundraise, volunteer, partner with us as a hospital or organisation, or buy the merchandise. Some of these are still being set up, and each one says so below."
       >
         <HStack gap={3} flexWrap="wrap">
           <ActionLink href="/donate">Donate</ActionLink>
@@ -26,35 +27,34 @@ export default function GetInvolvedPage() {
       </PageHero>
 
       <ContentSection size="spacious">
-        <SectionHeading eyebrow="Ways to help" title="Choose the one that fits you." description="Money is one route. Time, a professional relationship and a conversation in the right room are the others." />
         <DirectoryList>
           <DirectoryRow href="/donate" title="Donate">
-            Your gift helps pay for dialysis, medication and tests for people who could not otherwise afford them. Online donations open once the payment controls are approved.
+            Your gift helps pay for dialysis, medication and tests for people who could not otherwise afford them. Online donations are not open yet.
           </DirectoryRow>
           <DirectoryRow href="/campaigns" title="Fundraise and campaigns">
-            Run a campaign with friends, family, church or workplace. Patient campaigns publish only after verification and with the patient’s consent.
+            Raise money with friends, family, church or workplace. A patient campaign goes public only after it is verified and the patient consents.
           </DirectoryRow>
           <DirectoryRow href="/volunteer" title="Volunteer">
             Give your time and skills to awareness and patient support.
           </DirectoryRow>
           <DirectoryRow href="/partner" title="Partner with us">
-            Hospitals, companies and organisations working for patients: how a partnership is scoped and recorded.
+            For hospitals, companies and organisations. How a partnership is agreed and recorded.
           </DirectoryRow>
           <DirectoryRow href="/shop" title="Shop">
-            Wear the cause. The designs are ready; the store opens once the payment service and a merchandise policy are in place.
+            T-shirts, caps, totes and more. The shop opens once payments and a merchandise policy are in place.
           </DirectoryRow>
           <DirectoryRow href="/events" title="Events">
             Confirmed public events will be listed with date, place and access details.
           </DirectoryRow>
           <DirectoryRow href="/awareness" title="Awareness and advocacy">
-            Tell the people most likely to need it, accurately, and help us push for PKD to count in healthcare planning.
+            Help more Nigerians learn about PKD, and push for it to be part of healthcare planning.
           </DirectoryRow>
         </DirectoryList>
       </ContentSection>
 
       <StatementBand tone="brightTeal" eyebrow="Before you give" statement="Know where the money goes.">
         <Text textStyle="lede" color="navy.900" maxW="measure">
-          How funds are raised and used, how patients are selected for assistance, and what will be reported: the transparency page sets out the rules before any figure appears.
+          The transparency page sets out how funds are raised and used, how patients are selected for help, and what will be reported.
         </Text>
         <HStack gap={3} flexWrap="wrap" justify="center" pt={2}>
           <ActionLink href="/impact" surface="brand">

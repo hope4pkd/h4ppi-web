@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
   },
   images: {
     formats: ["image/avif", "image/webp"],
+    // Thumbnails for embedded YouTube videos (VideoEmbed). Proxied through /_next/image, so the
+    // reader's browser does not contact YouTube before they press play.
+    remotePatterns: [{ protocol: "https", hostname: "i.ytimg.com", pathname: "/vi/**" }],
   },
   async headers() {
     return [

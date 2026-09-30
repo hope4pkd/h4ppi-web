@@ -55,7 +55,7 @@ export default function AwarenessPage() {
       >
         <HStack gap={3} flexWrap="wrap">
           <ActionLink href="/pkd">Learn about PKD</ActionLink>
-          <TextLink href="/pkd/early-detection" surface="dark">
+          <TextLink href="/pkd/early-detection">
             Early detection and family testing
           </TextLink>
         </HStack>
