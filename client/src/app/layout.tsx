@@ -3,8 +3,7 @@ import { siteUrl } from "@/lib/env";
 import type { Metadata, Viewport } from "next";
 import { Gabarito, Newsreader } from "next/font/google";
 import "./globals.css";
-import logo from "@public/assets/logo-new.png";
-import favicon from "@public/assets/h4ppi_logo.ico";
+import shareImage from "@public/assets/images/og-support-hands.jpg";
 import { organisation } from "@/content/organisation";
 
 const gabarito = Gabarito({ subsets: ["latin"], variable: "--font-gabarito", display: "swap" });
@@ -12,6 +11,7 @@ const newsreader = Newsreader({ subsets: ["latin"], variable: "--font-newsreader
 
 const appName = organisation.brandName;
 const description = "PKD information and coordinated support planning for people and families in Nigeria.";
+const shareImageAlt = "A patient's hands held in a caregiver's hands";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
@@ -19,9 +19,8 @@ export const metadata: Metadata = {
   description,
   applicationName: appName,
   alternates: { canonical: "/" },
-  openGraph: { type: "website", locale: "en_NG", siteName: appName, title: appName, description, images: [{ url: logo.src, alt: appName }] },
-  twitter: { card: "summary_large_image", title: appName, description, images: [logo.src] },
-  icons: { icon: [{ url: favicon.src, type: "image/x-icon" }, { url: logo.src, type: "image/png" }], shortcut: favicon.src },
+  openGraph: { type: "website", locale: "en_NG", siteName: appName, title: appName, description, images: [{ url: shareImage.src, width: shareImage.width, height: shareImage.height, alt: shareImageAlt }] },
+  twitter: { card: "summary_large_image", title: appName, description, images: [{ url: shareImage.src, alt: shareImageAlt }] },
 };
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#0B1F33", colorScheme: "light" };
