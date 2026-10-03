@@ -4,32 +4,23 @@ const buttonRecipe = defineRecipe({
   base: {
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: "full",
+    borderRadius: "lg",
     fontWeight: "700",
     letterSpacing: "-0.01em",
-    transitionProperty: "background-color, color, border-color, transform, box-shadow",
+    transitionProperty: "background-color, color, border-color",
     transitionDuration: "fast",
     transitionTimingFunction: "standard",
     _focusVisible: { outline: "3px solid", outlineColor: "pink.500", outlineOffset: "3px" },
   },
   variants: {
     variant: {
-      solid: { bg: "action.600", color: "white", boxShadow: "soft", _hover: { bg: "action.700", transform: "translateY(-1px)", boxShadow: "lift" } },
-      outline: { borderWidth: "1px", borderColor: "action.600", color: "action.700", _hover: { bg: "teal.50", transform: "translateY(-1px)" } },
+      solid: { bg: "action.600", color: "white", _hover: { bg: "action.700" } },
+      outline: { borderWidth: "1px", borderColor: "action.600", color: "action.700", _hover: { bg: "teal.50" } },
       ghost: { color: "navy.900", _hover: { bg: "teal.50" } },
-    },
-    // boxShadow / transition are variant axes rather than style props: a fix-components.js migration
-    // artifact flagged in DESIGN_SPEC.md. Left in place pending owner confirmation — removing them is a
-    // separate change, and call sites may still pass boxShadow="lg".
-    boxShadow: {
-      lg: { boxShadow: "lg" },
-    },
-    transition: {
-      "all 0.2s": { transition: "all 0.2s" },
     },
     size: {
       sm: { h: "9", px: "4", fontSize: "sm" },
-      lg: { minH: "12", px: "7", fontSize: "md" },
+      lg: { minH: "12", px: "6", fontSize: "md" },
     },
   },
   defaultVariants: {
@@ -215,11 +206,10 @@ const config = defineConfig({
       eyebrow: {
         value: {
           fontFamily: "body",
-          fontSize: "0.875rem",
+          fontSize: "0.9375rem",
           lineHeight: "1.4",
-          letterSpacing: "0.14em",
-          fontWeight: "800",
-          textTransform: "uppercase",
+          letterSpacing: "0",
+          fontWeight: "600",
         },
       },
       lede: {
@@ -245,7 +235,18 @@ const config = defineConfig({
           fontStyle: "italic",
         },
       },
-      // Ordinal markers on ledger rows and pathway steps.
+      // Serif figures for pathway steps and ledger rows.
+      numeral: {
+        value: {
+          fontFamily: "heading",
+          fontSize: "clamp(2rem, 1.7rem + 1.2vw, 2.75rem)",
+          lineHeight: "1",
+          letterSpacing: "-0.02em",
+          fontWeight: "500",
+          fontVariantNumeric: "tabular-nums lining-nums",
+        },
+      },
+      // Small ordinal markers.
       counter: {
         value: {
           fontFamily: "body",
@@ -266,8 +267,7 @@ const config = defineConfig({
           bg: "white",
           borderWidth: "1px",
           borderColor: "navy.100",
-          borderRadius: "2xl",
-          boxShadow: "soft",
+          borderRadius: "xl",
           p: "cardPad",
         },
       },
@@ -276,13 +276,12 @@ const config = defineConfig({
           bg: "white",
           borderWidth: "1px",
           borderColor: "navy.100",
-          borderRadius: "2xl",
-          boxShadow: "soft",
+          borderRadius: "xl",
           p: "cardPad",
-          transitionProperty: "box-shadow, border-color, transform",
-          transitionDuration: "base",
+          transitionProperty: "border-color",
+          transitionDuration: "fast",
           transitionTimingFunction: "standard",
-          _hover: { boxShadow: "lift", borderColor: "teal.200", transform: "translateY(-2px)" },
+          _hover: { borderColor: "teal.300" },
         },
       },
       panel: {
@@ -290,8 +289,7 @@ const config = defineConfig({
           bg: "white",
           borderWidth: "1px",
           borderColor: "navy.100",
-          borderRadius: "2xl",
-          boxShadow: "soft",
+          borderRadius: "xl",
           p: "panelPad",
         },
       },
@@ -299,16 +297,15 @@ const config = defineConfig({
         value: {
           bg: "navy.900",
           color: "white",
-          borderRadius: "2xl",
-          boxShadow: "float",
+          borderRadius: "xl",
           p: "panelPad",
         },
       },
       panelTeal: {
-        value: { bg: "teal.50", borderWidth: "1px", borderColor: "teal.200", borderRadius: "2xl", p: "panelPad" },
+        value: { bg: "teal.50", borderWidth: "1px", borderColor: "teal.200", borderRadius: "xl", p: "panelPad" },
       },
       panelPink: {
-        value: { bg: "pink.50", borderWidth: "1px", borderColor: "pink.200", borderRadius: "2xl", p: "panelPad" },
+        value: { bg: "pink.50", borderWidth: "1px", borderColor: "pink.200", borderRadius: "xl", p: "panelPad" },
       },
       hairline: {
         value: { borderTopWidth: "1px", borderColor: "navy.100" },

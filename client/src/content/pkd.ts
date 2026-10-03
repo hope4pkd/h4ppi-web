@@ -1,5 +1,5 @@
 /**
- * Reference copy for the Learn About PKD pages (/pkd, /pkd/symptoms-and-diagnosis, /pkd/treatment-and-care).
+ * Reference copy for the Understanding PKD pages (/pkd, /pkd/symptoms-and-diagnosis, /pkd/treatment-and-care).
  *
  * Held as data for the same reason as policies.ts: this is clinical text that will be re-reviewed as a
  * body, not edited section by section inside a page component.

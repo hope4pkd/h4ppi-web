@@ -34,7 +34,7 @@ export default function ForEveryonePage() {
       >
         <HStack gap={3} flexWrap="wrap">
           <ActionLink href="/pkd">The full explanation</ActionLink>
-          <TextLink href="/awareness" surface="dark">
+          <TextLink href="/awareness">
             What you can do about it
           </TextLink>
         </HStack>

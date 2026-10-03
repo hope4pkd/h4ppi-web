@@ -46,9 +46,8 @@ export function SourceNote({
           <ChakraLink href={href} target="_blank" rel="noopener noreferrer" {...inlineLink}>
             {publisher}, “{title}”
           </ChakraLink>
-          . Hope4PKD has not medically reviewed it, and it carries no reviewed label. It provides general
-          information. For advice about your own care, speak with a qualified healthcare professional and
-          read our{" "}
+          . Hope4PKD has not medically reviewed it. For advice about your own care, speak with a doctor or
+          nurse, and read our{" "}
           <Link href="/medical-disclaimer">
             <Text as="span" {...inlineLink}>
               medical disclaimer

@@ -12,6 +12,7 @@ const forbidden = [
   [/kidney[- ]donor registration/i, "organ-donor registration copy"],
   [/href=["']\/(?:patients|donors)\//i, "dead legacy route"],
   [/account\s*(?:number|no\.?)[\s:]*0{6,}/i, "placeholder bank account"],
+  [/Hope for PKD\b/, "refused registry name (use organisation.legalName or the Hope4PKD brand)"],
 ];
 
 async function files(directory) {

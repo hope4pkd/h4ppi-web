@@ -78,51 +78,48 @@ export function PageHero({
   eyebrow,
   title,
   description,
+  tone = "light",
+  aside,
   children,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   description: string;
+  /** `light` is the default page header. `navy` is for the few pages where a dark opening means something. */
+  tone?: "light" | "navy";
+  /** Sits beside the text at lg and below it on smaller screens. */
+  aside?: ReactNode;
   children?: ReactNode;
 }) {
+  const onDark = tone === "navy";
+  const text = (
+    <VStack align="start" gap={5} maxW="measureWide">
+      {eyebrow && <Eyebrow surface={onDark ? "dark" : "light"}>{eyebrow}</Eyebrow>}
+      <Heading as="h1" textStyle="pageTitle" color={onDark ? "white" : "navy.900"}>
+        {title}
+      </Heading>
+      <Text textStyle="lede" color={onDark ? "navy.100" : "navy.500"} maxW="measure">
+        {description}
+      </Text>
+      {children && <Box pt={2}>{children}</Box>}
+    </VStack>
+  );
   return (
-    <Box bg="navy.900" color="white" position="relative" overflow="hidden">
-      {/* Blurred blooms rather than hard discs — light on the surface, not shapes sitting on it. */}
-      <Box
-        position="absolute"
-        right="-140px"
-        top="-200px"
-        w="480px"
-        h="480px"
-        borderRadius="full"
-        bg="pink.400"
-        opacity="0.22"
-        filter="blur(90px)"
-        aria-hidden="true"
-      />
-      <Box
-        position="absolute"
-        left="-120px"
-        bottom="-200px"
-        w="420px"
-        h="420px"
-        borderRadius="full"
-        bg="brightTeal.500"
-        opacity="0.18"
-        filter="blur(90px)"
-        aria-hidden="true"
-      />
-      <Container maxW="7xl" py={sectionPadding.default} position="relative">
-        <VStack align="start" gap={5} maxW="measureWide">
-          <Eyebrow surface="dark">{eyebrow}</Eyebrow>
-          <Heading as="h1" textStyle="pageTitle" color="white">
-            {title}
-          </Heading>
-          <Text textStyle="lede" color="navy.100" maxW="measure">
-            {description}
-          </Text>
-          {children}
-        </VStack>
+    <Box
+      bg={onDark ? "navy.900" : "canvas.50"}
+      color={onDark ? "white" : "navy.900"}
+      borderBottomWidth={onDark ? undefined : "1px"}
+      borderColor="navy.100"
+    >
+      <Container maxW="7xl" pt={{ base: 14, md: 24 }} pb={{ base: 12, md: 20 }}>
+        {aside ? (
+          <Grid templateColumns={{ base: "1fr", lg: "minmax(0, 7fr) minmax(0, 5fr)" }} gap={{ base: 10, lg: 16 }} alignItems="end">
+            {text}
+            <Box>{aside}</Box>
+          </Grid>
+        ) : (
+          text
+        )}
       </Container>
     </Box>
   );
@@ -200,9 +197,6 @@ export function EmptyState({
   return (
     <Box layerStyle="panel">
       <VStack align="start" gap={4} maxW="measure">
-        <Box color="action.700">
-          <CircleAlert aria-hidden="true" />
-        </Box>
         <Heading as="h3" textStyle="cardTitle" color="navy.900">
           {title}
         </Heading>
@@ -233,7 +227,7 @@ export function ActionLink({
   return (
     <ButtonLink href={href} variant={variant} surface={surface}>
       {children}
-      <ArrowRight aria-hidden="true" size={18} />
+      {variant === "solid" && <ArrowRight aria-hidden="true" size={18} />}
     </ButtonLink>
   );
 }
@@ -274,13 +268,11 @@ export function ComingSoonTag() {
       gap={1.5}
       bg="action.50"
       color="action.700"
-      borderRadius="full"
-      px={2.5}
-      py={1}
-      fontSize="xs"
-      fontWeight="800"
-      letterSpacing="0.08em"
-      textTransform="uppercase"
+      borderRadius="md"
+      px={2}
+      py={0.5}
+      fontSize="0.8125rem"
+      fontWeight="700"
       whiteSpace="nowrap"
     >
       <Clock aria-hidden="true" size={13} />
@@ -317,7 +309,7 @@ export function ComingSoonAction({ children }: { children: ReactNode }) {
       px={6}
       borderWidth="1px"
       borderColor="navy.200"
-      borderRadius="full"
+      borderRadius="lg"
       bg="white"
       color="navy.500"
       fontWeight="700"
@@ -355,7 +347,18 @@ export function FeatureGrid({ children, columns = 3 }: { children: ReactNode; co
   );
 }
 
-export function FeatureItem({ number, title, children }: { number?: string; title: string; children: ReactNode }) {
+export function FeatureItem({
+  number,
+  title,
+  href,
+  children,
+}: {
+  number?: string;
+  title: string;
+  /** Makes the title a link to the page that expands on it. */
+  href?: string;
+  children: ReactNode;
+}) {
   return (
     <VStack align="start" gap={3} borderTopWidth="2px" borderColor="teal.500" pt={5}>
       {number && (
@@ -364,7 +367,24 @@ export function FeatureItem({ number, title, children }: { number?: string; titl
         </Text>
       )}
       <Heading as="h3" textStyle="featureTitle" color="navy.900">
-        {title}
+        {href ? (
+          <Link href={href}>
+            <HStack
+              as="span"
+              display="inline-flex"
+              gap={2}
+              _hover={{ color: "action.700" }}
+              transitionProperty="color"
+              transitionDuration="fast"
+              transitionTimingFunction="standard"
+            >
+              <Text as="span">{title}</Text>
+              <ArrowRight aria-hidden="true" size={18} />
+            </HStack>
+          </Link>
+        ) : (
+          title
+        )}
       </Heading>
       <Text textStyle="body" color="navy.500">
         {children}
@@ -394,14 +414,14 @@ export function LedgerRow({ number, title, children }: { number: string; title: 
   return (
     <Grid
       as="li"
-      templateColumns={{ base: "44px 1fr", md: "80px minmax(0, 0.85fr) minmax(0, 1.15fr)" }}
+      templateColumns={{ base: "40px 1fr", md: "64px minmax(0, 0.85fr) minmax(0, 1.15fr)" }}
       gap={{ base: 3, md: 8 }}
       layerStyle="hairline"
       py={{ base: 6, md: 8 }}
       alignItems="start"
     >
-      <Text textStyle="counter" color="action.600" pt={{ base: 1, md: 2 }}>
-        {number}
+      <Text textStyle="numeral" color="action.600" fontSize={{ base: "1.75rem", md: "2rem" }}>
+        {number.replace(/^0(?=\d)/, "")}
       </Text>
       <Heading as="h3" textStyle="featureTitle" color="navy.900">
         {title}
@@ -519,23 +539,10 @@ export function StepList({ steps }: { steps: Step[] }) {
     <Box>
       <SimpleGrid as="ol" columns={{ base: 1, sm: 2, lg: 3 }} gap={{ base: 6, md: 8 }} listStyleType="none">
         {steps.map((step, index) => (
-          <VStack as="li" key={step.title} align="start" gap={3}>
-            <HStack
-              as="span"
-              justify="center"
-              w="36px"
-              h="36px"
-              flexShrink={0}
-              borderRadius="full"
-              bg={index === 0 ? "action.600" : "white"}
-              color={index === 0 ? "white" : "action.700"}
-              borderWidth="1px"
-              borderColor={index === 0 ? "action.600" : "teal.300"}
-              textStyle="counter"
-              boxShadow="soft"
-            >
+          <VStack as="li" key={step.title} align="start" gap={3} borderTopWidth="1px" borderColor="teal.300" pt={5}>
+            <Text as="span" textStyle="numeral" color="action.600" aria-hidden="true">
               {index + 1}
-            </HStack>
+            </Text>
             <Heading as="h3" textStyle="featureTitle" color="navy.900">
               {step.title}
             </Heading>
@@ -550,14 +557,13 @@ export function StepList({ steps }: { steps: Step[] }) {
 }
 
 /**
- * A card with an optional icon chip, an optional destination, and an optional `status` line for the
+ * A card with an optional destination, and an optional `status` line for the
  * common case of "this is real, it just is not live yet" — stated in place rather than faked.
  */
 export function FeatureCard({
   eyebrow,
   title,
   description,
-  icon,
   href,
   linkLabel,
   status,
@@ -565,28 +571,12 @@ export function FeatureCard({
   eyebrow?: string;
   title: string;
   description: string;
-  icon?: ReactNode;
   href?: string;
   linkLabel?: string;
   status?: string;
 }) {
   return (
     <VStack layerStyle={href ? "cardInteractive" : "card"} align="start" gap={4} h="full">
-      {icon && (
-        <HStack
-          as="span"
-          justify="center"
-          w="44px"
-          h="44px"
-          flexShrink={0}
-          borderRadius="full"
-          bg="teal.50"
-          color="action.700"
-          aria-hidden="true"
-        >
-          {icon}
-        </HStack>
-      )}
       {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
       <Heading as="h3" textStyle="featureTitle" color="navy.900">
         {title}

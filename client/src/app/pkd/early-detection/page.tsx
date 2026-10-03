@@ -35,7 +35,7 @@ export default function PkdEarlyDetectionPage() {
       >
         <HStack gap={3} flexWrap="wrap">
           <ActionLink href="/pkd/symptoms-and-diagnosis">What to look out for</ActionLink>
-          <TextLink href="/pkd" surface="dark">
+          <TextLink href="/pkd">
             Back to what PKD is
           </TextLink>
         </HStack>

@@ -12,7 +12,7 @@ export default function KnowledgePage() {
       {/* The review programme is not built yet, so the page opens with what does exist rather than
           with three collections that cannot be read. */}
       <ContentSection tone="teal" size="compact">
-        <SectionHeading eyebrow="Readable today" title="Start with the Learn About PKD pages." description="Plain-language explanations adapted from a named external source, each stating that Hope4PKD has not medically reviewed it." />
+        <SectionHeading eyebrow="Readable today" title="Start with the Understanding PKD pages." description="Plain-language explanations adapted from a named external source, each stating that Hope4PKD has not medically reviewed it." />
         <FeatureGrid columns={3}>
           <FeatureCard title="What is PKD?" description="What the cysts do to the kidneys, why it runs in families, and the two inherited forms." href="/pkd" linkLabel="Read the overview" />
           <FeatureCard title="Symptoms and diagnosis" description="What people notice, when to ask a professional about it, and the scans that confirm an answer." href="/pkd/symptoms-and-diagnosis" linkLabel="Read symptoms and diagnosis" />

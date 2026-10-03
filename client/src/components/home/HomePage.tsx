@@ -1,327 +1,294 @@
 import {
   ActionLink,
   ContentSection,
+  DirectoryList,
+  DirectoryRow,
   Eyebrow,
-  FeatureCard,
   FeatureGrid,
-  Ledger,
-  LedgerRow,
+  FeatureItem,
   MediaFrame,
-  PullQuote,
   SectionHeading,
   StatementBand,
   StepList,
   TextLink,
 } from "@/components/common/PublicPage";
+import { SourceNote } from "@/components/common/SourceNote";
 import { Layout } from "@/components/layout/Layout";
+import { organisation } from "@/content/organisation";
+import { pkdInBrief, pkdSource, pkdSymptoms } from "@/content/pkd";
 import { Box, Container, Grid, GridItem, Heading, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
-import { ArrowDown, BookOpen, CircleCheck, Compass, HandHeart, HeartHandshake, Landmark, Megaphone, SearchCheck, Stethoscope, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import founderImage from "@public/assets/images/hospital.jpg";
 import heroImage from "@public/assets/images/patient-caregiver-hands.png";
 
-const trustItems = ["Patient-centred", "Verification-led", "Privacy protected", "Clear public reporting"];
-
-const problems = [
-  ["Diagnosis can feel disorienting", "People need clear, medically responsible information and a practical next step after a suspected or confirmed diagnosis."],
-  ["Care pathways are fragmented", "Appointments, tests, referrals and treatment decisions often sit across different providers without a patient navigator."],
-  ["Costs are difficult to assess", "Families may face significant diagnostic and treatment costs before they know what support is appropriate or available."],
-  ["Trust requires verification", "Patients, providers and supporters need a careful process that protects dignity while confirming each case and cost."],
-  ["Long-term support matters", "PKD is lifelong. People need follow-up, community and reliable information throughout care."],
+// Built from the audience table, not the concept note: each row is a visitor's own question.
+const startHere = [
+  { href: "/for/patients", title: "I have PKD, or my doctor thinks I might", text: "Understand your diagnosis and see how we can help." },
+  { href: "/for/caregivers", title: "I care for someone with PKD", text: "Practical guidance, and people who understand caregiving." },
+  { href: "/pkd/early-detection", title: "PKD runs in my family", text: "Learn about the risk and when to ask a doctor about screening." },
+  { href: "/get-involved", title: "I want to help", text: "Donate, volunteer, fundraise or partner with us." },
+  { href: "/for/health-professionals", title: "I am a health professional", text: "Refer a patient or work with us on medical review." },
 ] as const;
 
-const pillars = [
-  { title: "Patient navigation", text: "A clear route through requests, onboarding, assessment and follow-up.", icon: Compass },
-  { title: "Medical verification", text: "Qualified review before medical content or public cases are approved.", icon: Stethoscope },
-  { title: "Financial access", text: "Validated costs, controlled allocations and accountable disbursement records.", icon: Landmark },
-  { title: "Community", text: "Human support for patients and the people caring for them.", icon: Users },
-  { title: "Awareness", text: "Responsible public education without sensationalising patient stories.", icon: Megaphone },
-  { title: "Advocacy", text: "Use verified programme evidence to argue for fairer access to PKD support.", icon: HeartHandshake },
+// Four of Mayo's symptom statements, chosen because they are the ones a person can notice or a routine
+// appointment can pick up. The full list is on /pkd/symptoms-and-diagnosis.
+const commonSigns = [pkdSymptoms[0], pkdSymptoms[1], pkdSymptoms[2], pkdSymptoms[6]];
+
+const helpKinds = [
+  {
+    title: "Guidance",
+    description: "We help you understand your diagnosis, find nephrologists and dialysis centres, and plan what comes next.",
+    href: "/support",
+  },
+  {
+    title: "Financial assistance",
+    description: "Help toward the cost of dialysis, medication, tests and transplantation, after assessment and subject to the funds available.",
+    href: "/patient-eligibility",
+  },
+  {
+    title: "Community",
+    description: "A moderated space to meet other patients and caregivers. It opens once its safeguards are in place.",
+    href: "/community",
+  },
+  {
+    title: "Awareness and advocacy",
+    description: "We teach Nigerians about PKD and work with policymakers and health leaders for fairer access to care.",
+    href: "/awareness",
+  },
 ] as const;
 
-const journey = [
-  { title: "Request", description: "Share the minimum information needed to understand how we may help." },
-  { title: "Review", description: "The team checks the request, confirms next steps and sends a secure invitation when appropriate." },
-  { title: "Onboard", description: "Invited patients complete consent, case details and private documents in a protected flow." },
-  { title: "Assess", description: "Authorised staff verify medical and cost information, then agree a support plan." },
-  { title: "Support & follow-up", description: "Progress is communicated safely through the case pathway, with follow-up after support." },
+// No response window is quoted: none has been agreed. The steps describe the shape, not a promise.
+const howItWorks = [
+  { title: "Ask", description: "Send a short request. No medical documents at this stage." },
+  { title: "Hear back", description: "Our team reviews your request and contacts you about the next step." },
+  { title: "Share securely", description: "If we can help, you get a private link to share your details and documents." },
+  { title: "Agree a plan", description: "We check the medical and cost information and agree a support plan with you." },
+  { title: "Stay in touch", description: "We follow up after support, because PKD is lifelong." },
 ];
 
-const pathways = [
-  ["Patient navigation", "Help moving from a first request to a clearly explained next step.", Compass],
-  ["Verified support planning", "A structured review of the case and appropriate support options after onboarding.", SearchCheck],
-  ["Knowledge and guidance", "Medically reviewed information as the Knowledge Centre completes its review process.", BookOpen],
-  ["Community connection", "Connections to patient, caregiver and family support for people navigating PKD.", Users],
+// Each row links to the page where the claim can be checked, which is the point of the section.
+const trustChecks = [
+  { href: "/campaigns", title: "Every campaign is verified", text: "Patient campaigns go public only after medical and cost checks, and with the patient's consent." },
+  { href: "/impact", title: "Every payment is recorded", text: "Financial support is recorded against the case and the provider it was paid for, and reported." },
+  { href: "/medical-disclaimer", title: "Health information names its source", text: "Every page about PKD says where its facts come from and that Hope4PKD has not medically reviewed them." },
+  { href: "/policies/privacy", title: "Your privacy is protected", text: "We collect only what we need, and never share your story without your written consent." },
 ] as const;
-
-// The three programme areas that exist but are not yet live. Grouped into one section rather than three
-// consecutive empty panels, so the page states where things stand instead of trailing off.
-const programmeStatus = [
-  {
-    eyebrow: "Verified campaigns",
-    title: "Every public campaign must pass verification before publication.",
-    description: "Campaigns publish only after verification, valid consent, cost review and programme and finance approval.",
-    status: "No verified campaigns are public yet",
-    linkLabel: "How campaign verification works",
-    href: "/campaigns",
-  },
-  {
-    eyebrow: "PKD Knowledge Centre",
-    title: "Medical information should be reviewed, dated and traceable.",
-    description: "Every clinical article will name its author and qualified reviewer, cite sources, include a disclaimer and show its next review date.",
-    status: "The Knowledge Centre is in medical review",
-    linkLabel: "Visit the Knowledge Centre",
-    href: "/knowledge",
-  },
-  {
-    eyebrow: "Partnerships",
-    title: "Confirmed partnerships need a clear role and scope.",
-    description: "Confirmed organisations will be listed only after the relationship, permission to display their identity and partnership scope are documented.",
-    status: "Our partnership network is being formalised",
-    linkLabel: "Explore partnership pathways",
-    href: "/partner",
-  },
-];
-
-const yearOneTargets = [
-  "Launch a reviewed patient-intake and case-management process.",
-  "Publish only verified campaigns with current consent and approved costs.",
-  "Record allocations and provider disbursements separately.",
-  "Publish a clearly sourced first programme report.",
-];
 
 export function HomePage() {
   const organisationJsonLd = {
     "@context": "https://schema.org",
     "@type": "NGO",
-    name: "Hope4PKD Patients Initiative",
+    name: organisation.brandName,
+    legalName: organisation.legalName,
+    alternateName: organisation.shortName,
     url: "https://hope4pkd.org",
     logo: "https://hope4pkd.org/assets/logo-new.png",
     areaServed: "Nigeria",
-    description: "PKD information and coordinated support planning for people and families in Nigeria.",
+    description: "Guidance, financial assistance, community and advocacy for people living with polycystic kidney disease in Nigeria and the families who care for them.",
   };
 
   return (
     <Layout>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organisationJsonLd).replace(/</g, "\\u003c") }} />
 
-      {/* Hero — one primary action, one secondary, one text link. Three peer buttons is no hierarchy. */}
-      <Box as="section" bg="navy.900" color="white" overflow="hidden">
-        <Container maxW="7xl" px={{ base: 0, lg: 4 }}>
-          <Grid templateColumns={{ base: "1fr", lg: "1.08fr 0.92fr" }} minH={{ lg: "clamp(600px, 74vh, 760px)" }}>
-            {/* Deliberately off the ContentSection scale: this is a full-bleed split grid whose height is
-                driven by the photo column, not a section on the page rhythm. */}
-            <VStack align="start" justify="center" gap={6} px={{ base: 5, md: 10, lg: 8 }} py={{ base: 16, lg: 20 }}>
-              <Eyebrow surface="dark">PKD patient support in Nigeria</Eyebrow>
-              <Heading as="h1" textStyle="display" color="white" maxW="measureTight">
+      {/* Hero: the headline and the two actions first, then the photograph as a wide band at its own
+          ratio. The source is a 1983x793 landscape; a portrait slot upscaled it and made it soft. */}
+      <Box as="section" bg="canvas.50" pt={{ base: 12, md: 20 }} pb={{ base: 12, md: 16 }}>
+        <Container maxW="7xl">
+          <Grid templateColumns={{ base: "1fr", lg: "minmax(0, 7fr) minmax(0, 5fr)" }} gap={{ base: 6, lg: 16 }} alignItems="end">
+            <VStack align="start" gap={5}>
+              <Eyebrow>PKD patient support in Nigeria</Eyebrow>
+              <Heading as="h1" textStyle="display" color="navy.900" maxW="14ch">
                 No one should navigate PKD alone.
               </Heading>
-              <Text textStyle="lede" color="navy.100" maxW="measureTight">
-                Hope4PKD is developing coordinated support for people and families living with polycystic kidney disease in Nigeria. We connect early questions with verified help.
-              </Text>
-              <HStack gap={3} flexWrap="wrap" pt={2}>
-                <ActionLink href="/support">Get support</ActionLink>
-                <ActionLink href="/campaigns" variant="outline" surface="dark">View campaigns</ActionLink>
-              </HStack>
-              <TextLink href="/pkd" surface="dark">Understand PKD</TextLink>
-
-              {/* Was inert text that looked interactive; now it actually moves you down the page. */}
-              <Link href="#the-challenge">
-                <HStack
-                  as="span"
-                  color="navy.200"
-                  fontSize="sm"
-                  gap={2}
-                  minH="44px"
-                  transitionProperty="color"
-                  transitionDuration="fast"
-                  transitionTimingFunction="standard"
-                  _hover={{ color: "white" }}
-                  css={{
-                    "& svg": { transitionProperty: "transform", transitionDuration: "base", transitionTimingFunction: "standard" },
-                    "&:hover svg": { transform: "translateY(3px)" },
-                    "@media (prefers-reduced-motion: reduce)": { "&:hover svg": { transform: "none" } },
-                  }}
-                >
-                  <ArrowDown size={16} aria-hidden="true" />
-                  <Text as="span">See how the pathway works</Text>
-                </HStack>
-              </Link>
             </VStack>
+            <VStack align="start" gap={6}>
+              <Text textStyle="lede" color="navy.500" maxW="measureTight">
+                Hope4PKD supports Nigerians living with polycystic kidney disease, and the families who care for them, through guidance, financial assistance, community and advocacy.
+              </Text>
+              <HStack gap={3} flexWrap="wrap">
+                <ActionLink href="/support">Get support</ActionLink>
+                <ActionLink href="/pkd" variant="outline">Learn about PKD</ActionLink>
+              </HStack>
+              <Text textStyle="bodySm" color="navy.500">Asking for help is free, and what you tell us stays private.</Text>
+            </VStack>
+          </Grid>
 
-            <Box position="relative" minH={{ base: "420px", md: "560px", lg: "auto" }}>
+          <Box position="relative" mt={{ base: 10, md: 14 }}>
+            <Box position="relative" aspectRatio={{ base: 4 / 3, md: 2.5 }} borderRadius="xl" overflow="hidden" bg="navy.100">
               <Image
                 src={heroImage}
                 alt="A patient and caregiver holding hands"
                 fill
                 priority
-                sizes="(max-width: 1024px) 100vw, 46vw"
+                sizes="(max-width: 1280px) 100vw, 1216px"
                 style={{ objectFit: "cover", objectPosition: "center" }}
               />
-              <Box position="absolute" inset={0} bgGradient="to-r" gradientFrom="navy.900" gradientTo="transparent" opacity={{ base: 0.25, lg: 0.52 }} aria-hidden="true" />
             </Box>
-          </Grid>
+            {/* The one fact worth putting in front of everyone who lands here, because it is the one
+                most people do not know. */}
+            <Box
+              position={{ base: "relative", md: "absolute" }}
+              right={{ md: 6 }}
+              bottom={{ md: 6 }}
+              mt={{ base: -10, md: 0 }}
+              mx={{ base: 4, md: 0 }}
+              maxW={{ md: "24rem" }}
+            >
+              <Link href="/pkd/early-detection">
+                <VStack
+                  align="start"
+                  gap={2}
+                  bg="navy.900"
+                  borderRadius="xl"
+                  p="cardPad"
+                  transitionProperty="background-color"
+                  transitionDuration="fast"
+                  transitionTimingFunction="standard"
+                  _hover={{ bg: "navy.800" }}
+                >
+                  <Eyebrow surface="dark">It runs in families</Eyebrow>
+                  <Text textStyle="body" color="navy.100">
+                    If you have PKD, your children, brothers and sisters may be at risk too.
+                  </Text>
+                  <Text as="span" textStyle="bodySm" fontWeight="700" color="brightTeal.500">
+                    Learn about family testing
+                  </Text>
+                </VStack>
+              </Link>
+            </Box>
+          </Box>
         </Container>
       </Box>
 
-      {/* A rule, not a billboard. The four claims still read; they no longer shout over the hero. */}
-      <ContentSection size="tight" divider>
-        <SimpleGrid columns={{ base: 2, md: 4 }} gapX={6} gapY={4}>
-          {trustItems.map((item) => (
-            <HStack key={item} gap={2.5} align="center" color="navy.500">
-              <Box color="action.600" flexShrink={0}>
-                <CircleCheck size={16} aria-hidden="true" />
-              </Box>
-              <Text textStyle="eyebrow">{item}</Text>
-            </HStack>
-          ))}
-        </SimpleGrid>
-      </ContentSection>
-
-      <ContentSection id="the-challenge" size="spacious">
-        <SectionHeading eyebrow="Living with PKD" title="PKD affects diagnosis, treatment and daily life." description="People need trustworthy information, coordinated care and sustained support while protecting their privacy and dignity." />
-        <Box>
-          <Ledger>
-            {problems.map(([title, text], index) => (
-              <LedgerRow key={title} number={`0${index + 1}`} title={title}>
-                {text}
-              </LedgerRow>
+      {/* The audience table, as a list of the visitor's own questions. Replaces the old audience bar. */}
+      <ContentSection tone="white" id="start-here">
+        <Grid templateColumns={{ base: "1fr", lg: "minmax(0, 5fr) minmax(0, 7fr)" }} gap={{ base: 8, lg: 16 }} alignItems="start">
+          <SectionHeading title="Where would you like to start?" />
+          <DirectoryList>
+            {startHere.map((row) => (
+              <DirectoryRow key={row.href} href={row.href} title={row.title}>
+                {row.text}
+              </DirectoryRow>
             ))}
-          </Ledger>
-        </Box>
+          </DirectoryList>
+        </Grid>
       </ContentSection>
 
-      {/* One layout at every width. The old radial diagram existed only above lg and had a separate
-          stacked list below it — two implementations of the same six facts. */}
-      <ContentSection tone="teal" id="ecosystem" size="spacious">
-        <SectionHeading align="center" eyebrow="The Hope4PKD ecosystem" title="Six connected parts of patient support." description="Each part covers a different need while keeping the patient at the centre." />
+      <ContentSection id="understand" size="spacious">
+        <Grid templateColumns={{ base: "1fr", lg: "minmax(0, 1fr) minmax(0, 1fr)" }} gap={{ base: 10, lg: 16 }} alignItems="start">
+          <VStack align="start" gap={6}>
+            <SectionHeading eyebrow="Understanding PKD" title="What is PKD?" description={pkdInBrief} />
+            <VStack align="start" gap={4} w="full">
+              <Text textStyle="featureTitle" color="navy.900">Common signs include</Text>
+              <SimpleGrid as="ul" columns={{ base: 1, sm: 2 }} gapX={8} gapY={3} w="full" listStyleType="none">
+                {commonSigns.map((sign) => (
+                  <HStack as="li" key={sign} gap={3} align="center">
+                    <Box w="6px" h="6px" borderRadius="full" bg="action.600" flexShrink={0} aria-hidden="true" />
+                    <Text textStyle="body" color="navy.800">{sign}</Text>
+                  </HStack>
+                ))}
+              </SimpleGrid>
+            </VStack>
+            <TextLink href="/pkd">Read the full guide to PKD</TextLink>
+          </VStack>
 
-        <VStack align="stretch" gap={6}>
-        <Grid
-          layerStyle="panelDark"
-          templateColumns={{ base: "1fr", md: "auto minmax(0, 1fr)" }}
-          gap={{ base: 5, md: 8 }}
-          alignItems="center"
-        >
-          <HStack as="span" justify="center" w="64px" h="64px" flexShrink={0} borderRadius="full" bg="whiteAlpha.100" color="brightTeal.500" aria-hidden="true">
-            <HandHeart size={28} />
-          </HStack>
-          <VStack align="start" gap={2}>
-            <Heading as="h3" textStyle="cardTitle" color="white">
-              The patient
+          <VStack layerStyle="panelPink" align="start" gap={5}>
+            <Heading as="p" textStyle="display" color="pink.700">
+              1 in 2
             </Heading>
-            <Text textStyle="lede" color="navy.100" maxW="measure">
-              Patient dignity, agency and informed consent guide every part of the service.
+            {/* pkdTypes[0]: "each child has a 50% chance of inheriting it" — restated as odds. */}
+            <Text textStyle="lede" color="navy.900" fontWeight="600">
+              In the most common form of PKD, each child of a parent with the condition has a 1 in 2 chance of inheriting it.
             </Text>
+            <Text textStyle="body" color="navy.700">
+              That is why we encourage families to talk to a doctor about screening, even before any symptoms appear.
+            </Text>
+            <ActionLink href="/pkd/early-detection" variant="outline">
+              Early detection and family testing
+            </ActionLink>
           </VStack>
         </Grid>
-
-        <Box>
-          <FeatureGrid columns={3}>
-            {pillars.map((pillar) => {
-              const Icon = pillar.icon;
-              return <FeatureCard key={pillar.title} title={pillar.title} description={pillar.text} icon={<Icon size={20} />} />;
-            })}
-          </FeatureGrid>
-        </Box>
-        </VStack>
+        <SourceNote publisher={pkdSource.publisher} title={pkdSource.title} href={pkdSource.href} />
       </ContentSection>
 
-      <ContentSection tone="white" id="support-pathway" size="spacious">
-        <SectionHeading eyebrow="How support works" title="A five-stage pathway with safe, clear next steps." description="The initial request is intentionally short. Medical documents are never collected until a secure onboarding invitation is issued and the protected upload service is operational." />
-        <Box>
-          <StepList steps={journey} />
-        </Box>
-        <HStack>
-          <ActionLink href="/support">See the support pathway</ActionLink>
+      <ContentSection tone="white" id="our-support" size="spacious">
+        <Grid templateColumns={{ base: "1fr", lg: "minmax(0, 5fr) minmax(0, 7fr)" }} gap={{ base: 8, lg: 16 }} alignItems="start">
+          <VStack align="start" gap={6}>
+            <SectionHeading eyebrow="Our support" title="How we help" />
+            <TextLink href="/support">Get support</TextLink>
+          </VStack>
+          <FeatureGrid columns={2}>
+            {helpKinds.map((kind) => (
+              <FeatureItem key={kind.title} title={kind.title} href={kind.href}>
+                {kind.description}
+              </FeatureItem>
+            ))}
+          </FeatureGrid>
+        </Grid>
+      </ContentSection>
+
+      <ContentSection tone="teal" id="how-it-works" size="spacious">
+        <SectionHeading eyebrow="How it works" title="What happens when you ask for help" description="The first step is short. You only share medical documents later, through a private link, if we can help." />
+        <StepList steps={howItWorks} />
+        <HStack gap={4} flexWrap="wrap" align="center">
+          <ActionLink href="/support">How to ask for help</ActionLink>
+          <Text textStyle="bodySm" color="navy.500">The request form is not open yet.</Text>
         </HStack>
       </ContentSection>
 
-      <ContentSection tone="navy" id="founder">
-        <Grid templateColumns={{ base: "1fr", lg: "minmax(0, 1.15fr) minmax(0, 0.85fr)" }} gap={{ base: 10, lg: 16 }} alignItems="center">
-          <GridItem order={{ base: 2, lg: 1 }}>
-            <VStack align="start" gap={6}>
-              <Eyebrow surface="dark">Why Hope4PKD exists</Eyebrow>
-              <Heading as="h2" textStyle="sectionTitle" color="white" maxW="measureTight">
-                A family’s experience became Hope4PKD.
-              </Heading>
-              <Text textStyle="lede" color="navy.100" maxW="measure">
-                Hope4PKD grew from Onyekachi Nwakaihe’s experience caring for his mother, Margaret Toyin Nwakaihe, and his brother, John Ifeanyi Nwakaihe.
-              </Text>
-              <PullQuote>“No one should navigate PKD alone.”</PullQuote>
-              <TextLink href="/about/founder-story" surface="dark">
-                Read the founder’s story
-              </TextLink>
-            </VStack>
-          </GridItem>
-          <GridItem order={{ base: 1, lg: 2 }}>
+      <ContentSection tone="navy" id="our-story">
+        <Grid templateColumns={{ base: "1fr", lg: "minmax(0, 0.85fr) minmax(0, 1.15fr)" }} gap={{ base: 10, lg: 16 }} alignItems="center">
+          <GridItem>
             <MediaFrame src={founderImage} alt="Onyekachi Nwakaihe in a surgical gown, cap and mask during a hospital visit as a caregiver" ratio={1} objectPosition="50% 56%" />
           </GridItem>
-        </Grid>
-      </ContentSection>
-
-      <ContentSection tone="pink" id="support-options">
-        <SectionHeading eyebrow="Ways we may help" title="Four support pathways, one coordinated entry point." description="Available support depends on eligibility, operational capacity and case assessment. Submitting a request does not guarantee financial assistance." />
-        <Box>
-          <FeatureGrid columns={2}>
-            {pathways.map(([title, text, Icon]) => (
-              <FeatureCard key={title} title={title} description={text} icon={<Icon size={20} />} />
-            ))}
-          </FeatureGrid>
-        </Box>
-      </ContentSection>
-
-      <ContentSection id="impact">
-        <SectionHeading eyebrow="Impact & accountability" title="Reports will separate results from targets." description="Every published figure will include its source and reporting period." />
-        <Grid templateColumns={{ base: "1fr", lg: "1fr 1fr" }} gap={6}>
-          <VStack layerStyle="panelDark" align="start" gap={4}>
-            <Eyebrow surface="dark">Results to date</Eyebrow>
-            <Heading as="h3" textStyle="cardTitle" color="white">
-              Pilot reporting state
-            </Heading>
-            <Text textStyle="body" color="navy.100">
-              Hope4PKD will publish programme totals only after data owners approve the methodology, reporting period and evidence.
-            </Text>
-          </VStack>
-          <VStack layerStyle="panelTeal" align="start" gap={4}>
-            <Eyebrow>Year-one operating targets</Eyebrow>
-            <Heading as="h3" textStyle="cardTitle" color="navy.900">
-              Put the controls into operation
-            </Heading>
-            <VStack align="start" gap={3} color="navy.600">
-              {yearOneTargets.map((item) => (
-                <HStack key={item} align="start" gap={3}>
-                  <Box color="action.600" flexShrink={0} pt="3px">
-                    <CircleCheck size={18} aria-hidden="true" />
-                  </Box>
-                  <Text textStyle="body">{item}</Text>
-                </HStack>
-              ))}
+          <GridItem>
+            <VStack align="start" gap={6}>
+              <Eyebrow surface="dark">Our story</Eyebrow>
+              <Heading as="h2" textStyle="sectionTitle" color="white" maxW="measureTight">
+                Hope4PKD began with a family’s loss.
+              </Heading>
+              <Text textStyle="lede" color="navy.100" maxW="measure">
+                Onyekachi Nwakaihe cared for his mother, Margaret, and his brother, John, through their years with kidney disease, and lost both of them. Reliable information was hard to find, treatment was hard to afford, and there was little support for the family carrying it.
+              </Text>
+              <Text textStyle="lede" color="navy.100" maxW="measure">
+                He started Hope4PKD so that other families get more help than his did.
+              </Text>
+              <ActionLink href="/about/founder-story" variant="outline" surface="dark">
+                Read Onyekachi’s story
+              </ActionLink>
             </VStack>
-          </VStack>
+          </GridItem>
         </Grid>
-        <HStack>
-          <ActionLink href="/impact" variant="outline">See our accountability framework</ActionLink>
+      </ContentSection>
+
+      <ContentSection tone="white" id="trust" size="spacious">
+        <SectionHeading eyebrow="Transparency" title="How we handle money and health information" description="Each rule links to the page where you can read it in full." />
+        <DirectoryList>
+          {trustChecks.map((row) => (
+            <DirectoryRow key={row.href} href={row.href} title={row.title}>
+              {row.text}
+            </DirectoryRow>
+          ))}
+        </DirectoryList>
+        {/* No report date and no registration number appear here: neither has been approved for
+            publication, and a bracketed placeholder on a charity site reads as a claim. */}
+        <HStack justify="space-between" align="center" gap={6} flexWrap="wrap">
+          <Text textStyle="body" color="navy.500" maxW="measure">
+            No programme report has been published yet. Registration details will appear here once they are approved for publication.
+          </Text>
+          <TextLink href="/impact">Read the transparency page</TextLink>
         </HStack>
       </ContentSection>
 
-      <ContentSection tone="white" id="campaigns" size="spacious">
-        <SectionHeading eyebrow="Where things stand" title="Each programme goes live only after its safeguards are complete." description="The current status below contains no placeholder activity or invented results." />
-        <Box>
-          <FeatureGrid columns={3}>
-            {programmeStatus.map((item) => (
-              <FeatureCard key={item.eyebrow} {...item} />
-            ))}
-          </FeatureGrid>
-        </Box>
-      </ContentSection>
-
-      <StatementBand tone="brightTeal" eyebrow="Take the next step" statement="Read about support, partnerships or donations.">
+      <StatementBand tone="brightTeal" eyebrow="Donate" statement="Help pay for dialysis, medication and tests.">
+        <Text textStyle="lede" color="navy.900" maxW="measure">
+          Your gift goes toward treatment for people with PKD who could not otherwise afford it. Online donations are not open yet.
+        </Text>
         <HStack gap={3} flexWrap="wrap" justify="center" pt={2}>
-          <ActionLink href="/support" surface="brand">Get support</ActionLink>
-          <ActionLink href="/partner" variant="outline" surface="brand">Partner with us</ActionLink>
-          <ActionLink href="/donate" variant="ghost" surface="brand">Donate</ActionLink>
+          <ActionLink href="/donate" surface="brand">Donate</ActionLink>
+          <ActionLink href="/get-involved" variant="outline" surface="brand">Other ways to help</ActionLink>
         </HStack>
       </StatementBand>
     </Layout>
