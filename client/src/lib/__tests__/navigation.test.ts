@@ -5,23 +5,22 @@ import {
   donateLink,
   footerGroups,
   homeLink,
-  isActiveGroup,
   isActiveHref,
   isNavLink,
   legalNavLinks,
-  navGroups,
-  type NavGroup,
+  primaryLinks,
+  supportLink,
   type NavItem,
 } from "@/lib/navigation";
 
-const allGroups: readonly NavGroup[] = [...navGroups, ...footerGroups];
-
 const everyItem: readonly NavItem[] = [
-  ...allGroups.flatMap((group) => [...group.items]),
+  ...footerGroups.flatMap((group) => [...group.items]),
+  ...primaryLinks,
   ...audienceLinks,
   ...legalNavLinks,
   homeLink,
   contactLink,
+  supportLink,
   donateLink,
 ];
 
@@ -60,48 +59,48 @@ describe("navigation items", () => {
       }
     }
   });
+});
 
-  it("keeps the backend-dependent support actions as coming-soon", () => {
-    const supportGroup = navGroups.find((group) => group.label === "Get Support");
-    const comingSoon = supportGroup?.items.filter((item) => !isNavLink(item)).map((item) => item.label);
-    expect(comingSoon).toEqual(["Request Support", "Check Case Status"]);
+describe("primary navigation", () => {
+  // The header renders these flat, so the shape here is the shape the e2e specs assert.
+  it("keeps the five flat links in the reader's order", () => {
+    expect(primaryLinks.map((link) => [link.label, link.href])).toEqual([
+      ["About", "/about"],
+      ["Understanding PKD", "/pkd"],
+      ["Get Support", "/support"],
+      ["Get Involved", "/get-involved"],
+      ["Transparency", "/impact"],
+    ]);
   });
 
-  it("keeps the top-level nav shape the header and e2e specs rely on", () => {
-    expect(navGroups.map((group) => group.label)).toEqual([
-      "About",
-      "Learn About PKD",
-      "Get Support",
-      "Get Involved",
-      "Campaigns",
-    ]);
+  it("carries only live links — a primary item can never be coming-soon", () => {
+    for (const link of primaryLinks) expect(isNavLink(link), link.label).toBe(true);
+  });
+
+  it("keeps the two persistent header buttons pointing at support and donate", () => {
+    expect(supportLink).toEqual({ label: "Get support", href: "/support" });
+    expect(donateLink).toEqual({ label: "Donate", href: "/donate" });
   });
 });
 
-describe("mega-panel groups", () => {
-  // items is derived from columns; if the two ever diverge the footer and sitemap silently lose links.
-  it("flattens every column item into the group's items list", () => {
-    for (const group of navGroups) {
-      if (!group.columns) continue;
-      const fromColumns = group.columns.flatMap((column) => column.items);
-      expect(group.items, group.label).toEqual(fromColumns);
+describe("footer groups", () => {
+  it("mirrors every primary destination in a footer column", () => {
+    const footerHrefs = footerGroups.flatMap((group) => group.items.filter(isNavLink).map((item) => item.href));
+    for (const link of primaryLinks) expect(footerHrefs, link.label).toContain(link.href);
+  });
+
+  it("keeps the backend-dependent support actions as coming-soon, and only in the Get Support column", () => {
+    for (const group of footerGroups) {
+      const comingSoon = group.items.filter((item) => !isNavLink(item)).map((item) => item.label);
+      if (group.label === "Get Support") expect(comingSoon).toEqual(["Request Support", "Check Case Status"]);
+      else expect(comingSoon, group.label).toEqual([]);
     }
   });
 
-  it("gives every column a label and at least one item", () => {
-    for (const group of navGroups) {
-      for (const column of group.columns ?? []) {
-        expect(column.label.length, `${group.label} has an unlabelled column`).toBeGreaterThan(0);
-        expect(column.items.length, `${group.label} / ${column.label} is empty`).toBeGreaterThan(0);
-      }
-    }
-  });
-
-  // The panel lays columns and the featured card out in one row, so a fourth column plus a card wraps.
-  it("never pairs a featured card with more than two columns", () => {
-    for (const group of navGroups) {
-      if (!group.featured) continue;
-      expect(group.columns?.length ?? 0, group.label).toBeLessThanOrEqual(2);
+  it("gives every group a label and at least one item", () => {
+    for (const group of footerGroups) {
+      expect(group.label.length).toBeGreaterThan(0);
+      expect(group.items.length, group.label).toBeGreaterThan(0);
     }
   });
 });
@@ -113,18 +112,13 @@ describe("audience routing", () => {
     }
   });
 
-  it("surfaces the audiences and contact in the footer, since the bar is hidden on phones", () => {
+  it("surfaces the audiences and contact in the footer, since the header no longer carries them", () => {
     const startHere = footerGroups[0];
     expect(startHere.label).toBe("Start here");
     expect(startHere.items.filter(isNavLink).map((item) => item.href)).toEqual([
       ...audienceLinks.map((link) => link.href),
       contactLink.href,
     ]);
-  });
-
-  it("mirrors every header group in the footer", () => {
-    const footerLabels = footerGroups.map((group) => group.label);
-    for (const group of navGroups) expect(footerLabels).toContain(group.label);
   });
 });
 
@@ -136,18 +130,9 @@ describe("active-state helpers", () => {
     expect(isActiveHref("/about", "/")).toBe(false);
   });
 
-  it("ignores coming-soon items when resolving the active group", () => {
-    const supportGroup = navGroups.find((group) => group.label === "Get Support")!;
-    expect(isActiveGroup("/support", supportGroup)).toBe(true);
-    expect(isActiveGroup("/help", supportGroup)).toBe(true);
-    expect(isActiveGroup("/impact", supportGroup)).toBe(false);
-  });
-
-  it("resolves a columned group from any of its columns", () => {
-    const learnGroup = navGroups.find((group) => group.label === "Learn About PKD")!;
-    expect(isActiveGroup("/pkd/treatment-and-care", learnGroup)).toBe(true);
-    expect(isActiveGroup("/pkd/early-detection", learnGroup)).toBe(true);
-    expect(isActiveGroup("/knowledge", learnGroup)).toBe(true);
-    expect(isActiveGroup("/support", learnGroup)).toBe(false);
+  it("lights the Understanding PKD link from any of its sub-pages", () => {
+    expect(isActiveHref("/pkd/treatment-and-care", "/pkd")).toBe(true);
+    expect(isActiveHref("/pkd/early-detection", "/pkd")).toBe(true);
+    expect(isActiveHref("/support", "/pkd")).toBe(false);
   });
 });

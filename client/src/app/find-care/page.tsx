@@ -32,7 +32,7 @@ export default function FindCarePage() {
       >
         <HStack gap={3} flexWrap="wrap">
           <ActionLink href="/pkd/early-detection">Prepare for an appointment</ActionLink>
-          <TextLink href="/for/health-professionals" surface="dark">
+          <TextLink href="/for/health-professionals">
             I work in a clinic
           </TextLink>
         </HStack>

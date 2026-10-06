@@ -64,7 +64,7 @@ export default function ForPatientsPage() {
       >
         <HStack gap={3} flexWrap="wrap">
           <ActionLink href="/pkd">Understand PKD</ActionLink>
-          <ActionLink href="/support" variant="outline" surface="dark">
+          <ActionLink href="/support" variant="outline">
             How we help
           </ActionLink>
         </HStack>

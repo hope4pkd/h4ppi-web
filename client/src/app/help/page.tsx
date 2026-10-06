@@ -1,11 +1,16 @@
 import { ContentSection, FaqList, FeatureCard, FeatureGrid, PageHero, SectionHeading, type Faq } from "@/components/common/PublicPage";
 import { Layout } from "@/components/layout/Layout";
+import { organisation } from "@/content/organisation";
 import type { Metadata } from "next";
 
 const faqs = [
   {
     question: "What is Hope4PKD?",
     answer: "Hope4PKD Patients Initiative is developing coordinated support for people and families navigating polycystic kidney disease in Nigeria.",
+  },
+  {
+    question: "Why do I sometimes see a longer name?",
+    answer: `${organisation.legalName} is our legal name. We operate as ${organisation.brandName}, or ${organisation.shortName}. Both names refer to the same organisation.`,
   },
   {
     question: "Is Hope4PKD a hospital or emergency service?",

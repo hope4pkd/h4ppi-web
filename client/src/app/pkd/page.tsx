@@ -32,7 +32,7 @@ export default function AboutPkdPage() {
       >
         <HStack gap={3} flexWrap="wrap">
           <ActionLink href="/pkd/symptoms-and-diagnosis">Symptoms and diagnosis</ActionLink>
-          <ActionLink href="/pkd/treatment-and-care" variant="outline" surface="dark">
+          <ActionLink href="/pkd/treatment-and-care" variant="outline">
             Treatment and care
           </ActionLink>
         </HStack>

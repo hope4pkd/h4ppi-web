@@ -3,7 +3,7 @@ import { siteUrl } from "@/lib/env";
 
 const routes = [
   "",
-  // Audience hubs — the entry points the header's audience bar routes to.
+  // Audience hubs — the entry points Home's "Where would you like to start?" routes to.
   "/for/patients",
   "/for/caregivers",
   "/for/health-professionals",
@@ -20,6 +20,7 @@ const routes = [
   "/find-care",
   "/community",
   "/knowledge",
+  "/get-involved",
   "/campaigns",
   "/donate",
   "/shop",
@@ -33,12 +34,23 @@ const routes = [
   "/complaints",
 ];
 
-// Audience hubs sit just below the homepage: they are the routes the nav is built to send people to.
-const audienceHubs = new Set(["/for/patients", "/for/caregivers", "/for/health-professionals", "/for/everyone"]);
+// The five primary-nav hubs and the audience hubs sit just below the homepage: they are the routes the
+// site is built to send people to.
+const hubs = new Set([
+  "/about",
+  "/pkd",
+  "/support",
+  "/get-involved",
+  "/impact",
+  "/for/patients",
+  "/for/caregivers",
+  "/for/health-professionals",
+  "/for/everyone",
+]);
 
 function priority(route: string) {
   if (route === "") return 1;
-  if (route === "/support" || audienceHubs.has(route)) return 0.9;
+  if (hubs.has(route)) return 0.9;
   return 0.7;
 }
 

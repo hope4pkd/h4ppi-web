@@ -16,7 +16,6 @@ import {
   TextLink,
 } from "@/components/common/PublicPage";
 import { Layout } from "@/components/layout/Layout";
-import { HeartHandshake, ShieldCheck, Users, UsersRound } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Community",
@@ -35,7 +34,7 @@ export default function CommunityPage() {
       >
         <HStack gap={3} flexWrap="wrap">
           <ActionLink href="/for/patients">If you have PKD</ActionLink>
-          <ActionLink href="/for/caregivers" variant="outline" surface="dark">
+          <ActionLink href="/for/caregivers" variant="outline">
             If you care for someone
           </ActionLink>
         </HStack>
@@ -49,22 +48,18 @@ export default function CommunityPage() {
         />
         <FeatureGrid columns={2}>
           <FeatureCard
-            icon={<Users size={20} />}
             title="Patients"
             description="People living with PKD, at every stage from a recent scan to years after a transplant. Somewhere to ask the question you did not want to take up appointment time with."
           />
           <FeatureCard
-            icon={<HeartHandshake size={20} />}
             title="Caregivers"
             description="The relative coordinating appointments, chasing results and holding the household together. Caregiving is its own experience and it needs its own room."
           />
           <FeatureCard
-            icon={<UsersRound size={20} />}
             title="Families"
             description="Siblings, children and parents working out what an inherited condition means for the rest of them, including whether and when to ask about screening."
           />
           <FeatureCard
-            icon={<ShieldCheck size={20} />}
             title="Moderation"
             description="Named moderators, a reporting route and a safeguarding escalation path. A health community without them becomes a marketplace within weeks."
           />

@@ -1,5 +1,6 @@
 import { ContentSection, PageHero } from "@/components/common/PublicPage";
 import { Layout } from "@/components/layout/Layout";
+import { organisation } from "@/content/organisation";
 import { policies, type PolicyKey } from "@/content/policies";
 import { Box, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 
@@ -20,6 +21,7 @@ export function PolicyDocument({ policyKey }: { policyKey: PolicyKey }) {
               <Text color="navy.500" fontSize="lg" lineHeight="1.75" mt={3}>{body}</Text>
             </Box>
           ))}
+          <Text borderTopWidth="1px" borderColor="navy.100" pt={7} color="navy.500" fontSize="md">Issued by {organisation.legalName}, operating as {organisation.brandName}.</Text>
         </VStack>
       </ContentSection>
     </Layout>
