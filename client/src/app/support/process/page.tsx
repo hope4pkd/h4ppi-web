@@ -1,7 +1,7 @@
 import { Box, HStack, Text, VStack } from "@chakra-ui/react";
 import type { Metadata } from "next";
 import {
-  ComingSoonPanel,
+  ActionLink,
   ContentSection,
   FeatureGrid,
   FeatureItem,
@@ -96,7 +96,7 @@ export default function SupportProcessPage() {
           </FeatureItem>
           <FeatureItem number="03" title="Only once invited">
             Permitted documents go into private storage that scans files before staff can access them.
-            Hope4PKD will not accept documents through the contact form, social media or email.
+            Hope4PKD will not accept documents through social media or email.
           </FeatureItem>
         </FeatureGrid>
       </ContentSection>
@@ -126,17 +126,16 @@ export default function SupportProcessPage() {
       <ContentSection tone="pink">
         <SectionHeading
           eyebrow="Still being approved"
-          title="Requirements before intake can open."
-          description="Intake requires approved eligibility rules, response standards and a named programme owner before the form can open."
+          title="What is still being agreed."
+          description="The eligibility rules and response standards are still being approved. Until they are, a request starts with a short email and no medical records."
         />
         <HStack gap={3} flexWrap="wrap">
           <TextLink href="/patient-eligibility">Read the eligibility policy</TextLink>
           <TextLink href="/help">Patient and caregiver resources</TextLink>
         </HStack>
-        <ComingSoonPanel
-          title="Support requests are not open yet"
-          description="The intake described on this page needs an operational service. No case submission is available on this site today. This page will say when intake opens."
-        />
+        <HStack>
+          <ActionLink href="/support#request">Ask for support by email</ActionLink>
+        </HStack>
       </ContentSection>
     </Layout>
   );

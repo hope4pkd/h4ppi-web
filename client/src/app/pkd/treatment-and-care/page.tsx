@@ -103,7 +103,7 @@ export default function PkdTreatmentAndCarePage() {
           <ActionLink href="/support" surface="dark">
             See the support pathway
           </ActionLink>
-          <ActionLink href="/donate" variant="outline" surface="dark">
+          <ActionLink href="/get-involved" variant="outline" surface="dark">
             Support the work
           </ActionLink>
         </HStack>

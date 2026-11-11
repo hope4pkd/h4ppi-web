@@ -25,7 +25,7 @@ export default function ImpactPage() {
             <Text textStyle="eyebrow" color="brightTeal.500">Raised</Text>
             <Heading as="h3" textStyle="cardTitle" color="white">Donations and campaigns</Heading>
             <Text textStyle="body" color="navy.100">
-              Funds come from individual donations and verified patient campaigns. Online donations open once payment, finance, fee, refund and surplus controls are approved; until then no bank details or checkout appear on this site.
+              Funds come from individual donations and verified patient campaigns. This website takes no payment and shows no bank details or checkout. To give, email us and we will reply.
             </Text>
           </VStack>
           <VStack layerStyle="panelTeal" align="start" gap={4}>
@@ -47,9 +47,6 @@ export default function ImpactPage() {
           <DirectoryRow href="/support/process" title="The support process">
             What is assessed at each stage of a case, who assesses it, and what a decision at that stage means.
           </DirectoryRow>
-          <DirectoryRow href="/campaigns" title="Campaign publication standard">
-            Why a patient campaign goes public only after medical and cost checks and with the patient’s consent.
-          </DirectoryRow>
         </DirectoryList>
       </ContentSection>
 
@@ -69,7 +66,7 @@ export default function ImpactPage() {
         <SectionHeading eyebrow="Results and reports" title="Every published result needs evidence." description="Reports will separate verified results from targets, and each figure will carry its source and reporting period." />
         <EmptyState
           title="No approved public reports yet"
-          description="No programme totals have been approved for publication. Registration details, governance records, independently reviewed financial reports, impact data and confirmed partners will be linked here after approval, and the first report will say whether it is annual or quarterly."
+          description="No programme totals have been approved for publication. Governance records, independently reviewed financial reports, impact data and confirmed partners will be linked here after approval, and the first report will say whether it is annual or quarterly."
           actionLabel="Read our policy suite"
           actionHref="/policies/privacy"
         />

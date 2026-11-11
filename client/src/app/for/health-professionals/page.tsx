@@ -2,10 +2,10 @@ import { Grid, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import type { Metadata } from "next";
 import {
   ActionLink,
-  ComingSoonPanel,
   ContentSection,
   DirectoryList,
   DirectoryRow,
+  EmailPanel,
   Eyebrow,
   PageHero,
   SectionHeading,
@@ -98,8 +98,8 @@ export default function ForHealthProfessionalsPage() {
           description="Each of these is currently a gap rather than a programme, which is precisely why naming them is useful."
         />
         <DirectoryList>
-          <DirectoryRow href="/knowledge" title="Medically review the Knowledge Centre">
-            No article carries a reviewed label, because no qualified reviewer, independence check or
+          <DirectoryRow href="/pkd" title="Medically review our PKD pages">
+            No page carries a reviewed label, because no qualified reviewer, independence check or
             next-review date exists to put behind one. That is the blocker on the whole content programme.
           </DirectoryRow>
           <DirectoryRow href="/find-care" title="Put your clinic through verification">
@@ -124,10 +124,9 @@ export default function ForHealthProfessionalsPage() {
           description="Written down now so it can be argued with now, rather than discovered by a patient later."
         />
         <StepList steps={referralSteps} />
-        <ComingSoonPanel
-          title="There is no referral route open yet"
-          description="Referral needs the case-management service, a consent record and a protected way to receive documents. None of those exist in this site, and a clinician’s time is too expensive to spend on a form that goes nowhere. The partnership page explains what can be discussed in the meantime."
-        />
+        <EmailPanel title="Discuss a referral by email" subject="Referral">
+          Tell us your role and facility and what the patient needs help with. Please do not include the patient’s name, records or any identifying detail.
+        </EmailPanel>
       </ContentSection>
 
       <StatementBand

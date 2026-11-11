@@ -35,11 +35,12 @@ Semantic tokens (light-mode only): `bg.canvas/default` → canvas.50, `bg.subtle
 | `sectionTitle` | `SectionHeading` / `SplitFeature` / `StatementBand` h2 | serif, clamp 1.875→3rem, lh 1.06 |
 | `cardTitle` | `EmptyState`, `ComingSoonPanel`, hub cards h3 | serif, clamp 1.375→1.625rem |
 | `featureTitle` | `FeatureItem` / `FeatureCard` / `LedgerRow` / `StepList` h3 | **sans**, 1.25rem, weight 700 |
-| `eyebrow` | `Eyebrow` (all surfaces) | sans, .875rem, weight 800, ls .14em, uppercase |
+| `eyebrow` | `Eyebrow` (all surfaces) | sans, .9375rem, weight 600, sentence case (no uppercase, no tracking) |
 | `lede` | Hero and section descriptions | sans, clamp 1.0625→1.25rem, lh 1.65 |
 | `body` / `bodySm` | Body copy | sans, 1rem / .9375rem, lh 1.7 / 1.65 |
 | `quote` | `PullQuote` | serif italic, clamp 1.5→2rem |
-| `counter` | `01`-style ordinals | sans, .875rem, weight 800, tabular-nums |
+| `numeral` | `StepList` / `LedgerRow` figures | serif, clamp 2→2.75rem, lh 1, tabular |
+| `counter` | small ordinals (`FeatureItem` number) | sans, .875rem, weight 800, tabular-nums |
 
 - Eyebrow colour follows the surface: `action.700` on light, `brightTeal.500` on navy, `navy.900` on
   brightTeal — pass `<Eyebrow surface="dark|brand">` (see "Component variants" for why it is not a boolean).
@@ -63,7 +64,12 @@ A page should never pass `mt` or `p` to get the house rhythm; the components own
   - `width`: `narrow` 3xl · `default` 7xl · `wide` 8xl · `full` (no Container, for bleed).
   - `tone`: `canvas | white | teal | pink | navy | brightTeal`; `divider` adds a bottom hairline.
   - **Alternate tones and sizes between sections** — a run of identically-padded full-width sections is
-    what makes a page read as templated.
+    what makes a page read as templated. Concretely, two rules the pages added on 2026-08-25 follow and
+    every new page should:
+    1. **No two adjacent `ContentSection`s share both `tone` and `size`.**
+    2. **At most one `FeatureGrid` per page.** Carry the other sections with `Ledger`, `DirectoryList`,
+       `StepList`, `SplitFeature` or `StatementBand`. Hero → grid → `EmptyState`, repeated down the
+       page, is the shape to avoid — see "Three list primitives" under Component variants.
 - **Measure caps** (`sizes` tokens): `measureTight` 54ch · `measure` 68ch · `measureWide` 78ch. Body copy
   must carry one; text running the full `7xl` container is the fastest way to look untended.
 - **Column counts are bounded by measure, not by item count.** `StepList` caps at three columns however
@@ -77,6 +83,8 @@ A page should never pass `mt` or `p` to get the house rhythm; the components own
   lift) · `panel` · `panelDark` · `panelTeal` · `panelPink` · `hairline` · `hairlineOnDark`.
   Use `layerStyle="card"`, not the border trio — and do not add `p` at the call site, the surface carries it.
   `card*` = sits in a grid (`cardPad`); `panel*` = large and standalone (`panelPad`).
+- **Cards and panels carry no resting shadow** (border only, radius `xl`); `cardInteractive` hover changes the
+  border colour and nothing moves. Shadows are reserved for `MediaFrame` and the sticky header.
 - **`shadows` tokens:** `soft` · `lift` · `float` · `header`. All navy-tinted (`rgba(11,31,51,…)`), wide
   radius, low opacity, so elevation reads as part of the palette. Never write a raw `rgba()` shadow.
 - **Motion tokens:** `durations` `fast 160ms` / `base 240ms` / `slow 420ms`; `easings` `standard` /
@@ -87,26 +95,47 @@ A page should never pass `mt` or `p` to get the house rhythm; the components own
 
 ## Component variants
 
-- **Button recipe** (`theme.ts`): pill (`borderRadius full`), weight 700; variants `solid` (action.600 bg),
+- **Button recipe** (`theme.ts`): `borderRadius lg`, weight 700; variants `solid` (action.600 bg),
   `outline` (action.600 border), `ghost` (navy text, teal.50 hover); sizes `sm` (h 9) and `lg` (minH 12).
   `defaultVariants` are `solid` / `lg`, so an `IconButton` or compact button **must** pass `size="sm"`.
-  Hover lifts `translateY(-1px)`.
+  Hover is a colour change only — no lift, no shadow. `ActionLink` shows its trailing arrow on `solid`
+  only, so a pair of CTAs always has one visible primary.
 - **Links styled as buttons go through `ButtonLink`** (`components/common/ButtonLink.tsx`) — the single
   `"use client"` leaf that owns the `<Button asChild><Link/></Button>` composition. Do not inline that
   pattern anywhere else: authored inside a *server* component, the `<Link>` reaches Chakra as a
   `React.lazy` client reference and `asChild`'s `React.Children.only` throws during prerender.
 - **Card:** `layerStyle="card"` for grid cards, `panel` for large standalone ones (Chakra v3 has no Card component).
-- **Hero (`PageHero`):** navy.900 background, two `aria-hidden` blurred colour blooms (pink.400 and
-  brightTeal.500, `filter: blur(90px)`) rather than hard discs, then eyebrow + h1 + lede.
-- **FeatureItem:** top border `2px teal.500`, optional number label, sans h3.
-- **EmptyState:** card + `CircleAlert` icon + optional outline action — the standard "not live yet" surface.
+- **Hero (`PageHero`):** `tone="light"` (default) is canvas with navy text and a bottom hairline;
+  `tone="navy"` is opt-in for pages where a dark opening means something (`/get-involved`, `/donate`).
+  No decorative blooms or blobs. `eyebrow` is optional; `aside` puts a panel beside the text at lg.
+  Children inside a light hero must not pass `surface="dark"`.
+- **FeatureItem:** top border `2px teal.500`, optional number label, sans h3; optional `href` makes the title a link.
+- **FeatureCard** has no icon chip. Icon-in-a-circle cards are a generic generated-UI pattern; the title carries the card.
+- **EmptyState:** panel + serif title + body + optional outline action, no icon — the standard "not live yet" surface.
   For a card that is mostly real content with one thing pending, `FeatureCard`'s `status` prop states it
   in place instead. Never fake content.
+- **Three list primitives, and the choice between them is a design decision, not a preference.** Reaching
+  for `FeatureGrid` every time is what makes consecutive pages look like one template with the words
+  swapped:
+  - **`Ledger` / `LedgerRow`** — numbered hairline rows, no link. A *reading order*: these steps or facts
+    happen in this sequence and the numbers mean something.
+  - **`DirectoryList` / `DirectoryRow`** — unnumbered hairline rows, the whole row is a link. For "here
+    are six places to go next", which is most of what an audience hub does.
+  - **`FeatureGrid` / `FeatureCard` / `FeatureItem`** — equal-weight cards in a grid. Peers with no
+    order and no destination. If the items *do* have an order, or every one of them is a link, one of
+    the two above is the right component.
+- **`FaqList`** takes `{ question, answer }[]` and renders native `<details>` — not Chakra's `Accordion`.
+  These are static server-rendered pages: the browser's own find-in-page has to reach the answers, and an
+  accordion would drag a client boundary onto every page carrying an FAQ for no behaviour `<details>`
+  lacks. A page that also emits `FAQPage` JSON-LD builds it from the same array (see `/help`).
 - Shared kit lives in `client/src/components/common/PublicPage.tsx`:
   Eyebrow, SectionHeading, PageHero, ContentSection, EmptyState, ActionLink, TextLink, ComingSoon*,
-  InfoPage, FeatureGrid/Item, plus the section-level set — **Ledger/LedgerRow, StepList, FeatureCard,
-  SplitFeature, MediaFrame, Portrait, PullQuote, StatementBand**.
+  InfoPage, FeatureGrid/Item, plus the section-level set — **Ledger/LedgerRow, DirectoryList/DirectoryRow,
+  FaqList, StepList, FeatureCard, SplitFeature, MediaFrame, Portrait, PullQuote, StatementBand**.
   **Compose these; do not fork per-page variants.**
+- **`VideoEmbed`** (`components/common/VideoEmbed.tsx`, a client leaf) embeds a YouTube video in the
+  MediaFrame treatment. It renders a button over the thumbnail and swaps in a `youtube-nocookie` player
+  only on click. Video IDs and titles live in `content/media.ts`; video files never go in `public/`.
 - **`SourceNote`** (`components/common/SourceNote.tsx`) closes any page carrying clinical information:
   a hairline footnote naming the external source, linking it, and stating that Hope4PKD has not medically
   reviewed the page. Its inline links are Chakra `Link` (external) and `next/link` wrapping a `Text` span —
@@ -124,13 +153,12 @@ A page should never pass `mt` or `p` to get the house rhythm; the components own
 ## Known inconsistencies (flagged, not fixed — confirm with owner before changing)
 
 - `.hope-native-select` hardcodes `#afc1cf` / `#0b1f33` (duplicates navy.200/navy.900) instead of referencing vars.
-- The button recipe has `boxShadow` and `transition` as variant *axes* (inferred to be a migration artifact — confirm with owner).
 - `@import "tailwindcss"` sits in globals.css but no Tailwind utility is used anywhere; forbidden per AGENTS.md.
 - The 13 content pages and 13 policy pages still pass some one-off `fontSize`/spacing values inline
   (e.g. `PolicyDocument.tsx` h2 at `{base:"2xl", md:"3xl"}`). They inherit the new scale through the shared
   kit but have not been swept onto `textStyle` tokens individually. Home, Header and Footer have been.
 - `components/legal/LegalPage.tsx` is dead (zero imports) and references `brand.500` / `gray.*` tokens that
   do not exist in `theme.ts`. Delete it before a future model copies the pattern.
-- `public/assets/images/patient-caregiver-hands.png` is low-resolution for the hero slot: at 1440px the
-  optimised source is 662×264 filling a 574×703 box, so it is upscaled ~2.7× and looks soft. Needs a
-  higher-resolution or portrait-orientation replacement — a source-asset problem, not a code one.
+- Resolved 2026-09-28: the Home hero now shows `patient-caregiver-hands.png` as a full-width band at its
+  native ~2.5:1 ratio instead of upscaling it into a portrait slot. A higher-resolution original would
+  still help on 2x screens wider than ~1000px.

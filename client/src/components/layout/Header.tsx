@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import logo from "@public/assets/logo-wordmark.png";
 import { organisation } from "@/content/organisation";
-import { contactLink, donateLink, homeLink, isActiveHref, primaryLinks, supportLink } from "@/lib/navigation";
+import { contactLink, homeLink, isActiveHref, primaryLinks, supportLink } from "@/lib/navigation";
 
 const LogoImage = chakra(Image);
 
@@ -106,13 +106,10 @@ export function Header() {
           </HStack>
 
           <HStack gap={2}>
-            {/* The two actions that matter most stay visible on every page. Below sm the Donate pill
-                alone fits beside the logo and the menu button; Get support is the drawer's first item. */}
-            <Button asChild variant="outline" size="sm" minH="44px" display={{ base: "none", sm: "inline-flex" }}>
-              <Link href={supportLink.href}>{supportLink.label}</Link>
-            </Button>
+            {/* The one action that stays visible on every page, at every width. There is no Donate
+                button: the site takes no online payment (ADR-12). */}
             <Button asChild size="sm" minH="44px">
-              <Link href={donateLink.href}>{donateLink.label}</Link>
+              <Link href={supportLink.href}>{supportLink.label}</Link>
             </Button>
 
             <Drawer.Root open={open} onOpenChange={(details) => setOpen(details.open)} placement="end" size="xs">
@@ -146,11 +143,8 @@ export function Header() {
                       </VStack>
                     </Drawer.Body>
                     <Drawer.Footer borderTopWidth="1px" borderColor="navy.100" gap={3}>
-                      <Button asChild variant="outline" flex="1">
-                        <Link href={supportLink.href} onClick={closeDrawer}>{supportLink.label}</Link>
-                      </Button>
                       <Button asChild flex="1">
-                        <Link href={donateLink.href} onClick={closeDrawer}>{donateLink.label}</Link>
+                        <Link href={supportLink.href} onClick={closeDrawer}>{supportLink.label}</Link>
                       </Button>
                     </Drawer.Footer>
                     <Drawer.CloseTrigger asChild>

@@ -1,12 +1,13 @@
-import { ActionLink, ContentSection, EmptyState, FeatureGrid, FeatureItem, Ledger, LedgerRow, PageHero, SectionHeading, TextLink } from "@/components/common/PublicPage";
+import { ActionLink, ContentSection, EmptyState, FeatureGrid, FeatureItem, Ledger, LedgerRow, PageHero, Portrait, RegistrationDetails, SectionHeading, TextLink } from "@/components/common/PublicPage";
 import { Layout } from "@/components/layout/Layout";
 import { organisation } from "@/content/organisation";
-import { Grid, Heading, HStack, Text, VStack } from "@chakra-ui/react";
+import { advisors, leadership, type TeamMember } from "@/content/team";
+import { Box, Grid, Heading, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About us",
-  description: "Why Hope4PKD exists, the five gaps it was founded to close, its mission and vision, and how it will publish leadership and governance information.",
+  description: "Why Hope4PKD exists, the five gaps it was founded to close, its mission and vision, and the team that runs it.",
   alternates: { canonical: "/about" },
 };
 
@@ -92,18 +93,53 @@ export default function AboutPage() {
         </FeatureGrid>
       </ContentSection>
 
-      <ContentSection>
+      <ContentSection id="team">
         <SectionHeading eyebrow="Team and advisors" title="Who runs Hope4PKD" />
         <Text color="navy.500" textStyle="lede" maxW="measure">
           Our legal name is {organisation.legalName}. We operate as {organisation.brandName}, or {organisation.shortName} for short.
         </Text>
-        <EmptyState
-          title="Leadership and advisor profiles are not published yet"
-          description="Confirmed roles and approved biographies will appear here, with registration details, governance documents and declared conflicts, once each one is approved."
-          actionLabel="See how decisions are governed"
-          actionHref="/about/leadership"
-        />
+        <ProfileGrid label="Leadership team" people={leadership} />
+        {advisors.length > 0 ? (
+          <>
+            <SectionHeading title="Advisors" />
+            <ProfileGrid label="Advisors" people={advisors} />
+          </>
+        ) : (
+          <EmptyState
+            title="Advisor profiles are not published yet"
+            description="Advisors will be named here once each one has confirmed their role and approved how they are described."
+          />
+        )}
+        <TextLink href="/about/leadership">See how decisions are governed</TextLink>
+      </ContentSection>
+
+      <ContentSection tone="white" id="registration" size="compact">
+        <SectionHeading title="Registration details" />
+        <RegistrationDetails />
       </ContentSection>
     </Layout>
+  );
+}
+
+// Two across on a phone so five people do not become five screens of scrolling; never more than four,
+// which keeps room for a biography under each name when one is approved.
+function ProfileGrid({ label, people }: { label: string; people: readonly TeamMember[] }) {
+  return (
+    <SimpleGrid
+      as="ul"
+      aria-label={label}
+      columns={{ base: 2, md: 3, lg: 4 }}
+      columnGap={{ base: 4, md: 6 }}
+      rowGap={{ base: 8, md: 10 }}
+      listStyleType="none"
+    >
+      {people.map((person) => (
+        <Box as="li" key={person.name}>
+          <Portrait src={person.photo?.src} objectPosition={person.photo?.objectPosition} name={person.name} role={person.role}>
+            {person.bio}
+          </Portrait>
+        </Box>
+      ))}
+    </SimpleGrid>
   );
 }

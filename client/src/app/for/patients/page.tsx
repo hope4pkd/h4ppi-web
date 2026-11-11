@@ -2,7 +2,6 @@ import { HStack, Text } from "@chakra-ui/react";
 import type { Metadata } from "next";
 import {
   ActionLink,
-  ComingSoonPanel,
   ContentSection,
   DirectoryList,
   DirectoryRow,
@@ -28,7 +27,7 @@ const faqs = [
   {
     question: "If I ask for support, will I get money?",
     answer:
-      "Not automatically, and not soon. A request begins a review. Whether any support follows depends on eligibility, verification of the case and its costs, and whether Hope4PKD has the capacity at the time. The support pathway is also not open yet.",
+      "Not automatically, and not soon. A request begins a review. Whether any support follows depends on eligibility, verification of the case and its costs, and whether Hope4PKD has the capacity at the time.",
   },
   {
     question: "Do I have to make my story public to be helped?",
@@ -39,11 +38,6 @@ const faqs = [
     question: "What should I not send you?",
     answer:
       "Medical records, scan results, identity documents and bank details. There is no route on this site that should receive them, and anything that asks you for them is not us.",
-  },
-  {
-    question: "Why does so much of this site say “coming soon”?",
-    answer:
-      "Because it is true. Support intake, case status and donations all need a service Hope4PKD is still building. Marking them honestly costs you a click; pretending they work would cost you an afternoon.",
   },
 ] as const satisfies readonly Faq[];
 
@@ -130,16 +124,9 @@ export default function ForPatientsPage() {
             on.
           </DirectoryRow>
           <DirectoryRow href="/help" title="Common questions">
-            What Hope4PKD is, what happens to information you share, and why parts of this site are not open.
+            What Hope4PKD is, and what happens to information you share.
           </DirectoryRow>
         </DirectoryList>
-      </ContentSection>
-
-      <ContentSection tone="white" size="compact">
-        <ComingSoonPanel
-          title="Support requests are not open yet"
-          description="Intake needs the case-management service Hope4PKD is still building, along with agreed eligibility rules and a response time it can actually meet. Until then there is no form here and no queue you are missing. Everything above is available today."
-        />
       </ContentSection>
 
       <ContentSection>

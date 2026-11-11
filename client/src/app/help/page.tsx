@@ -34,7 +34,7 @@ const faqs = [
   },
   {
     question: "Can I donate now?",
-    answer: "Online donations remain inactive until the live payment account, settlement details, finance approvals and donation, fee, refund and surplus policies are complete.",
+    answer: "Not through this website: it takes no online payment. To ask about giving, email us from the Give page.",
   },
 ] as const satisfies readonly Faq[];
 

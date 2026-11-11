@@ -8,7 +8,7 @@ Each rule has a one-line reason. When a rule blocks you, flag it — don't silen
 - `src/app/` — routes only (pages, layout/error/loading, robots/sitemap/manifest). **No API route handlers** — `client/` is front-end only. *(App Router owns this tree; server work belongs in the future `server/` folder.)*
 - `src/components/` — `common/` (public page kit), `layout/`, `legal/`, `home/`, `ui/` (provider). New components go in the existing bucket that matches their consumer. *(Predictable discovery. `forms/` and `admin/` were deleted with the backend, 2026-08-02.)*
 - `src/lib/` — shared non-UI logic: `env.ts` (`siteUrl()` only), `navigation.ts`, `theme.ts`. *(Single home for non-UI logic.)*
-- `src/content/` — structured copy data (policies). *(Copy is data, not JSX scattered in pages.)*
+- `src/content/` — structured copy data (policies, organisation names). *(Copy is data, not JSX scattered in pages.)*
 - `client/scripts/` — repo checks. `client/e2e/` — Playwright specs. `src/lib/__tests__/` — vitest unit tests. *(Tests sit next to what they test.)*
 
 ## Naming
@@ -30,13 +30,12 @@ Each rule has a one-line reason. When a rule blocks you, flag it — don't silen
 - Public pages compose `Layout` + the `PublicPage.tsx` kit (PageHero, ContentSection, …); do not fork new hero/section variants without flagging. *(One visual system across ~45 routes.)*
 - Style with Chakra v3 props and theme tokens (`navy.900`, `action.600`, `teal.50`, …). Never hardcode hex, never write Tailwind classes, never call `cn()`. *(theme.ts is the token source of truth; owner decision 2026-07-19.)*
 - Chakra **v3** only — these v2 imports do not exist: Card, FormControl, FormLabel, Stepper, Radio, RadioGroup, Checkbox, Avatar, Progress, Alert, List, Select, InputLeftElement. Card = styled Box (`borderWidth="1px" borderColor="navy.100" borderRadius="2xl" bg="white"`); form fields = `Field.Root/Field.Label`; selects = native `<select className="hope-native-select">`. *(v3 removed them; the codebase has replacements.)*
-- Nothing to show yet → `EmptyState`. Needs a server we do not have → `ComingSoonPanel` (in place of a form), `ComingSoonAction` (in place of an `ActionLink`), `ComingSoonTag` (inline pill). Never placeholder data that looks real, and never a CTA that navigates to a dead end. *(check-content.mjs will fail the build; trust posture — ADR-3b.)*
+- Nothing to show yet → `EmptyState`. Needs a server we do not have → `EmailPanel` (a mailto with the subject filled in) if an email can stand in, otherwise leave it out or unpublish the page. The `ComingSoon*` primitives are not rendered anywhere. Never placeholder data that looks real, and never a CTA that navigates to a dead end. *(Every published page and control must work — ADR-12.)*
 
 ## Navigation
 
-- Nav items are `NavItem = NavLink | ComingSoonNavItem` in `src/lib/navigation.ts`. A destination needing the missing service carries `comingSoon: true` and **no** `href`. *(Makes "cannot be linked" unrepresentable-as-a-link rather than an empty string.)*
-- Header and Footer branch on `isNavLink(item)` and key their maps on `label`, not `href`. *(Coming-soon items have no href to key on.)*
-- Desktop dropdown renders coming-soon entries as `Menu.Item disabled`; mobile drawer and footer render plain text with `ComingSoonTag`. *(Keyboard navigation must skip what cannot be activated.)*
+- Nav items live in `src/lib/navigation.ts` and every one is a live `NavLink`. The `ComingSoonNavItem` type remains, but the footer filters such entries out and the test forbids them. *(ADR-12: what cannot be reached is left out, not listed.)*
+- Never link to `/shop`, `/events`, `/campaigns` or `/knowledge` — they are unpublished redirects. *(The test fails on it.)*
 - `src/lib/__tests__/navigation.test.ts` guards the invariant and blocks links to deleted routes. Update it when adding routes. *(The only unit test in the repo.)*
 
 ## Forms & API routes
@@ -57,7 +56,7 @@ Each rule has a one-line reason. When a rule blocks you, flag it — don't silen
 - New dependencies without owner sign-off + DECISIONS.log entry. *(Contract rule 1.)*
 - Tailwind utilities, `cn()`, react-icons, next-themes. *(Unused deps pending removal.)*
 - Any backend in `client/`: API route handlers, `'use server'` actions, `middleware.ts`, database/email/payment SDKs. *(Front-end only until the `server/` folder exists.)*
-- A control that cannot function yet being rendered as a live link, a submit button, or `<button disabled>`. *(ADR-3b — use the ComingSoon primitives.)*
+- A control that cannot function yet being rendered at all — as a live link, a submit button, `<button disabled>` or a "Coming soon" marker. A Donate button while the site takes no payment. *(ADR-12.)*
 - Faking success, or linking a CTA to a page whose only content is "not configured". *(Trust posture.)*
 - Invented facts in copy: phone numbers, prices, locations, bank accounts, event details, medical claims. *(check-content.mjs + charity trust.)*
 - Links to legacy `/patients/*` or `/donors/*` subroutes. *(Dead routes; content check blocks them.)*

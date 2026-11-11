@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowRight, CircleAlert, Clock } from "lucide-react";
 import { ButtonLink, type Surface } from "@/components/common/ButtonLink";
+import { mailto, organisation, registration } from "@/content/organisation";
 
 /**
  * The shared page kit. Every public route composes from here — compose these, do not fork per-page
@@ -232,6 +233,49 @@ export function ActionLink({
   );
 }
 
+/**
+ * The organisation's registration block. The wording is the owner's and the facts come from
+ * content/organisation.ts, so the footer, /about and /contact always show the same thing.
+ * It is an <address> because it is the contact information for the body that publishes the site.
+ */
+export function RegistrationDetails({
+  surface = "light",
+  withContact = true,
+}: {
+  surface?: "light" | "dark";
+  /** False where the address and email are shown beside it already (the footer's contact row). */
+  withContact?: boolean;
+}) {
+  const onDark = surface === "dark";
+  return (
+    <Text
+      as="address"
+      fontStyle="normal"
+      textStyle="bodySm"
+      color={onDark ? "navy.200" : "navy.500"}
+      maxW="measureWide"
+    >
+      {organisation.legalName}, operating as {organisation.brandName}. Registered in {registration.country} with the{" "}
+      {registration.registrar} as an {registration.entityType}. Registration No: {registration.number}.
+      {withContact && (
+        <>
+          {" "}
+          Registered address: {registration.address}. Email:{" "}
+          <Text
+            asChild
+            color={onDark ? "white" : "action.700"}
+            textDecoration="underline"
+            textUnderlineOffset="3px"
+            overflowWrap="anywhere"
+          >
+            <a href={`mailto:${registration.email}`}>{registration.email}</a>
+          </Text>
+        </>
+      )}
+    </Text>
+  );
+}
+
 /** A quieter inline link for tertiary actions, so CTA rows do not become three peers with no hierarchy. */
 export function TextLink({ href, children, surface = "light" }: { href: string; children: ReactNode; surface?: Surface }) {
   const onDark = surface === "dark";
@@ -260,6 +304,36 @@ export function TextLink({ href, children, surface = "light" }: { href: string; 
   );
 }
 
+/**
+ * The working replacement for a form the site has no server to receive: a mailto with the subject line
+ * filled in, and the address printed beside it for anyone whose device has no mail app set up.
+ */
+export function EmailPanel({ title, subject, children }: { title: string; subject: string; children: ReactNode }) {
+  return (
+    <Box layerStyle="panel">
+      <VStack align="start" gap={4} maxW="measure">
+        <Heading as="h3" textStyle="cardTitle" color="navy.900">
+          {title}
+        </Heading>
+        <Text textStyle="body" color="navy.500">
+          {children}
+        </Text>
+        <ButtonLink href={mailto(subject)} size="sm">
+          Email us
+        </ButtonLink>
+        <Text textStyle="bodySm" color="navy.500" overflowWrap="anywhere">
+          {registration.email}, with the subject “{subject}”.
+        </Text>
+      </VStack>
+    </Box>
+  );
+}
+
+/*
+ * The three ComingSoon primitives below have no call sites since 2026-11-11: every page that used one
+ * now offers an email route or was unpublished (ADR-12). They stay for the day the server/ service
+ * returns and a control has to be marked rather than removed.
+ */
 export function ComingSoonTag() {
   return (
     <HStack
@@ -654,6 +728,7 @@ export function MediaFrame({
   alt,
   ratio = 4 / 3,
   objectPosition = "center",
+  sizes = "(max-width: 1024px) 100vw, 50vw",
 }: {
   src: StaticImageData | string;
   alt: string;
@@ -661,6 +736,8 @@ export function MediaFrame({
   /** Where the crop sits when the source and the frame disagree — a tall phone portrait in a 4/5
    * frame is otherwise centred on the chest and loses the head. */
   objectPosition?: string;
+  /** Override when the frame sits in a grid narrower than half the viewport. */
+  sizes?: string;
 }) {
   return (
     <Box
@@ -680,33 +757,79 @@ export function MediaFrame({
         "@media (prefers-reduced-motion: reduce)": { "&:hover img": { transform: "none" } },
       }}
     >
-      <Image src={src} alt={alt} fill sizes="(max-width: 1024px) 100vw, 50vw" style={{ objectFit: "cover", objectPosition }} />
+      <Image src={src} alt={alt} fill sizes={sizes} style={{ objectFit: "cover", objectPosition }} />
     </Box>
   );
 }
 
+const monogram = (name: string) =>
+  name
+    .split(/\s+/)
+    .map((part) => part[0])
+    .slice(0, 2)
+    .join("");
+
+/**
+ * A named person in a grid of up to four across. `src` is optional because a role can be confirmed
+ * before its photograph is: the fallback is a flat monogram in the same 4:5 frame, never a stock
+ * image. `children` is the biography, and is left out until one has been approved.
+ */
 export function Portrait({
   src,
-  alt,
+  objectPosition,
   name,
   role,
+  children,
 }: {
-  src: StaticImageData | string;
-  alt: string;
+  src?: StaticImageData | string;
+  objectPosition?: string;
   name: string;
   role: string;
+  children?: ReactNode;
 }) {
   return (
-    <VStack align="start" gap={4}>
-      <MediaFrame src={src} alt={alt} ratio={4 / 5} />
+    <VStack align="stretch" gap={4}>
+      {src ? (
+        // Sized about 1.6x wider than the slot: a landscape source is cropped to this 4:5 frame, so
+        // the file has to cover the frame's height, not its width.
+        <MediaFrame
+          src={src}
+          alt={`Portrait of ${name}`}
+          ratio={4 / 5}
+          objectPosition={objectPosition}
+          sizes="(max-width: 768px) 80vw, (max-width: 1024px) 50vw, 40vw"
+        />
+      ) : (
+        <Box
+          aria-hidden="true"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          w="full"
+          aspectRatio={4 / 5}
+          borderRadius="2xl"
+          borderWidth="1px"
+          borderColor="navy.100"
+          bg="teal.50"
+        >
+          <Text as="span" textStyle="numeral" color="teal.700">
+            {monogram(name)}
+          </Text>
+        </Box>
+      )}
       <VStack align="start" gap={1}>
-        <Text textStyle="featureTitle" color="inherit">
+        <Heading as="h3" textStyle="featureTitle" color="navy.900">
           {name}
-        </Text>
-        <Text textStyle="bodySm" color="navy.400">
+        </Heading>
+        <Text textStyle="bodySm" color="navy.500">
           {role}
         </Text>
       </VStack>
+      {children && (
+        <Text textStyle="bodySm" color="navy.500">
+          {children}
+        </Text>
+      )}
     </VStack>
   );
 }

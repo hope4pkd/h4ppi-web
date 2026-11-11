@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest";
 import {
   audienceLinks,
   contactLink,
-  donateLink,
   footerGroups,
   homeLink,
   isActiveHref,
@@ -21,10 +20,12 @@ const everyItem: readonly NavItem[] = [
   homeLink,
   contactLink,
   supportLink,
-  donateLink,
 ];
 
 // Routes deleted when the client became front-end only. Nothing may link to them.
+// Unpublished 2026-11-11: pages whose whole body was a placeholder. They redirect; nothing links to them.
+const unpublishedRoutes = ["/shop", "/events", "/campaigns", "/knowledge"];
+
 const deletedRoutes = [
   "/support/request",
   "/support/confirmation",
@@ -54,7 +55,7 @@ describe("navigation items", () => {
 
   it("never links to a route deleted with the backend", () => {
     for (const item of everyItem.filter(isNavLink)) {
-      for (const route of deletedRoutes) {
+      for (const route of [...deletedRoutes, ...unpublishedRoutes]) {
         expect(item.href === route || item.href.startsWith(`${route}/`), `${item.label} -> ${item.href}`).toBe(false);
       }
     }
@@ -77,9 +78,8 @@ describe("primary navigation", () => {
     for (const link of primaryLinks) expect(isNavLink(link), link.label).toBe(true);
   });
 
-  it("keeps the two persistent header buttons pointing at support and donate", () => {
+  it("keeps the persistent header button pointing at support", () => {
     expect(supportLink).toEqual({ label: "Get support", href: "/support" });
-    expect(donateLink).toEqual({ label: "Donate", href: "/donate" });
   });
 });
 
@@ -89,11 +89,9 @@ describe("footer groups", () => {
     for (const link of primaryLinks) expect(footerHrefs, link.label).toContain(link.href);
   });
 
-  it("keeps the backend-dependent support actions as coming-soon, and only in the Get Support column", () => {
+  it("carries no coming-soon entry — a destination that cannot be reached is left out, not listed", () => {
     for (const group of footerGroups) {
-      const comingSoon = group.items.filter((item) => !isNavLink(item)).map((item) => item.label);
-      if (group.label === "Get Support") expect(comingSoon).toEqual(["Request Support", "Check Case Status"]);
-      else expect(comingSoon, group.label).toEqual([]);
+      expect(group.items.filter((item) => !isNavLink(item)).map((item) => item.label), group.label).toEqual([]);
     }
   });
 

@@ -15,14 +15,15 @@ import { Layout } from "@/components/layout/Layout";
 export const metadata: Metadata = {
   title: "Leadership & governance",
   description:
-    "How Hope4PKD governs decisions about cases, money and publication, and the approvals required before leadership profiles and registration details are published.",
+    "How Hope4PKD governs decisions about cases, money and publication, and which governance documents are still to be published.",
   alternates: { canonical: "/about/leadership" },
 };
 
 /**
- * Deliberately a short page. Naming a board or publishing biographies before Hope4PKD has approved them
- * would be exactly the invented credibility the content check exists to prevent, so this page publishes
- * the governance rules — which are real and already written down — and states plainly what is pending.
+ * Deliberately a short page. The team is named on /about, from content/team.ts. Naming a board or
+ * publishing biographies before Hope4PKD has approved them would be exactly
+ * the invented credibility the content check exists to prevent, so this page publishes the governance
+ * rules — which are real and already written down — and states plainly what is pending.
  */
 export default function LeadershipPage() {
   return (
@@ -93,15 +94,16 @@ export default function LeadershipPage() {
       <ContentSection>
         <SectionHeading
           eyebrow="What is still pending"
-          title="Publish names only after consent and approval."
-          description="Photographs and roles exist internally. They stay there until the people in them have approved how they are described publicly."
+          title="Documents and biographies still to come."
+          description="The leadership team is named on the About page. A biography is added once the person it describes has approved the wording."
         />
         <EmptyState
-          title="Leadership profiles are under organisational review"
-          description="Leadership pages will name only confirmed roles and use approved biographies. Registration details, governance documents, declared conflicts and approved profiles will appear here when confirmed."
+          title="Governance documents are not published yet"
+          description="Governance documents, declared conflicts and advisor profiles will appear here when confirmed."
           actionLabel="Read the conflict of interest policy"
           actionHref="/conflict-of-interest"
         />
+        <TextLink href="/about#team">Meet the team</TextLink>
       </ContentSection>
     </Layout>
   );

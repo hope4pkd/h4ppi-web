@@ -102,7 +102,7 @@ export default function ForEveryonePage() {
             The practical and emotional load of coordinating another person’s care, and how to make it smaller.
           </DirectoryRow>
           <DirectoryRow href="/donate" title="I want to fund the work">
-            How Hope4PKD intends to handle donated money, and why online donations are not open yet.
+            How to ask about giving, and how Hope4PKD handles donated money.
           </DirectoryRow>
           <DirectoryRow href="/volunteer" title="I want to give time">
             The roles being defined in community support, content, accessibility and professional services.
@@ -126,8 +126,8 @@ export default function ForEveryonePage() {
           <ActionLink href="/awareness" surface="brand">
             Raise awareness
           </ActionLink>
-          <ActionLink href="/shop" variant="outline" surface="brand">
-            Shop
+          <ActionLink href="/volunteer" variant="outline" surface="brand">
+            Volunteer
           </ActionLink>
         </HStack>
       </StatementBand>
