@@ -5,7 +5,7 @@ import { Layout } from "@/components/layout/Layout";
 
 export const metadata: Metadata = {
   title: "Get involved",
-  description: "Donate, fundraise, volunteer, partner with Hope4PKD as a hospital or organisation, or buy the merchandise, and which of these are open today.",
+  description: "Volunteer, partner with Hope4PKD as a hospital or organisation, help raise awareness of PKD, or ask about giving.",
   alternates: { canonical: "/get-involved" },
 };
 
@@ -16,10 +16,10 @@ export default function GetInvolvedPage() {
         tone="navy"
         eyebrow="Get involved"
         title="Ways to help"
-        description="Donate, fundraise, volunteer, partner with us as a hospital or organisation, or buy the merchandise. Some of these are still being set up, and each one says so below."
+        description="Volunteer, partner with us as a hospital or organisation, help more people learn about PKD, or ask about giving. Each one starts with an email."
       >
         <HStack gap={3} flexWrap="wrap">
-          <ActionLink href="/donate">Donate</ActionLink>
+          <ActionLink href="/volunteer">Volunteer</ActionLink>
           <ActionLink href="/impact" variant="outline" surface="dark">
             Where the money goes
           </ActionLink>
@@ -28,26 +28,17 @@ export default function GetInvolvedPage() {
 
       <ContentSection size="spacious">
         <DirectoryList>
-          <DirectoryRow href="/donate" title="Donate">
-            Your gift helps pay for dialysis, medication and tests for people who could not otherwise afford them. Online donations are not open yet.
-          </DirectoryRow>
-          <DirectoryRow href="/campaigns" title="Fundraise and campaigns">
-            Raise money with friends, family, church or workplace. A patient campaign goes public only after it is verified and the patient consents.
-          </DirectoryRow>
           <DirectoryRow href="/volunteer" title="Volunteer">
             Give your time and skills to awareness and patient support.
           </DirectoryRow>
           <DirectoryRow href="/partner" title="Partner with us">
             For hospitals, companies and organisations. How a partnership is agreed and recorded.
           </DirectoryRow>
-          <DirectoryRow href="/shop" title="Shop">
-            T-shirts, caps, totes and more. The shop opens once payments and a merchandise policy are in place.
-          </DirectoryRow>
-          <DirectoryRow href="/events" title="Events">
-            Confirmed public events will be listed with date, place and access details.
-          </DirectoryRow>
           <DirectoryRow href="/awareness" title="Awareness and advocacy">
             Help more Nigerians learn about PKD, and push for it to be part of healthcare planning.
+          </DirectoryRow>
+          <DirectoryRow href="/donate" title="Give">
+            This website takes no online payment. Email us to ask about giving.
           </DirectoryRow>
         </DirectoryList>
       </ContentSection>

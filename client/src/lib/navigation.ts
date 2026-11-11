@@ -52,10 +52,11 @@ export const homeLink = { label: "Home", href: "/" } as const satisfies NavLink;
 
 export const contactLink = { label: "Contact", href: "/contact" } as const satisfies NavLink;
 
-/** The two actions that stay visible on every page. */
+/**
+ * The action that stays visible on every page. There is no Donate button beside it: the site takes no
+ * online payment, and a donate button that cannot take a donation is removed rather than shown (ADR-12).
+ */
 export const supportLink = { label: "Get support", href: "/support" } as const satisfies NavLink;
-
-export const donateLink = { label: "Donate", href: "/donate" } as const satisfies NavLink;
 
 export const legalNavLinks = [
   { label: "Privacy Policy", href: "/policies/privacy" },
@@ -79,7 +80,6 @@ export const footerGroups: readonly NavGroup[] = [
       { label: "Symptoms & Diagnosis", href: "/pkd/symptoms-and-diagnosis" },
       { label: "Treatment & Care", href: "/pkd/treatment-and-care" },
       { label: "Early Detection & Family Testing", href: "/pkd/early-detection" },
-      { label: "Knowledge Centre", href: "/knowledge" },
     ],
   },
   {
@@ -90,20 +90,15 @@ export const footerGroups: readonly NavGroup[] = [
       { label: "Find Care", href: "/find-care" },
       { label: "Community", href: "/community" },
       { label: "Patient & Caregiver Resources", href: "/help" },
-      { label: "Request Support", comingSoon: true },
-      { label: "Check Case Status", comingSoon: true },
     ],
   },
   {
     label: "Get Involved",
     items: [
       { label: "Ways to Help", href: "/get-involved" },
-      { label: "Donate", href: "/donate" },
+      { label: "Give", href: "/donate" },
       { label: "Volunteer", href: "/volunteer" },
       { label: "Partner With Us", href: "/partner" },
-      { label: "Shop", href: "/shop" },
-      { label: "Campaigns", href: "/campaigns" },
-      { label: "Events", href: "/events" },
       { label: "Awareness & Advocacy", href: "/awareness" },
     ],
   },

@@ -17,15 +17,18 @@ test("homepage answers the audience table and states what is not live", async ({
   expect(consoleErrors).toEqual([]);
 });
 
-test("backend-dependent support actions are marked coming soon and do not link", async ({ page }) => {
+test("/support asks for a short email instead of a form, and marks nothing coming soon", async ({ page }) => {
   await page.goto("/support");
   const main = page.getByRole("main");
-  await expect(main.getByText("Start a request", { exact: true })).toBeVisible();
-  await expect(main.getByText("Check case status", { exact: true })).toBeVisible();
-  // Two actions plus the panel standing in for the mockup's request form.
-  await expect(main.getByText("Coming soon", { exact: true })).toHaveCount(3);
-  await expect(page.getByRole("link", { name: "Start a request" })).toHaveCount(0);
-  await expect(page.getByRole("link", { name: "Check case status" })).toHaveCount(0);
+  await expect(main.getByRole("link", { name: "Ask for support", exact: true })).toHaveAttribute("href", "/support#request");
+  await expect(main.getByRole("link", { name: "Email us" })).toHaveAttribute(
+    "href",
+    "mailto:info@hope4pkd.org?subject=Support%20request",
+  );
+  await expect(main.getByText("Please do not send medical records.")).toBeVisible();
+  await expect(main.getByRole("link", { name: "+234(0)9076412444" })).toHaveAttribute("href", "tel:+2349076412444");
+  await expect(main.getByRole("link", { name: "+234(0)8106411664" })).toHaveAttribute("href", "tel:+2348106411664");
+  await expect(main.getByText("Coming soon", { exact: true })).toHaveCount(0);
   await expect(main.locator("form")).toHaveCount(0);
   await expect(main.getByText("Hope4PKD cannot provide emergency care")).toBeVisible();
 });
@@ -55,13 +58,16 @@ test("routes that needed the backend are gone", async ({ page }) => {
 
 const primaryLabels = ["About", "Understanding PKD", "Get Support", "Get Involved", "Transparency"];
 
-test("the header is five flat links and two persistent buttons", async ({ page }) => {
+test("the header is five flat links and one persistent button, with no Donate", async ({ page }) => {
   await page.goto("/");
   const header = page.getByRole("banner");
   const hamburger = header.getByRole("button", { name: "Open navigation menu" });
 
-  // Donate stays visible at every width; Get support joins it from sm.
-  await expect(header.getByRole("link", { name: "Donate" })).toBeVisible();
+  // Get support stays visible at every width. The site takes no payment, so there is no Donate button.
+  // `exact` matters: the nav link "Get Support" also matches case-insensitively.
+  await expect(header.getByRole("link", { name: "Get support", exact: true })).toBeVisible();
+  await expect(header.getByRole("link", { name: "Donate" })).toHaveCount(0);
+  await expect(page.getByRole("link", { name: "Donate", exact: true })).toHaveCount(0);
 
   if (await hamburger.isVisible()) {
     await hamburger.click();
@@ -74,8 +80,6 @@ test("the header is five flat links and two persistent buttons", async ({ page }
     // No dropdown triggers: every item is a link to a hub page.
     await expect(primaryNav.getByRole("link")).toHaveText(primaryLabels);
     await expect(primaryNav.getByRole("button")).toHaveCount(0);
-    // `exact` matters: the nav link "Get Support" also matches case-insensitively.
-    await expect(header.getByRole("link", { name: "Get support", exact: true })).toBeVisible();
 
     await primaryNav.getByRole("link", { name: "Understanding PKD" }).click();
     await expect(page).toHaveURL(/\/pkd$/);
@@ -92,9 +96,11 @@ test("the footer carries every sub-page the flat header does not", async ({ page
   await expect(footer.getByRole("link", { name: "Caregivers" })).toHaveAttribute("href", "/for/caregivers");
   await expect(footer.getByRole("link", { name: "Early Detection & Family Testing" })).toBeVisible();
   await expect(footer.getByRole("link", { name: "Awareness & Advocacy" })).toHaveAttribute("href", "/awareness");
-  // Coming-soon destinations render as text, never as links.
-  await expect(footer.getByRole("link", { name: "Request Support" })).toHaveCount(0);
-  await expect(footer.getByText("Request Support")).toBeVisible();
+  // Nothing in the footer is a placeholder: no coming-soon entry and no unpublished page.
+  await expect(footer.getByText("Coming soon")).toHaveCount(0);
+  for (const label of ["Request Support", "Shop", "Events", "Campaigns", "Knowledge Centre"]) {
+    await expect(footer.getByText(label, { exact: true })).toHaveCount(0);
+  }
 });
 
 test("the Understanding PKD pages explain the disease and name their source", async ({ page }) => {
@@ -131,7 +137,8 @@ test("the nav destinations added for the owner's structure all resolve", async (
     ["/find-care", "A referral list is only worth having if it is true"],
     ["/community", "The people who already know"],
     ["/awareness", "Most people meet PKD for the first time"],
-    ["/shop", "Merchandise that says the thing out loud"],
+    ["/contact", "Email or call us"],
+    ["/donate", "Giving to Hope4PKD"],
   ] as const;
 
   for (const [route, heading] of destinations) {
@@ -141,19 +148,81 @@ test("the nav destinations added for the owner's structure all resolve", async (
   }
 });
 
-// The new sections all describe things that do not work yet. None of them may offer a control that
-// pretends otherwise — ADR-3b.
-test("the new sections are honest about what does not exist yet", async ({ page }) => {
-  await page.goto("/shop");
-  await expect(page.getByRole("main").getByText("The store is not open")).toBeVisible();
-  await expect(page.getByRole("button", { name: /add to (cart|basket)/i })).toHaveCount(0);
-  await expect(page.getByRole("main").getByText("₦")).toHaveCount(0);
+// ADR-12: a page either offers something that works or is unpublished. No page shows a "Coming soon"
+// marker or a "not open yet" panel.
+test("no page carries a coming-soon marker, and each enquiry page has a working email action", async ({ page }) => {
+  const subjects = [
+    ["/volunteer", "Volunteer"],
+    ["/partner", "Partner"],
+    ["/complaints", "Complaint"],
+    ["/donate", "Donation"],
+    ["/for/health-professionals", "Referral"],
+  ] as const;
+  for (const [route, subject] of subjects) {
+    await page.goto(route);
+    await expect(page.getByRole("main").getByRole("link", { name: "Email us" })).toHaveAttribute(
+      "href",
+      `mailto:info@hope4pkd.org?subject=${subject}`,
+    );
+  }
 
-  await page.goto("/find-care");
-  await expect(page.getByText("No facility has completed verification yet")).toBeVisible();
+  for (const route of ["/", "/contact", "/find-care", "/community", "/get-involved", "/for/patients", "/for/caregivers", "/support/process"]) {
+    await page.goto(route);
+    await expect(page.getByText("Coming soon", { exact: true }), route).toHaveCount(0);
+    await expect(page.getByText(/not open yet/i), route).toHaveCount(0);
+  }
 
-  await page.goto("/community");
-  await expect(page.getByText("No community channel is open yet")).toBeVisible();
+  await page.goto("/contact");
+  const main = page.getByRole("main");
+  await expect(main.getByRole("link", { name: "+234(0)9076412444" })).toHaveAttribute("href", "tel:+2349076412444");
+  await expect(main.getByRole("link", { name: "+234(0)8106411664" })).toHaveAttribute("href", "tel:+2348106411664");
+  await expect(main.getByText("Plot 1556 Cadastral Zone B08").first()).toBeVisible();
+});
+
+test("unpublished placeholder pages redirect to a page with content", async ({ page }) => {
+  for (const [route, destination] of [["/shop", /\/get-involved$/], ["/events", /\/get-involved$/], ["/campaigns", /\/get-involved$/], ["/knowledge", /\/pkd$/]] as const) {
+    await page.goto(route);
+    await expect(page, route).toHaveURL(destination);
+  }
+});
+
+// A crawler that runs no JavaScript must get the redirect from the HTTP response itself, not from a
+// script in a 200 page (which is what redirect() in a page.tsx produces under the root loading.tsx).
+test("unpublished placeholder pages answer with an HTTP redirect, without JavaScript", async ({ request }) => {
+  for (const [route, destination] of [["/shop", "/get-involved"], ["/events", "/get-involved"], ["/campaigns", "/get-involved"], ["/knowledge", "/pkd"]] as const) {
+    const response = await request.get(route, { maxRedirects: 0 });
+    expect(response.status(), route).toBe(307);
+    expect(response.headers()["location"], route).toBe(destination);
+  }
+});
+
+// The roster is data (content/team.ts). Advisors stay an EmptyState until one is confirmed — the page
+// must never fill that gap with a name nobody supplied.
+test("registration details sit in the footer of every page and again on About and Contact", async ({ page }) => {
+  for (const path of ["/", "/support", "/about", "/contact"]) {
+    await page.goto(path);
+    const footer = page.getByRole("contentinfo");
+    await expect(footer.getByText("Registration No: 9996845")).toBeVisible();
+    await expect(footer.getByRole("link", { name: "info@hope4pkd.org" })).toHaveAttribute("href", "mailto:info@hope4pkd.org");
+    await expect(footer.getByRole("link", { name: "Hope4PKD on Instagram" })).toHaveAttribute("href", "https://www.instagram.com/hope4pkd/");
+    await expect(footer.getByRole("link", { name: "Hope4PKD on LinkedIn" })).toHaveAttribute("href", "https://www.linkedin.com/company/hope4pkd");
+  }
+  for (const path of ["/about", "/contact"]) {
+    await page.goto(path);
+    const main = page.getByRole("main");
+    await expect(main.getByRole("heading", { name: "Registration details" })).toBeVisible();
+    await expect(main.getByText("Registered in Nigeria with the Corporate Affairs Commission as an Incorporated Trustee")).toBeVisible();
+  }
+});
+
+test("/about names the leadership team and no advisor it cannot confirm", async ({ page }) => {
+  await page.goto("/about");
+  const team = page.getByRole("list", { name: "Leadership team" });
+  await expect(team.getByRole("listitem")).toHaveCount(5);
+  await expect(team.getByRole("heading", { level: 3, name: "Onyekachi Nwakaihe" })).toBeVisible();
+  await expect(team.getByRole("img", { name: "Portrait of Maureen Alor" })).toBeVisible();
+  await expect(page.getByText("Advisor profiles are not published yet")).toBeVisible();
+  await expect(page.getByRole("list", { name: "Advisors" })).toHaveCount(0);
 });
 
 test("legacy and alias routes still land somewhere real", async ({ page }) => {

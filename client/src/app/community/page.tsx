@@ -2,7 +2,6 @@ import { HStack, Text } from "@chakra-ui/react";
 import type { Metadata } from "next";
 import {
   ActionLink,
-  ComingSoonPanel,
   ContentSection,
   DirectoryList,
   DirectoryRow,
@@ -20,7 +19,7 @@ import { Layout } from "@/components/layout/Layout";
 export const metadata: Metadata = {
   title: "Community",
   description:
-    "The moderated peer community Hope4PKD is building for patients, caregivers and families, the rules it will run on, and why no channel is open yet.",
+    "The moderated peer community Hope4PKD is building for patients, caregivers and families, the rules it will run on, and where to go in the meantime.",
   alternates: { canonical: "/community" },
 };
 
@@ -98,15 +97,12 @@ export default function CommunityPage() {
         <TextLink href="/safeguarding">Read the safeguarding policy</TextLink>
       </ContentSection>
 
-      <ContentSection tone="white" size="compact">
-        <ComingSoonPanel
-          title="No community channel is open yet"
-          description="Opening a health community before its moderators, reporting route and safeguarding escalation exist puts vulnerable people in a room with nobody watching. Hope4PKD will publish the channel here once those are named and in place — and nowhere else, so an invitation claiming to be ours can be checked against this page."
-        />
-      </ContentSection>
-
       <ContentSection>
-        <SectionHeading eyebrow="Until then" title="Where people are finding each other." />
+        <SectionHeading
+          eyebrow="Right now"
+          title="Where to go in the meantime."
+          description="Hope4PKD runs no group or channel today. Any channel we run will be listed on this page and nowhere else, so an invitation claiming to be ours can be checked here."
+        />
         <DirectoryList>
           <DirectoryRow href="/help" title="Read what other people asked first">
             The questions patients and caregivers bring to us most often, answered plainly.
@@ -114,10 +110,6 @@ export default function CommunityPage() {
           <DirectoryRow href="/pkd" title="Get the vocabulary">
             Walking into a room already knowing what ADPKD, ARPKD and a cyst are makes the first conversation
             considerably less isolating.
-          </DirectoryRow>
-          <DirectoryRow href="/events" title="Check for a confirmed event">
-            Hope4PKD publishes an event only once its date, venue, cost and safeguarding arrangements are
-            confirmed.
           </DirectoryRow>
           <DirectoryRow href="/volunteer" title="Help build it">
             Moderation is one of the roles being defined. Community is not something a small team can run for

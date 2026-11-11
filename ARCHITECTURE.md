@@ -34,7 +34,30 @@ Decisions read from the code of the `restructure` working tree. Reasons marked
   service render a `ComingSoonPanel`/`ComingSoonAction` unconditionally (ADR-3b).
 - **If the service returns:** re-introduce readiness gating rather than defaulting a feature to "on".
 
-## ADR-3b: Backend-dependent affordances are non-navigating "Coming soon" markers
+## ADR-12: Every published page and control works; placeholders are removed *(supersedes ADR-3b, 2026-11-11)*
+
+- **Decision:** the public site renders no "Coming soon" marker and no "not open yet" panel. A feature
+  that needs the missing service is handled one of three ways: (1) an **email route** — `EmailPanel` in
+  the kit, a mailto to the registered address with the subject filled in (`/support`, `/volunteer`,
+  `/partner`, `/complaints`, `/donate`, `/for/health-professionals`); (2) **left out** — the control or
+  box is deleted and the explanation stays as plain copy (`/find-care`, `/community`); (3) **unpublished**
+  — the route becomes a redirect and leaves the nav, footer, sitemap and all in-page links (`/shop`,
+  `/events`, `/campaigns` → `/get-involved`; `/knowledge` → `/pkd`). These four are HTTP 307
+  redirects declared in `redirects()` in `client/next.config.ts` and have no `page.tsx`: a `redirect()`
+  call in a page streams a 200 with an empty shell under the root `loading.tsx` and only forwards in the
+  browser, so a crawler without JavaScript sees nothing.
+- **Donations:** there is no Donate button in the header, drawer, footer lead block or homepage, and
+  `donateLink` is gone. `/donate` ("Give") says the site takes no online payment and offers the email
+  route. Bank details may appear only for an account in the organisation's registered name.
+- **Why:** a Google for Nonprofits readiness crawl flagged twelve placeholder pages; Google's website
+  policy rejects pages and controls that do not work, and names dead donation buttons specifically.
+- **Consequences:** the three `ComingSoon*` primitives and the `ComingSoonNavItem` type stay in the code
+  with no call sites, for when `server/` exists; do not render them without the owner's say-so.
+  `navigation.test.ts` fails on a coming-soon footer entry or a link to an unpublished route, and the e2e
+  spec asserts no "Coming soon" text and a correct mailto on each enquiry page. `EmptyState` is unchanged
+  and still used on `/about`, `/about/leadership`, `/impact` and `/awareness`.
+
+## ADR-3b: Backend-dependent affordances are non-navigating "Coming soon" markers *(SUPERSEDED 2026-11-11 by ADR-12)*
 
 - **Decision:** a control that cannot work does not navigate, submit, or exist as a disabled button. Three
   primitives in `components/common/PublicPage.tsx`: `ComingSoonTag` (pill), `ComingSoonPanel` (card, replaces
@@ -92,6 +115,59 @@ Decisions read from the code of the `restructure` working tree. Reasons marked
   `/patients/*`–`/donors/*` links, placeholder bank accounts) and fails `npm run check`.
 - **Why:** A health charity's credibility dies on invented facts; automation catches regressions.
 - **Consequences:** Placeholder content must be an `EmptyState`, not plausible-looking fake data.
+
+## ADR-11: Flat five-link nav, two persistent buttons, hub pages underneath *(supersedes ADR-10)*
+
+- **Decision (2026-09-28):** the header is one row: the logo, five flat links — About `/about`,
+  Understanding PKD `/pkd`, Get Support `/support`, Get Involved `/get-involved`, Transparency `/impact` —
+  and two buttons that stay visible on every page (outline "Get support", solid "Donate"). There are no
+  dropdowns and no audience bar. `lib/navigation.ts` exports `primaryLinks`, `supportLink`, `donateLink`
+  and six `footerGroups`; the `NavGroup.columns`/`featured` machinery and `isActiveGroup` are gone.
+  Built from the owner's desktop mockups (Home, Get Support), themselves built from a five-audience table.
+- **Why:** every top-level item now answers one visitor question (who are you / what is PKD / can you help
+  me / how can I help / can I trust you), and each lands on a hub page that lists its own sub-pages, so the
+  header carries no second level. Audience routing moved onto the page: Home opens with a "Where would you
+  like to start?" `DirectoryList` of the five audiences, and the footer's "Start here" column repeats it.
+- **Consequences:**
+  - The `/for/*` hubs stay as pages and keep their sitemap priority; they are reached from Home and the
+    footer, not the header. `Contact` lives in the drawer and the footer.
+  - Every sub-page must appear in a `footerGroups` column or it becomes unreachable from the chrome —
+    `navigation.test.ts` asserts every primary href is mirrored there, and the e2e footer test spot-checks.
+  - The two `comingSoon` support entries (Request Support, Check Case Status) now live only in the footer's
+    Get Support column; the header has nothing that cannot be clicked.
+  - `/get-involved` is new (a hub). `/advocacy` is a redirect alias to `/awareness`, which carries the
+    advocacy section. Stories & News is deliberately absent until there is content.
+  - The mockups' palette (cream/amber, Public Sans) was **not** adopted; layout, IA and copy were. Their
+    bracketed placeholders and unverifiable claims (medical review, direct-to-hospital payment, response
+    window, phone/email, RC number, report date) render as `SourceNote`, `ComingSoon*` or `EmptyState`.
+
+## ADR-10: Audience-first IA — an audience bar above the nav, mega panels inside it *(SUPERSEDED 2026-09-28 by ADR-11)*
+
+- **Decision (2026-08-25):** the header carries two rows. A slim `<nav aria-label="Audience navigation">`
+  routes by *who the reader is* — `/for/patients`, `/for/caregivers`, `/for/health-professionals`,
+  `/for/everyone` — plus Contact. Below it the sticky primary row holds five dropdown triggers whose
+  panels render sub-headed columns (`NavGroup.columns`) and an optional featured card (`NavGroup.featured`).
+  Modelled on pkdcure.org at the owner's request.
+- **Why:** with one entry point, every visitor had to work out which of four menus was theirs, and there
+  was no route at all for "I am a caregiver, where do I start". Columns also lift the cap on destinations
+  per group: `Get Support` now carries five links plus its two coming-soon entries without becoming a
+  fourteen-item list.
+- **Consequences:**
+  - `Contact` moved to the audience bar and `Home` off the desktop row entirely (it stays at the top of
+    the mobile drawer). Five triggers plus the Donate pill is the whole width budget at `lg` — measured at
+    1440px, the row occupies one line with no wrap. Adding a sixth trigger means removing something.
+  - The audience bar sits **outside** the sticky `<header>`, so it scrolls away. Keeping it pinned would
+    cost 44px of every screen; collapsing it on scroll would leave focusable links inside a zero-height
+    box. Scrolling away needs no transition and traps nothing.
+  - The bar is hidden below `lg`. The drawer opens with a "Find your starting point" block carrying the
+    same four routes, and `footerGroups[0]` ("Start here") carries them a second time, so a phone never
+    loses them.
+  - `NavGroup.items` is **derived** from `columns` by `columnedGroup()`. The footer, `sitemap.ts` and
+    `navigation.test.ts` all read the flat list; maintaining a second hand-written copy would drift.
+    A group with no `columns` (About) still renders as the plain list it always did — that path is live,
+    not vestigial.
+  - Audience routes are `/for/*`. `scripts/check-content.mjs` fails the build on hrefs under the old
+    top-level patients/donors segments, and `/patients` is already a redirect to `/support`.
 
 ## Data flow summary
 

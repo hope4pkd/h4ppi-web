@@ -100,7 +100,7 @@ export default function AboutPkdPage() {
       </StatementBand>
 
       <ContentSection>
-        <SectionHeading eyebrow="Keep reading" title="Read about symptoms, diagnosis and care." />
+        <SectionHeading eyebrow="Keep reading" title="Read about symptoms, care and family testing." />
         <FeatureGrid columns={3}>
           <FeatureCard
             title="Symptoms and diagnosis"
@@ -115,11 +115,10 @@ export default function AboutPkdPage() {
             linkLabel="Read treatment and care"
           />
           <FeatureCard
-            title="Knowledge Centre"
-            description="The planned collection will include longer PKD articles with named authors, qualified reviewers, sources and review dates."
-            status="Medical review in progress"
-            href="/knowledge"
-            linkLabel="Visit the Knowledge Centre"
+            title="Early detection and family testing"
+            description="What a diagnosis in the family means for relatives, and how to prepare for the appointment where you ask about it."
+            href="/pkd/early-detection"
+            linkLabel="Read early detection"
           />
         </FeatureGrid>
         <SourceNote publisher={pkdSource.publisher} title={pkdSource.title} href={pkdSource.href} />

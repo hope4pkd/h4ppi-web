@@ -1,7 +1,7 @@
 import {
-  ComingSoonAction,
-  ComingSoonPanel,
+  ActionLink,
   ContentSection,
+  EmailPanel,
   FaqList,
   FeatureCard,
   FeatureGrid,
@@ -15,8 +15,10 @@ import {
 import { VideoEmbed } from "@/components/common/VideoEmbed";
 import { Layout } from "@/components/layout/Layout";
 import { supportVideo } from "@/content/media";
+import { contact, registration } from "@/content/organisation";
 import { Box, Container, Grid, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import { TriangleAlert } from "lucide-react";
+import { Fragment } from "react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -36,7 +38,7 @@ const helpKinds = [
   },
   {
     title: "People who understand",
-    description: "Talk to other patients and caregivers about what has helped them. The moderated space opens once its safeguards are in place.",
+    description: "Much of what makes PKD liveable is learned from other patients and caregivers. We are building a moderated space for that, and its ground rules are published on the Community page.",
   },
   {
     title: "Family testing guidance",
@@ -47,9 +49,9 @@ const helpKinds = [
 // No response window is quoted anywhere on this page: none has been agreed, and a made-up one is the
 // first thing a worried caller would hold us to.
 const steps = [
-  ["Send a short request", "Tell us who needs support and what kind of help would make a difference. Please do not attach medical records yet."],
+  ["Send a short email", "Tell us your name, your state and a phone number we can reach you on. Please do not attach medical records."],
   ["We contact you", "A member of our team reviews your request and reaches out to talk through the next step."],
-  ["Share your details securely", "If we can help, we send you a private link to give consent and upload documents such as test results or hospital bills."],
+  ["Share your details", "If we can help, we ask for your consent and tell you which documents, such as test results or hospital bills, we need and how to share them."],
   ["We agree a plan with you", "Our team checks the medical and cost information with your provider and explains exactly what support we can offer."],
   ["We stay in touch", "We check in after support is given, and keep you connected to guidance and community."],
 ] as const;
@@ -66,8 +68,8 @@ const faqs = [
     answer: "Yes. Caregivers can start a request. We will ask for the patient’s consent before any personal or medical details are shared.",
   },
   {
-    question: "When does the request form open?",
-    answer: "When the case-management service behind it is built and the eligibility rules are agreed. Until then there is no form, and no queue you are missing.",
+    question: "How do I ask?",
+    answer: `Email ${registration.email} with your name, your state and a phone number we can reach you on. Do not send medical records.`,
   },
 ] as const satisfies readonly Faq[];
 
@@ -103,7 +105,7 @@ export default function SupportPage() {
       <PageHero
         eyebrow="Get support"
         title="Let’s work out your next step together."
-        description="Whether you were diagnosed last week or have lived with PKD for years, you can ask us for help. It is free, and the first step will be a short form."
+        description="Whether you were diagnosed last week or have lived with PKD for years, you can ask us for help. It is free, and the first step is a short email."
         aside={
           <VStack layerStyle="panel" align="start" gap={3} color="navy.900">
             <Heading as="h2" textStyle="featureTitle" color="navy.900">Who can ask for help</Heading>
@@ -111,8 +113,7 @@ export default function SupportPage() {
               People living with PKD in Nigeria, people who think they might have it, and the family members who care for them. The eligibility rules for financial help are being finalised.
             </Text>
             <HStack gap={3} flexWrap="wrap" pt={1}>
-              <ComingSoonAction>Start a request</ComingSoonAction>
-              <ComingSoonAction>Check case status</ComingSoonAction>
+              <ActionLink href="/support#request">Ask for support</ActionLink>
             </HStack>
             <TextLink href="/patient-eligibility">How eligibility will be decided</TextLink>
           </VStack>
@@ -152,19 +153,18 @@ export default function SupportPage() {
         <TextLink href="/support/process">What gets decided at each stage</TextLink>
       </ContentSection>
 
-      {/* The mockup carries a request form here. There is no server to receive one, so the panel says so
-          in place; the aside keeps the promises the form would have made. */}
+      {/* The mockup carries a request form here. There is no server to receive one, so the request is an
+          email that asks for the same minimal details and no medical records. */}
       <ContentSection tone="white" id="request" size="spacious">
         <Grid templateColumns={{ base: "1fr", lg: "minmax(0, 7fr) minmax(0, 5fr)" }} gap={{ base: 8, lg: 12 }} alignItems="start">
-          <ComingSoonPanel
-            title="The request form is not open yet"
-            description="It opens when the case-management service behind it is built and the eligibility rules and response time are agreed. It will ask for your name, how to reach you, who needs support and what kind of help would make a difference. No medical records at that stage."
-          />
+          <EmailPanel title="Ask for support by email" subject="Support request">
+            Email us your name, your state and a phone number we can reach you on. Please do not send medical records.
+          </EmailPanel>
           <VStack align="stretch" gap={0}>
             <VStack align="start" gap={2} pb={6}>
               <Heading as="h3" textStyle="featureTitle" color="navy.900">What happens next</Heading>
               <Text textStyle="body" color="navy.500">
-                When the form opens, you will get a confirmation straight away, and a member of our team will contact you to talk through your request.
+                A member of our team reads your email and contacts you to talk through your request.
               </Text>
             </VStack>
             <VStack layerStyle="hairline" align="start" gap={2} py={6}>
@@ -176,7 +176,16 @@ export default function SupportPage() {
             <VStack layerStyle="hairline" align="start" gap={2} pt={6}>
               <Heading as="h3" textStyle="featureTitle" color="navy.900">Prefer to talk?</Heading>
               <Text textStyle="body" color="navy.500">
-                Phone and WhatsApp numbers will be published once they are verified and staffed.
+                Call{" "}
+                {contact.phones.map((phone, index) => (
+                  <Fragment key={phone.href}>
+                    {index > 0 && " or "}
+                    <Text asChild color="action.700" textDecoration="underline" textUnderlineOffset="3px" whiteSpace="nowrap">
+                      <a href={phone.href}>{phone.display}</a>
+                    </Text>
+                  </Fragment>
+                ))}
+                .
               </Text>
               <TextLink href="/contact">How to contact us</TextLink>
             </VStack>

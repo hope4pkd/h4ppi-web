@@ -2,7 +2,6 @@ import { Box, Grid, HStack, Text, VStack } from "@chakra-ui/react";
 import type { Metadata } from "next";
 import {
   ActionLink,
-  ComingSoonPanel,
   ContentSection,
   DirectoryList,
   DirectoryRow,
@@ -175,10 +174,7 @@ export default function ForCaregiversPage() {
       <ContentSection>
         <SectionHeading eyebrow="Questions caregivers ask" title="Straight answers." />
         <FaqList items={faqs} />
-        <ComingSoonPanel
-          title="There is no caregiver support line yet"
-          description="A route for caregivers to reach a person rather than a page needs staffing, a response standard and a safeguarding escalation path that Hope4PKD has not yet put in place. When it exists it will be published here, with the hours it actually operates."
-        />
+        <TextLink href="/support#request">Ask for support on someone’s behalf</TextLink>
       </ContentSection>
 
       <StatementBand eyebrow="You are not the only one" statement="The caregiver is the second patient.">

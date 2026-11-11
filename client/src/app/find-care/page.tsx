@@ -5,7 +5,6 @@ import {
   ContentSection,
   DirectoryList,
   DirectoryRow,
-  EmptyState,
   FeatureGrid,
   FeatureItem,
   PageHero,
@@ -42,7 +41,7 @@ export default function FindCarePage() {
         <SectionHeading
           eyebrow="The standard"
           title="What a listing has to survive."
-          description="The same discipline the campaigns page applies to money, applied to referrals. Each item is a check somebody has to sign off, not an aspiration."
+          description="Each item is a check somebody has to sign off, not an aspiration."
         />
         <FeatureGrid columns={3}>
           <FeatureItem number="01" title="The service exists as described">
@@ -69,15 +68,6 @@ export default function FindCarePage() {
             matches reality.
           </FeatureItem>
         </FeatureGrid>
-      </ContentSection>
-
-      <ContentSection tone="teal" size="compact">
-        <EmptyState
-          title="No facility has completed verification yet"
-          description="Hope4PKD has not verified any clinic, kidney unit or specialist against the standard above, so there is nothing to list. We would rather show you an empty page than a list we cannot stand behind. Speak with a qualified healthcare professional about where to be seen."
-          actionLabel="Read the medical disclaimer"
-          actionHref="/medical-disclaimer"
-        />
       </ContentSection>
 
       <ContentSection tone="white">

@@ -116,9 +116,9 @@ export default function AwarenessPage() {
       <ContentSection tone="white" size="compact">
         <EmptyState
           title="The awareness materials are not ready"
-          description="Posters, social cards and a one-page explainer are planned. Anything carrying clinical statements has to clear the same medical-review process as the Knowledge Centre before Hope4PKD puts its name on it and asks people to hand it out. Until then, the pages on this site are the material — share those."
-          actionLabel="Visit the Knowledge Centre"
-          actionHref="/knowledge"
+          description="Posters, social cards and a one-page explainer are planned. Anything carrying clinical statements has to be medically reviewed before Hope4PKD puts its name on it and asks people to hand it out. Until then, the pages on this site are the material — share those."
+          actionLabel="Read What is PKD?"
+          actionHref="/pkd"
         />
       </ContentSection>
 
@@ -153,14 +153,11 @@ export default function AwarenessPage() {
           conversation to give, these are the routes.
         </Text>
         <HStack gap={3} flexWrap="wrap" justify="center" pt={2}>
-          <ActionLink href="/donate" surface="brand">
-            Donate
-          </ActionLink>
-          <ActionLink href="/volunteer" variant="outline" surface="brand">
+          <ActionLink href="/volunteer" surface="brand">
             Volunteer
           </ActionLink>
-          <ActionLink href="/shop" variant="ghost" surface="brand">
-            Shop
+          <ActionLink href="/partner" variant="outline" surface="brand">
+            Partner with us
           </ActionLink>
         </HStack>
       </StatementBand>

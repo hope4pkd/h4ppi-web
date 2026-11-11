@@ -12,6 +12,18 @@ const nextConfig: NextConfig = {
     // reader's browser does not contact YouTube before they press play.
     remotePatterns: [{ protocol: "https", hostname: "i.ytimg.com", pathname: "/vi/**" }],
   },
+  // Unpublished 2026-11-11 (ADR-12): placeholder pages with nothing to act on. Redirected here, not with
+  // redirect() in a page.tsx: the root loading.tsx makes a page-level redirect stream a 200 with an empty
+  // shell that only forwards in the browser, so a crawler that runs no JavaScript sees a blank page.
+  // These answer with a 307 and a Location header before any HTML. Temporary, because a page may return.
+  async redirects() {
+    return [
+      { source: "/shop", destination: "/get-involved", permanent: false },
+      { source: "/events", destination: "/get-involved", permanent: false },
+      { source: "/campaigns", destination: "/get-involved", permanent: false },
+      { source: "/knowledge", destination: "/pkd", permanent: false },
+    ];
+  },
   async headers() {
     return [
       {

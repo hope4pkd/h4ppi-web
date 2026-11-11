@@ -27,7 +27,7 @@ const startHere = [
   { href: "/for/patients", title: "I have PKD, or my doctor thinks I might", text: "Understand your diagnosis and see how we can help." },
   { href: "/for/caregivers", title: "I care for someone with PKD", text: "Practical guidance, and people who understand caregiving." },
   { href: "/pkd/early-detection", title: "PKD runs in my family", text: "Learn about the risk and when to ask a doctor about screening." },
-  { href: "/get-involved", title: "I want to help", text: "Donate, volunteer, fundraise or partner with us." },
+  { href: "/get-involved", title: "I want to help", text: "Volunteer, partner with us or help raise awareness." },
   { href: "/for/health-professionals", title: "I am a health professional", text: "Refer a patient or work with us on medical review." },
 ] as const;
 
@@ -48,7 +48,7 @@ const helpKinds = [
   },
   {
     title: "Community",
-    description: "A moderated space to meet other patients and caregivers. It opens once its safeguards are in place.",
+    description: "We are building a moderated space for patients and caregivers. Read who it is for and the ground rules it will run on.",
     href: "/community",
   },
   {
@@ -60,16 +60,15 @@ const helpKinds = [
 
 // No response window is quoted: none has been agreed. The steps describe the shape, not a promise.
 const howItWorks = [
-  { title: "Ask", description: "Send a short request. No medical documents at this stage." },
+  { title: "Ask", description: "Send a short email. No medical documents at this stage." },
   { title: "Hear back", description: "Our team reviews your request and contacts you about the next step." },
-  { title: "Share securely", description: "If we can help, you get a private link to share your details and documents." },
+  { title: "Share details", description: "If we can help, we ask for your consent and tell you which documents we need." },
   { title: "Agree a plan", description: "We check the medical and cost information and agree a support plan with you." },
   { title: "Stay in touch", description: "We follow up after support, because PKD is lifelong." },
 ];
 
 // Each row links to the page where the claim can be checked, which is the point of the section.
 const trustChecks = [
-  { href: "/campaigns", title: "Every campaign is verified", text: "Patient campaigns go public only after medical and cost checks, and with the patient's consent." },
   { href: "/impact", title: "Every payment is recorded", text: "Financial support is recorded against the case and the provider it was paid for, and reported." },
   { href: "/medical-disclaimer", title: "Health information names its source", text: "Every page about PKD says where its facts come from and that Hope4PKD has not medically reviewed them." },
   { href: "/policies/privacy", title: "Your privacy is protected", text: "We collect only what we need, and never share your story without your written consent." },
@@ -230,11 +229,10 @@ export function HomePage() {
       </ContentSection>
 
       <ContentSection tone="teal" id="how-it-works" size="spacious">
-        <SectionHeading eyebrow="How it works" title="What happens when you ask for help" description="The first step is short. You only share medical documents later, through a private link, if we can help." />
+        <SectionHeading eyebrow="How it works" title="What happens when you ask for help" description="The first step is a short email. You only share medical documents later, if we can help." />
         <StepList steps={howItWorks} />
         <HStack gap={4} flexWrap="wrap" align="center">
           <ActionLink href="/support">How to ask for help</ActionLink>
-          <Text textStyle="bodySm" color="navy.500">The request form is not open yet.</Text>
         </HStack>
       </ContentSection>
 
@@ -272,23 +270,23 @@ export function HomePage() {
             </DirectoryRow>
           ))}
         </DirectoryList>
-        {/* No report date and no registration number appear here: neither has been approved for
-            publication, and a bracketed placeholder on a charity site reads as a claim. */}
+        {/* No report date appears here: none has been approved for publication, and a bracketed
+            placeholder on a charity site reads as a claim. Registration details are in the footer. */}
         <HStack justify="space-between" align="center" gap={6} flexWrap="wrap">
           <Text textStyle="body" color="navy.500" maxW="measure">
-            No programme report has been published yet. Registration details will appear here once they are approved for publication.
+            No programme report has been published yet. Our registration details are at the foot of every page.
           </Text>
           <TextLink href="/impact">Read the transparency page</TextLink>
         </HStack>
       </ContentSection>
 
-      <StatementBand tone="brightTeal" eyebrow="Donate" statement="Help pay for dialysis, medication and tests.">
+      <StatementBand tone="brightTeal" eyebrow="Get involved" statement="Help more families find care.">
         <Text textStyle="lede" color="navy.900" maxW="measure">
-          Your gift goes toward treatment for people with PKD who could not otherwise afford it. Online donations are not open yet.
+          Volunteer your time, partner with us as a hospital or organisation, or help more Nigerians learn about PKD.
         </Text>
         <HStack gap={3} flexWrap="wrap" justify="center" pt={2}>
-          <ActionLink href="/donate" surface="brand">Donate</ActionLink>
-          <ActionLink href="/get-involved" variant="outline" surface="brand">Other ways to help</ActionLink>
+          <ActionLink href="/get-involved" surface="brand">Ways to help</ActionLink>
+          <ActionLink href="/contact" variant="outline" surface="brand">Contact us</ActionLink>
         </HStack>
       </StatementBand>
     </Layout>
