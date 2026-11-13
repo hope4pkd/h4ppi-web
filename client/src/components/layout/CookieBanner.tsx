@@ -4,15 +4,13 @@ import { Box, Button, Container, Stack, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import { setConsent, useConsent } from "@/lib/consent";
 
-const noticeLinks = [
-  { label: "Cookies notice", href: "/cookies" },
-  { label: "Privacy notice", href: "/policies/privacy" },
-] as const;
+const buttonProps = { size: "sm", h: "auto", minH: "44px", py: 2, px: 5, flex: { base: 1, md: "none" } } as const;
 
 /**
  * Asks the site's consent question: may the optional Google services (YouTube video and Google
- * measurement) run. It shows until the visitor answers and never again after that; /cookies carries the
- * same answers, plus "YouTube video only", for changing it.
+ * measurement) run. It shows until the visitor answers and never again after that. "Cookie settings"
+ * opens /cookies, which carries the same answers plus "YouTube video only", for choosing each service on
+ * its own or changing the answer later.
  *
  * It is a bar, not a dialog. Nothing on the site is withheld while it is open, so it does not trap
  * focus or dim the page. It is mounted ahead of the page in the root layout so a keyboard reaches it
@@ -25,7 +23,7 @@ export function CookieBanner() {
   return (
     <Box
       as="section"
-      aria-labelledby="cookie-banner-title"
+      aria-label="Your cookie choice"
       position="fixed"
       insetX={0}
       bottom={0}
@@ -39,34 +37,34 @@ export function CookieBanner() {
     >
       <Container maxW="7xl">
         <Stack direction={{ base: "column", lg: "row" }} gap={{ base: 4, lg: 10 }} align={{ base: "stretch", lg: "center" }} justify="space-between">
-          <Box maxW="measureWide">
-            <Text id="cookie-banner-title" as="h2" fontFamily="body" textStyle="body" fontWeight="700" color="navy.900">
-              Your cookie choice
-            </Text>
-            <Text textStyle="bodySm" color="navy.500" mt={1}>
-              Our videos play from YouTube, and Google measurement counts visits and which of our ads brought people here. Both may
-              store cookies on your device and stay off unless you allow them. You can choose each one in the cookies notice.{" "}
-              {noticeLinks.map((link, index) => (
-                <Text as="span" key={link.href}>
-                  {index > 0 && " · "}
-                  <Link href={link.href}>
-                    <Text as="span" color="action.700" fontWeight="700" textDecoration="underline" textUnderlineOffset="3px">
-                      {link.label}
-                    </Text>
-                  </Link>
+          <Text textStyle="bodySm" color="navy.700" maxW="measureWide">
+            We use optional Google services to play our videos and to count visits, including which of our ads brought
+            people here. They may store cookies on your device. You can accept them all, decline them, or choose in cookie
+            settings. To learn more, read our{" "}
+            <Link href="/cookies">
+              <Text as="span" color="action.700" fontWeight="700" textDecoration="underline" textUnderlineOffset="3px">
+                cookies notice
+              </Text>
+            </Link>
+            .
+          </Text>
+          <Stack direction={{ base: "column", sm: "row" }} gap={3} align={{ base: "stretch", sm: "center" }} flexShrink={0}>
+            <Box asChild order={{ base: 2, sm: 0 }} alignSelf="center" px={2} py={2} minH="44px" display="inline-flex" alignItems="center">
+              <Link href="/cookies">
+                <Text as="span" textStyle="bodySm" color="action.700" fontWeight="700" textDecoration="underline" textUnderlineOffset="3px">
+                  Cookie settings
                 </Text>
-              ))}
-            </Text>
-          </Box>
-          {/* Equal weight on purpose: refusing must be as easy as accepting. */}
-          {/* Side by side at every width so the bar stays short on a phone; a label may wrap on the narrowest. */}
-          <Stack direction="row" gap={3} flexShrink={0}>
-            <Button size="sm" h="auto" minH="44px" py={2} px={{ base: 3, sm: 4 }} flex={{ base: 1, lg: "none" }} whiteSpace="normal" lineHeight="1.2" variant="outline" onClick={() => setConsent("essential")}>
-              Essential only
-            </Button>
-            <Button size="sm" h="auto" minH="44px" py={2} px={{ base: 3, sm: 4 }} flex={{ base: 1, lg: "none" }} whiteSpace="normal" lineHeight="1.2" variant="outline" onClick={() => setConsent("all")}>
-              Allow all
-            </Button>
+              </Link>
+            </Box>
+            {/* Same style, same size, side by side: declining must be as easy as accepting. */}
+            <Stack direction="row" gap={3}>
+              <Button {...buttonProps} variant="solid" onClick={() => setConsent("all")}>
+                Accept all
+              </Button>
+              <Button {...buttonProps} variant="solid" onClick={() => setConsent("essential")}>
+                Decline all
+              </Button>
+            </Stack>
           </Stack>
         </Stack>
       </Container>

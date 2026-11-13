@@ -41,7 +41,7 @@ test("the support video asks before it loads YouTube when the reader has not all
     if (youtubeHosts.test(new URL(request.url()).hostname)) youtubeRequests.push(request.url());
   });
   await page.goto("/support");
-  await page.getByRole("button", { name: "Essential only" }).click();
+  await page.getByRole("button", { name: "Decline all" }).click();
   const play = page.getByRole("button", { name: /^Play video: / });
   await play.scrollIntoViewIfNeeded();
   await play.click();
@@ -64,7 +64,7 @@ test("the support video plays on the first press once the reader allows all", as
     if (youtubeHosts.test(new URL(request.url()).hostname)) youtubeRequests.push(request.url());
   });
   await page.goto("/support");
-  await page.getByRole("button", { name: "Allow all" }).click();
+  await page.getByRole("button", { name: "Accept all" }).click();
   const play = page.getByRole("button", { name: /^Play video: / });
   await play.scrollIntoViewIfNeeded();
   await expect(page.locator("iframe")).toHaveCount(0);
@@ -78,10 +78,10 @@ test("the cookie banner asks once, sets no cookie, and the choice can be changed
   await page.goto("/");
   const banner = page.getByRole("region", { name: "Your cookie choice" });
   await expect(banner).toBeVisible();
-  await expect(banner.getByRole("link", { name: "Cookies notice" })).toHaveAttribute("href", "/cookies");
-  await expect(banner.getByRole("link", { name: "Privacy notice" })).toHaveAttribute("href", "/policies/privacy");
+  await expect(banner.getByRole("link", { name: "cookies notice" })).toHaveAttribute("href", "/cookies");
+  await expect(banner.getByRole("link", { name: "Cookie settings" })).toHaveAttribute("href", "/cookies");
 
-  await banner.getByRole("button", { name: "Essential only" }).click();
+  await banner.getByRole("button", { name: "Decline all" }).click();
   await expect(banner).toHaveCount(0);
   expect(await context.cookies()).toEqual([]);
 
@@ -89,12 +89,12 @@ test("the cookie banner asks once, sets no cookie, and the choice can be changed
   await page.goto("/cookies");
   await expect(banner).toHaveCount(0);
   const main = page.getByRole("main");
-  await expect(main.getByRole("button", { name: "Essential only" })).toHaveAttribute("aria-pressed", "true");
+  await expect(main.getByRole("button", { name: "Decline all" })).toHaveAttribute("aria-pressed", "true");
   await main.getByRole("button", { name: "YouTube video only" }).click();
   await expect(main.getByRole("status")).toHaveText("You allowed YouTube video only. Videos play when you press play, and Google measurement is off.");
   expect(await page.evaluate(() => window.localStorage.getItem("hope4pkd-consent"))).toBe("video");
-  await main.getByRole("button", { name: "Allow all" }).click();
-  await expect(main.getByRole("button", { name: "Allow all" })).toHaveAttribute("aria-pressed", "true");
+  await main.getByRole("button", { name: "Accept all" }).click();
+  await expect(main.getByRole("button", { name: "Accept all" })).toHaveAttribute("aria-pressed", "true");
   expect(await page.evaluate(() => window.localStorage.getItem("hope4pkd-consent"))).toBe("all");
   expect(await context.cookies()).toEqual([]);
 });
