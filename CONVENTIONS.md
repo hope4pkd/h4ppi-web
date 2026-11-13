@@ -7,7 +7,7 @@ Each rule has a one-line reason. When a rule blocks you, flag it — don't silen
 - All app code lives in `client/`; run every command from there. *(Reason: monorepo slot reserved for future services.)*
 - `src/app/` — routes only (pages, layout/error/loading, robots/sitemap/manifest). **No API route handlers** — `client/` is front-end only. *(App Router owns this tree; server work belongs in the future `server/` folder.)*
 - `src/components/` — `common/` (public page kit), `layout/`, `legal/`, `home/`, `ui/` (provider). New components go in the existing bucket that matches their consumer. *(Predictable discovery. `forms/` and `admin/` were deleted with the backend, 2026-08-02.)*
-- `src/lib/` — shared non-UI logic: `env.ts` (`siteUrl()` only), `navigation.ts`, `theme.ts`. *(Single home for non-UI logic.)*
+- `src/lib/` — shared non-UI logic: `env.ts` (`siteUrl()` only), `navigation.ts`, `theme.ts`, `consent.ts` (the cookie-banner answer; client-only, so server modules must not import it). *(Single home for non-UI logic.)*
 - `src/content/` — structured copy data (policies, organisation names). *(Copy is data, not JSX scattered in pages.)*
 - `client/scripts/` — repo checks. `client/e2e/` — Playwright specs. `src/lib/__tests__/` — vitest unit tests. *(Tests sit next to what they test.)*
 
