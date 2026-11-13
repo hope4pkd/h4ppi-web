@@ -52,6 +52,15 @@ Legend: **Done** = built and passing `npm run check` · **In Progress** = built 
   `/about/leadership` links to the team and lists the governance documents still pending.
 - [Done] Legal/policy suite driven by `content/policies.ts` (privacy, terms, refunds, safeguarding,
   whistleblowing, complaints, cookies, data-retention, medical disclaimer, conflict-of-interest, surplus policy).
+- [Done] **Cookie banner and present-tense privacy and cookies notices (2026-11-13).** `CookieBanner` (root
+  layout) asks once whether YouTube video may load; the answer is in localStorage (`lib/consent.ts`), gates
+  `VideoEmbed`, and can be changed on `/cookies`. The site still sets no cookies. Still owed by the owner:
+  legal review of the privacy notice (the consent basis in particular), a data protection officer contact
+  if one is appointed, and retention periods.
+- [Done] **Google Tag Manager behind consent (2026-11-13).** `GoogleTag` loads container GTM-N54HQ7XR only
+  after "Allow all", with Consent Mode defaults denied first; the in-video prompt grants video only. Still
+  owed by the owner: the cookies notice names no specific Google cookies, because the container's tags are
+  managed in Tag Manager — list them once the tags are set up, and confirm no tag needs ad_personalization.
 - [Done] Alias redirects for legacy routes (e.g. `/privacy` → `/policies/privacy`, `/donors` → `/donate`).
 - [Done] **Placeholders removed for Google for Nonprofits readiness (2026-11-11, ADR-12).** No page shows
   "Coming soon". `/contact` lists email, phone and registered address; `/support`, `/volunteer`, `/partner`,

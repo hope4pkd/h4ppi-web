@@ -1,4 +1,5 @@
 import { ContentSection, PageHero } from "@/components/common/PublicPage";
+import { CookieChoice } from "@/components/legal/CookieChoice";
 import { Layout } from "@/components/layout/Layout";
 import { organisation } from "@/content/organisation";
 import { policies, type PolicyKey } from "@/content/policies";
@@ -15,6 +16,7 @@ export function PolicyDocument({ policyKey }: { policyKey: PolicyKey }) {
           <Box><Text color="pink.800" fontWeight="800">Publication status: draft operational policy</Text><Text color="navy.600" mt={1}>This page records the intended controls. Hope4PKD’s legal and data protection reviewers must approve the responsible owner, dates and official organisation details before the policy takes effect.</Text></Box>
         </HStack>
         */}
+        {policyKey === "cookies" && <CookieChoice />}
         <VStack align="stretch" gap={0} maxW="4xl">
           {policy.sections.map(([title, body], index) => (
             <Box key={title} borderTopWidth="1px" borderColor="navy.100" py={7}>
@@ -23,7 +25,7 @@ export function PolicyDocument({ policyKey }: { policyKey: PolicyKey }) {
               <Text color="navy.500" fontSize="lg" lineHeight="1.75" mt={3}>{body}</Text>
             </Box>
           ))}
-          <Text borderTopWidth="1px" borderColor="navy.100" pt={7} color="navy.500" fontSize="md">Issued by {organisation.legalName}, operating as {organisation.brandName}.</Text>
+          <Text borderTopWidth="1px" borderColor="navy.100" pt={7} color="navy.500" fontSize="md">Issued by {organisation.legalName}, operating as {organisation.brandName}.{"updated" in policy && ` Last updated ${policy.updated}.`}</Text>
         </VStack>
       </ContentSection>
     </Layout>

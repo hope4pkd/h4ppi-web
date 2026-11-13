@@ -136,6 +136,17 @@ A page should never pass `mt` or `p` to get the house rhythm; the components own
 - **`VideoEmbed`** (`components/common/VideoEmbed.tsx`, a client leaf) embeds a YouTube video in the
   MediaFrame treatment. It renders a button over the thumbnail and swaps in a `youtube-nocookie` player
   only on click. Video IDs and titles live in `content/media.ts`; video files never go in `public/`.
+  Unless the reader allowed YouTube video (`useConsent()` from `lib/consent.ts`), the click shows a
+  prompt in the frame instead: "Allow and play" or "Watch on YouTube".
+- **`CookieBanner`** (`components/layout/CookieBanner.tsx`, mounted in the root layout) is a fixed white
+  bar at the bottom, not a dialog: no focus trap, no scrim. Two outline buttons of equal weight
+  ("Essential only", "Allow all"), side by side at every width. It is the one fixed surface
+  besides the header, so it carries the `float` shadow. **`CookieChoice`** (`components/legal/`) offers
+  "Essential only", "YouTube video only" and "Allow all" on `/cookies`, with the current answer solid and
+  `aria-pressed`. **`GoogleTag`** (`components/layout/`, root layout, renders nothing) loads Google Tag
+  Manager only on "Allow all", in production only. Anything new that
+  stores data on the device or calls a third party must read `useConsent()` and be listed in the
+  cookies notice in `content/policies.ts`.
 - **`SourceNote`** (`components/common/SourceNote.tsx`) closes any page carrying clinical information:
   a hairline footnote naming the external source, linking it, and stating that Hope4PKD has not medically
   reviewed the page. Its inline links are Chakra `Link` (external) and `next/link` wrapping a `Text` span —

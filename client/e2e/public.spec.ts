@@ -33,20 +33,79 @@ test("/support asks for a short email instead of a form, and marks nothing comin
   await expect(main.getByText("Hope4PKD cannot provide emergency care")).toBeVisible();
 });
 
-test("the support video loads nothing from YouTube until the reader presses play", async ({ page }) => {
+const youtubeHosts = /youtube|ytimg|doubleclick/;
+
+test("the support video asks before it loads YouTube when the reader has not allowed it", async ({ page }) => {
   const youtubeRequests: string[] = [];
   page.on("request", (request) => {
-    if (/youtube|ytimg|doubleclick/.test(new URL(request.url()).hostname)) youtubeRequests.push(request.url());
+    if (youtubeHosts.test(new URL(request.url()).hostname)) youtubeRequests.push(request.url());
   });
   await page.goto("/support");
+  await page.getByRole("button", { name: "Essential only" }).click();
   const play = page.getByRole("button", { name: /^Play video: / });
   await play.scrollIntoViewIfNeeded();
-  await expect(play).toBeVisible();
+  await play.click();
+
+  // Pressing play is not consent: the frame asks, and still nothing has gone to YouTube.
+  await expect(page.getByText("This video plays from YouTube")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Watch on YouTube" })).toHaveAttribute("href", /^https:\/\/www\.youtube\.com\/watch\?v=/);
+  await expect(page.locator("iframe")).toHaveCount(0);
+  expect(youtubeRequests).toEqual([]);
+
+  await page.getByRole("button", { name: "Allow and play" }).click();
+  await expect(page.locator('iframe[src^="https://www.youtube-nocookie.com/embed/"]')).toHaveCount(1);
+  // Allowing one video grants video only, never Google measurement.
+  expect(await page.evaluate(() => window.localStorage.getItem("hope4pkd-consent"))).toBe("video");
+});
+
+test("the support video plays on the first press once the reader allows all", async ({ page }) => {
+  const youtubeRequests: string[] = [];
+  page.on("request", (request) => {
+    if (youtubeHosts.test(new URL(request.url()).hostname)) youtubeRequests.push(request.url());
+  });
+  await page.goto("/support");
+  await page.getByRole("button", { name: "Allow all" }).click();
+  const play = page.getByRole("button", { name: /^Play video: / });
+  await play.scrollIntoViewIfNeeded();
   await expect(page.locator("iframe")).toHaveCount(0);
   expect(youtubeRequests).toEqual([]);
 
   await play.click();
   await expect(page.locator('iframe[src^="https://www.youtube-nocookie.com/embed/"]')).toHaveCount(1);
+});
+
+test("the cookie banner asks once, sets no cookie, and the choice can be changed on /cookies", async ({ page, context }) => {
+  await page.goto("/");
+  const banner = page.getByRole("region", { name: "Your cookie choice" });
+  await expect(banner).toBeVisible();
+  await expect(banner.getByRole("link", { name: "Cookies notice" })).toHaveAttribute("href", "/cookies");
+  await expect(banner.getByRole("link", { name: "Privacy notice" })).toHaveAttribute("href", "/policies/privacy");
+
+  await banner.getByRole("button", { name: "Essential only" }).click();
+  await expect(banner).toHaveCount(0);
+  expect(await context.cookies()).toEqual([]);
+
+  // The answer is remembered on the next page, and /cookies shows it and lets the reader change it.
+  await page.goto("/cookies");
+  await expect(banner).toHaveCount(0);
+  const main = page.getByRole("main");
+  await expect(main.getByRole("button", { name: "Essential only" })).toHaveAttribute("aria-pressed", "true");
+  await main.getByRole("button", { name: "YouTube video only" }).click();
+  await expect(main.getByRole("status")).toHaveText("You allowed YouTube video only. Videos play when you press play, and Google measurement is off.");
+  expect(await page.evaluate(() => window.localStorage.getItem("hope4pkd-consent"))).toBe("video");
+  await main.getByRole("button", { name: "Allow all" }).click();
+  await expect(main.getByRole("button", { name: "Allow all" })).toHaveAttribute("aria-pressed", "true");
+  expect(await page.evaluate(() => window.localStorage.getItem("hope4pkd-consent"))).toBe("all");
+  expect(await context.cookies()).toEqual([]);
+});
+
+test("the privacy notice says what the site collects today and how to use your rights", async ({ page }) => {
+  await page.goto("/policies/privacy");
+  const main = page.getByRole("main");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Privacy notice");
+  await expect(main.getByText("The website has no forms, no accounts and no online payment")).toBeVisible();
+  await expect(main.getByText("Nigeria Data Protection Act 2023")).toBeVisible();
+  await expect(main.getByText("Last updated 13 November 2026.")).toBeVisible();
 });
 
 test("routes that needed the backend are gone", async ({ page }) => {

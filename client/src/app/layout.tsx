@@ -1,3 +1,5 @@
+import { CookieBanner } from "@/components/layout/CookieBanner";
+import { GoogleTag } from "@/components/layout/GoogleTag";
 import { Provider } from "@/components/ui/provider";
 import { siteUrl } from "@/lib/env";
 import type { Metadata, Viewport } from "next";
@@ -30,7 +32,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html suppressHydrationWarning lang="en" className={`${gabarito.variable} ${newsreader.variable}`}>
       <body>
         <a href="#main-content" className="skip-link">Skip to main content</a>
-        <Provider>{children}</Provider>
+        <Provider>
+          <CookieBanner />
+          <GoogleTag />
+          {children}
+        </Provider>
       </body>
     </html>
   );
