@@ -29,7 +29,7 @@ function gtag() {
 }
 
 /**
- * Loads Google Tag Manager, but only once the visitor has chosen "Allow all" (lib/consent.ts). Until
+ * Loads Google Tag Manager, but only once the visitor has chosen "Accept all" (lib/consent.ts). Until
  * then nothing is requested from Google. Consent Mode defaults are pushed as denied before the
  * container loads, then updated, so every tag in the container sees the visitor's answer. If the
  * visitor later withdraws on /cookies, consent is updated to denied for the rest of the visit, and on

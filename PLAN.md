@@ -58,7 +58,7 @@ Legend: **Done** = built and passing `npm run check` · **In Progress** = built 
   legal review of the privacy notice (the consent basis in particular), a data protection officer contact
   if one is appointed, and retention periods.
 - [Done] **Google Tag Manager behind consent (2026-11-13).** `GoogleTag` loads container GTM-N54HQ7XR only
-  after "Allow all", with Consent Mode defaults denied first; the in-video prompt grants video only. Still
+  after "Accept all", with Consent Mode defaults denied first; the in-video prompt grants video only. Still
   owed by the owner: the cookies notice names no specific Google cookies, because the container's tags are
   managed in Tag Manager — list them once the tags are set up, and confirm no tag needs ad_personalization.
 - [Done] Alias redirects for legacy routes (e.g. `/privacy` → `/policies/privacy`, `/donors` → `/donate`).

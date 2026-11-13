@@ -139,12 +139,13 @@ A page should never pass `mt` or `p` to get the house rhythm; the components own
   Unless the reader allowed YouTube video (`useConsent()` from `lib/consent.ts`), the click shows a
   prompt in the frame instead: "Allow and play" or "Watch on YouTube".
 - **`CookieBanner`** (`components/layout/CookieBanner.tsx`, mounted in the root layout) is a fixed white
-  bar at the bottom, not a dialog: no focus trap, no scrim. Two outline buttons of equal weight
-  ("Essential only", "Allow all"), side by side at every width. It is the one fixed surface
+  bar at the bottom, not a dialog: no focus trap, no scrim. One short message linking the cookies notice,
+  then a "Cookie settings" link (to `/cookies`) and two buttons of the same size, side by side at every
+  width: "Accept all" and "Decline all", both solid so neither answer is favoured. It is the one fixed surface
   besides the header, so it carries the `float` shadow. **`CookieChoice`** (`components/legal/`) offers
-  "Essential only", "YouTube video only" and "Allow all" on `/cookies`, with the current answer solid and
+  "Decline all", "YouTube video only" and "Accept all" on `/cookies`, with the current answer solid and
   `aria-pressed`. **`GoogleTag`** (`components/layout/`, root layout, renders nothing) loads Google Tag
-  Manager only on "Allow all", in production only. Anything new that
+  Manager only on "Accept all", in production only. Anything new that
   stores data on the device or calls a third party must read `useConsent()` and be listed in the
   cookies notice in `content/policies.ts`.
 - **`SourceNote`** (`components/common/SourceNote.tsx`) closes any page carrying clinical information:

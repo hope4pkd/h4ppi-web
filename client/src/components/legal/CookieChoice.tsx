@@ -6,15 +6,15 @@ import { setConsent, useConsent, type ConsentChoice, type ConsentState } from "@
 const status: Record<ConsentState, string> = {
   pending: "",
   undecided: "You have not chosen yet, so Google measurement is off and a video will ask before it plays.",
-  essential: "You chose essential only. Google measurement is off and a video will ask before it plays.",
+  essential: "You declined all optional services. Google measurement is off and a video will ask before it plays.",
   video: "You allowed YouTube video only. Videos play when you press play, and Google measurement is off.",
   all: "You allowed YouTube video and Google measurement.",
 };
 
 const choices: { value: ConsentChoice; label: string }[] = [
-  { value: "essential", label: "Essential only" },
+  { value: "essential", label: "Decline all" },
   { value: "video", label: "YouTube video only" },
-  { value: "all", label: "Allow all" },
+  { value: "all", label: "Accept all" },
 ];
 
 /**
