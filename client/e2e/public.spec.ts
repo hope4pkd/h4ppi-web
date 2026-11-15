@@ -17,6 +17,29 @@ test("homepage answers the audience table and states what is not live", async ({
   expect(consoleErrors).toEqual([]);
 });
 
+// Google takes the site name it shows in search results from the homepage: WebSite structured data
+// first, then the title. Both must name the organisation, and the structured data must describe the
+// same address as the canonical link, or Google falls back to showing the bare domain.
+test("the homepage tells search engines the site's name", async ({ page }) => {
+  await page.goto("/");
+  await expect(page).toHaveTitle("Hope4PKD Patients Initiative | PKD support in Nigeria");
+
+  const blocks = (await page.locator('script[type="application/ld+json"]').allTextContents()).map((text) => JSON.parse(text));
+  const website = blocks.find((block) => block["@type"] === "WebSite");
+  const ngo = blocks.find((block) => block["@type"] === "NGO");
+  expect(website).toMatchObject({
+    name: "Hope for Polycystic Kidney Disease Patients Initiative",
+    alternateName: ["Hope4PKD Patients Initiative", "Hope4PKD"],
+  });
+
+  const withoutSlash = (url: string) => url.replace(/\/$/, "");
+  const canonical = withoutSlash((await page.locator('link[rel="canonical"]').getAttribute("href")) ?? "");
+  expect(canonical).not.toBe("");
+  expect(withoutSlash(website.url)).toBe(canonical);
+  expect(withoutSlash(ngo.url)).toBe(canonical);
+  expect(ngo.logo).toBe(`${canonical}/assets/logo-new.png`);
+});
+
 test("/support asks for a short email instead of a form, and marks nothing coming soon", async ({ page }) => {
   await page.goto("/support");
   const main = page.getByRole("main");
