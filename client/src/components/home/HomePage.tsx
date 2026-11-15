@@ -16,6 +16,7 @@ import { SourceNote } from "@/components/common/SourceNote";
 import { Layout } from "@/components/layout/Layout";
 import { organisation } from "@/content/organisation";
 import { pkdInBrief, pkdSource, pkdSymptoms } from "@/content/pkd";
+import { siteUrl } from "@/lib/env";
 import { Box, Container, Grid, GridItem, Heading, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -75,20 +76,35 @@ const trustChecks = [
 ] as const;
 
 export function HomePage() {
+  // Both blocks use the canonical host (siteUrl), so they describe the same site the canonical link names.
+  const home = siteUrl();
+
+  // The name Google shows above the address in search results is read from this block. The owner
+  // chose the legal name (2026-11-15); the brand and short name are the alternates Google may fall
+  // back to if it finds the legal name too long.
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: organisation.legalName,
+    alternateName: [organisation.brandName, organisation.shortName],
+    url: home,
+  };
+
   const organisationJsonLd = {
     "@context": "https://schema.org",
     "@type": "NGO",
     name: organisation.brandName,
     legalName: organisation.legalName,
     alternateName: organisation.shortName,
-    url: "https://hope4pkd.org",
-    logo: "https://hope4pkd.org/assets/logo-new.png",
+    url: home,
+    logo: new URL("/assets/logo-new.png", home).toString(),
     areaServed: "Nigeria",
     description: "Guidance, financial assistance, community and advocacy for people living with polycystic kidney disease in Nigeria and the families who care for them.",
   };
 
   return (
     <Layout>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c") }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organisationJsonLd).replace(/</g, "\\u003c") }} />
 
       {/* Hero: the headline and the two actions first, then the photograph as a wide band at its own
