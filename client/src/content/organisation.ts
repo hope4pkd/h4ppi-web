@@ -39,7 +39,7 @@ export const registration = {
 export const contact = {
   phones: [
     { display: "+234(0)9076412444", href: "tel:+2349076412444" },
-    { display: "+234(0)8106411664", href: "tel:+2348106411664" },
+    // { display: "+234(0)8106411664", href: "tel:+2348106411664" },
   ],
 } as const;
 
