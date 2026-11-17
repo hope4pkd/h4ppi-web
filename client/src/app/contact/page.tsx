@@ -34,6 +34,11 @@ export default function ContactPage() {
                   <a href={phone.href}>{phone.display}</a>
                 </Text>
               ))}
+              <Text asChild {...linkStyle}>
+                <a href={contact.whatsapp.href} target="_blank" rel="noopener noreferrer">
+                  Message us on WhatsApp
+                </a>
+              </Text>
             </VStack>
           </FeatureItem>
           <FeatureItem title="Registered address">{registration.address}</FeatureItem>

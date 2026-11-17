@@ -185,6 +185,12 @@ export default function SupportPage() {
                     </Text>
                   </Fragment>
                 ))}
+                , or{" "}
+                <Text asChild color="action.700" textDecoration="underline" textUnderlineOffset="3px" whiteSpace="nowrap">
+                  <a href={contact.whatsapp.href} target="_blank" rel="noopener noreferrer">
+                    message us on WhatsApp
+                  </a>
+                </Text>
                 .
               </Text>
               <TextLink href="/contact">How to contact us</TextLink>

@@ -1,5 +1,5 @@
 import { Box, Container, Grid, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
-import { Instagram, Linkedin, Mail, MapPin, Phone } from "lucide-react";
+import { Instagram, Linkedin, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -81,22 +81,22 @@ export function Footer() {
               </Text>
               {/* A coming-soon entry has no href and is not rendered: what cannot be reached is left out. */}
               {group.items.filter(isNavLink).map((item) => (
-                  <Link key={item.href} href={item.href}>
-                    <Text
-                      as="span"
-                      display="inline-flex"
-                      alignItems="center"
-                      minH="44px"
-                      textStyle="bodySm"
-                      color="navy.100"
-                      transitionProperty="color"
-                      transitionDuration="fast"
-                      transitionTimingFunction="standard"
-                      _hover={{ color: "white" }}
-                    >
-                      {item.label}
-                    </Text>
-                  </Link>
+                <Link key={item.href} href={item.href}>
+                  <Text
+                    as="span"
+                    display="inline-flex"
+                    alignItems="center"
+                    minH="44px"
+                    textStyle="bodySm"
+                    color="navy.100"
+                    transitionProperty="color"
+                    transitionDuration="fast"
+                    transitionTimingFunction="standard"
+                    _hover={{ color: "white" }}
+                  >
+                    {item.label}
+                  </Text>
+                </Link>
               ))}
             </VStack>
           ))}
@@ -120,6 +120,9 @@ export function Footer() {
               {phone.display}
             </ContactItem>
           ))}
+          <ContactItem icon={<MessageCircle size={18} strokeWidth={1.75} aria-hidden />} href={contact.whatsapp.href}>
+            {contact.whatsapp.display}
+          </ContactItem>
           <ContactItem icon={<Mail size={18} strokeWidth={1.75} aria-hidden />} href={`mailto:${registration.email}`}>
             {registration.email}
           </ContactItem>

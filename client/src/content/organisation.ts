@@ -33,14 +33,16 @@ export const registration = {
 
 /**
  * How to reach the organisation. Both phone numbers were supplied by the owner on 2026-11-11, in the
- * international form shown; they render on /contact, /support and in the footer. No WhatsApp number
- * and no reply time have been supplied, so neither is stated anywhere.
+ * international form shown; they render on /contact, /support and in the footer. The owner confirmed
+ * on 2026-11-17 that +234(0)9117778034 is also on WhatsApp; the wa.me link renders beside the phone
+ * numbers in the same three places. No reply time has been supplied, so none is stated anywhere.
  */
 export const contact = {
   phones: [
-    { display: "+234(0)9076412444", href: "tel:+2349076412444" },
-    // { display: "+234(0)8106411664", href: "tel:+2348106411664" },
+    // { display: "+234(0)9076412444", href: "tel:+2349076412444" },
+    { display: "+234(0)9117778034", href: "tel:+2349117778034" },
   ],
+  whatsapp: { display: "+234(0)9117778034", href: "https://wa.me/2349117778034" },
 } as const;
 
 /**
