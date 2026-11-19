@@ -15,7 +15,7 @@ import {
 import { VideoEmbed } from "@/components/common/VideoEmbed";
 import { Layout } from "@/components/layout/Layout";
 import { supportVideo } from "@/content/media";
-import { contact, registration } from "@/content/organisation";
+import { contact } from "@/content/organisation";
 import { Box, Container, Grid, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import { TriangleAlert } from "lucide-react";
 import { Fragment } from "react";
@@ -69,7 +69,7 @@ const faqs = [
   },
   {
     question: "How do I ask?",
-    answer: `Email ${registration.email} with your name, your state and a phone number we can reach you on. Do not send medical records.`,
+    answer: `Email ${contact.supportEmail} with your name, your state and a phone number we can reach you on. Do not send medical records.`,
   },
 ] as const satisfies readonly Faq[];
 
@@ -157,7 +157,7 @@ export default function SupportPage() {
           email that asks for the same minimal details and no medical records. */}
       <ContentSection tone="white" id="request" size="spacious">
         <Grid templateColumns={{ base: "1fr", lg: "minmax(0, 7fr) minmax(0, 5fr)" }} gap={{ base: 8, lg: 12 }} alignItems="start">
-          <EmailPanel title="Ask for support by email" subject="Support request">
+          <EmailPanel title="Ask for support by email" subject="Support request" email={contact.supportEmail}>
             Email us your name, your state and a phone number we can reach you on. Please do not send medical records.
           </EmailPanel>
           <VStack align="stretch" gap={0}>

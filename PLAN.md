@@ -68,7 +68,8 @@ Legend: **Done** = built and passing `npm run check` · **In Progress** = built 
   `/events`, `/campaigns` and `/knowledge` are unpublished redirects; the Donate button is gone from the
   header, footer and homepage. Still owed by the owner: a reply time, whether the phone number is on
   WhatsApp, and bank details for an account in the organisation's name if transfers are to be accepted.
-  The site's email address is info@hope4pkd.org since 2026-11-12 (was the Gmail address).
+  The site's email address is info@hope4pkd.org since 2026-11-12 (was the Gmail address); support
+  requests on `/support` go to support@hope4pkd.org since 2026-11-19.
 
 ## Phase 2 — Operational intake — **Not Started** (blocked on `server/`)
 

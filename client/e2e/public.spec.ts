@@ -46,7 +46,7 @@ test("/support asks for a short email instead of a form, and marks nothing comin
   await expect(main.getByRole("link", { name: "Ask for support", exact: true })).toHaveAttribute("href", "/support#request");
   await expect(main.getByRole("link", { name: "Email us" })).toHaveAttribute(
     "href",
-    "mailto:info@hope4pkd.org?subject=Support%20request",
+    "mailto:support@hope4pkd.org?subject=Support%20request",
   );
   await expect(main.getByText("Please do not send medical records.")).toBeVisible();
   await expect(main.getByRole("link", { name: "+234(0)9076412444" })).toHaveAttribute("href", "tel:+2349076412444");
