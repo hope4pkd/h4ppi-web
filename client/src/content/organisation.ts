@@ -36,8 +36,12 @@ export const registration = {
  * international form shown; they render on /contact, /support and in the footer. The owner confirmed
  * on 2026-11-17 that +234(0)9117778034 is also on WhatsApp; the wa.me link renders beside the phone
  * numbers in the same three places. No reply time has been supplied, so none is stated anywhere.
+ *
+ * supportEmail (owner, 2026-11-19) receives support requests on /support only: its email panel and its
+ * "How do I ask?" answer. Every other page, the footer and the policies keep `registration.email`.
  */
 export const contact = {
+  supportEmail: "support@hope4pkd.org",
   phones: [
     // { display: "+234(0)9076412444", href: "tel:+2349076412444" },
     { display: "+234(0)9117778034", href: "tel:+2349117778034" },
@@ -54,5 +58,6 @@ export const social = [
   { name: "LinkedIn", href: "https://www.linkedin.com/company/hope4pkd" },
 ] as const;
 
-/** A mailto link to the registered address with the subject line already filled in. */
-export const mailto = (subject: string) => `mailto:${registration.email}?subject=${encodeURIComponent(subject)}`;
+/** A mailto link with the subject line already filled in; the address defaults to the registered one. */
+export const mailto = (subject: string, email: string = registration.email) =>
+  `mailto:${email}?subject=${encodeURIComponent(subject)}`;

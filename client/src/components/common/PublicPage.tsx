@@ -308,7 +308,17 @@ export function TextLink({ href, children, surface = "light" }: { href: string; 
  * The working replacement for a form the site has no server to receive: a mailto with the subject line
  * filled in, and the address printed beside it for anyone whose device has no mail app set up.
  */
-export function EmailPanel({ title, subject, children }: { title: string; subject: string; children: ReactNode }) {
+export function EmailPanel({
+  title,
+  subject,
+  email = registration.email,
+  children,
+}: {
+  title: string;
+  subject: string;
+  email?: string;
+  children: ReactNode;
+}) {
   return (
     <Box layerStyle="panel">
       <VStack align="start" gap={4} maxW="measure">
@@ -318,11 +328,11 @@ export function EmailPanel({ title, subject, children }: { title: string; subjec
         <Text textStyle="body" color="navy.500">
           {children}
         </Text>
-        <ButtonLink href={mailto(subject)} size="sm">
+        <ButtonLink href={mailto(subject, email)} size="sm">
           Email us
         </ButtonLink>
         <Text textStyle="bodySm" color="navy.500" overflowWrap="anywhere">
-          {registration.email}, with the subject “{subject}”.
+          {email}, with the subject “{subject}”.
         </Text>
       </VStack>
     </Box>
